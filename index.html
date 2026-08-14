@@ -7391,7 +7391,7 @@
 
 
 <style id="v14-3-toolbar-ruler-cleanup">
-  /* Legacy v12/v13 ruler is permanently disabled in v1.39. */
+  /* Legacy v12/v13 ruler is permanently disabled in v1.42. */
   .cover-innerstyle-ruler,
   .cover-innerstyle-tick,
   .cover-innerstyle-label,
@@ -7467,7 +7467,7 @@
 
 <style id="v14-4-measurement-final">
   /* Disable EVERY historical cover ruler implementation.
-     v1.39 renders only .v14-ruler-* after an explicit button click. */
+     v1.42 renders only .v14-ruler-* after an explicit button click. */
   .size-comparison-stage .v118-ruler,
   .size-comparison-stage .v120-ruler,
   .size-comparison-stage .v121-ruler,
@@ -9581,48 +9581,182 @@
 </style>
 
 
-<style id="mvp-v139-cover-help-link">
+<style id="mvp-v140-cover-help-links">
   .canvas-title{
     display:flex!important;
     flex-direction:column!important;
     align-items:flex-start!important;
     justify-content:center!important;
-    gap:5px!important;
-    min-width:230px!important;
+    gap:7px!important;
+    min-width:330px!important;
+  }
+
+  .cover-help-links{
+    display:flex;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:6px;
+    max-width:100%;
+  }
+
+  .cover-help-links.hidden{
+    display:none!important;
   }
 
   .cover-layout-help-link{
     display:inline-flex;
     align-items:center;
     gap:5px;
+    height:28px;
+    box-sizing:border-box;
+    padding:0 9px;
+    border:1px solid #dedaff;
+    border-radius:8px;
+    background:#f8f7ff;
     color:#4e43f5;
-    font-size:12px;
-    font-weight:850;
-    line-height:1.25;
+    font-size:11.5px;
+    font-weight:800;
+    line-height:1;
     text-decoration:none;
     white-space:nowrap;
-    padding:2px 0;
-    border-bottom:1px solid transparent;
-    transition:.15s ease;
+    transition:background .15s ease,border-color .15s ease,transform .15s ease;
   }
 
   .cover-layout-help-link:hover{
-    border-bottom-color:#4e43f5;
+    background:#f0efff;
+    border-color:#aaa2ff;
+    transform:translateY(-1px);
   }
 
-  .cover-layout-help-link span{
+  .cover-help-dot{
+    width:5px;
+    height:5px;
+    border-radius:50%;
+    background:#6257ff;
+    flex:0 0 5px;
+  }
+
+  .cover-help-text{
+    margin:0!important;
+    color:inherit!important;
+    font-size:inherit!important;
+    font-weight:inherit!important;
+  }
+
+  .cover-help-arrow{
+    margin:0!important;
+    color:#6257ff!important;
+    font-size:12px!important;
+    font-weight:900!important;
+  }
+
+  @media(max-width:1260px){
+    .canvas-title{min-width:260px!important}
+    .cover-layout-help-link{
+      height:27px;
+      padding:0 8px;
+      font-size:10.5px;
+    }
+  }
+
+  @media(max-width:980px){
+    .cover-help-links{
+      flex-direction:column;
+      align-items:flex-start;
+    }
+  }
+</style>
+
+
+<style id="mvp-v141-inner-help-links">
+  #innerHelpLinks{
+    display:flex;
+  }
+  #innerHelpLinks.hidden{
+    display:none!important;
+  }
+</style>
+
+
+<style id="mvp-v142-expert-design-cta">
+  .expert-design-cta{
+    margin-top:auto;
+    padding:0 18px 16px;
+  }
+
+  .expert-design-divider{
+    height:1px;
+    background:#eceef1;
+    margin:4px 0 12px;
+  }
+
+  .expert-design-link{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    width:100%;
+    box-sizing:border-box;
+    padding:11px 12px;
+    border:1px solid #eceef1;
+    border-radius:10px;
+    background:#fafafa;
+    color:#333d4b;
+    text-decoration:none;
+    transition:background .15s ease,border-color .15s ease,transform .15s ease;
+  }
+
+  .expert-design-link:hover{
+    background:#f6f6f7;
+    border-color:#dfe2e6;
+    transform:translateY(-1px);
+  }
+
+  .expert-design-icon{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:26px;
+    height:26px;
+    flex:0 0 26px;
+    border-radius:8px;
+    background:#f1efff;
+    color:#6257ff;
     font-size:13px;
     font-weight:900;
   }
 
-  .cover-layout-help-link.hidden{
-    display:none!important;
+  .expert-design-copy{
+    display:flex;
+    flex:1 1 auto;
+    min-width:0;
+    flex-direction:column;
+    gap:3px;
   }
 
-  @media(max-width:1180px){
-    .cover-layout-help-link{
-      font-size:11px;
-    }
+  .expert-design-question{
+    color:#333d4b;
+    font-size:11.5px;
+    font-weight:800;
+    line-height:1.35;
+    letter-spacing:-.2px;
+  }
+
+  .expert-design-sub{
+    color:#8b95a1;
+    font-size:10.5px;
+    font-weight:650;
+    line-height:1.25;
+  }
+
+  .expert-design-arrow{
+    flex:0 0 auto;
+    color:#6257ff;
+    font-size:14px;
+    font-weight:900;
+  }
+
+  @media(max-width:1700px){
+    .expert-design-cta{padding-bottom:12px}
   }
 </style>
 
@@ -9635,7 +9769,7 @@
 <div class="app" id="appShell">
   <aside class="left">
     <div class="brand">
-      <div class="kicker">BARO PUBLISH POD · PRODUCTION GUIDE v1.39</div>
+      <div class="kicker">BARO PUBLISH POD · PRODUCTION GUIDE v1.42</div>
       <h1>표지·내지 제작 가이드</h1>
       <p>제작 사양을 선택하면 표지·내지 파일의 필요한 크기와<br>작업 영역을 자동으로 계산해 보여드립니다.</p>
       <div style="margin-top:12px;padding:10px 12px;border-radius:10px;background:#f0efff;color:#4e43f5;font-size:11px;font-weight:750;line-height:1.45">1차 오픈 · 제작 규격 가이드 제공</div>
@@ -9835,16 +9969,58 @@
             <strong id="canvasTitle">표지 제작 가이드</strong>
             <span id="fileMeta" class="dimension-comparison"></span>
           </div>
-          <a
-            id="coverLayoutHelpLink"
-            class="cover-layout-help-link"
-            href="https://app.notion.com/p/2a77fd9fbff481cd8c06d36664ad06fb"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="표지 전개도 작업 안내 열기"
-          >
-            표지 전개도 작업이 어렵다면? <span aria-hidden="true">→</span>
-          </a>
+          <div id="coverHelpLinks" class="cover-help-links" aria-label="표지 제작 도움말">
+            <a
+              id="coverLayoutHelpLink"
+              class="cover-layout-help-link"
+              href="https://app.notion.com/p/2a77fd9fbff481cd8c06d36664ad06fb"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="표지 전개도 작업 안내 열기"
+            >
+              <span class="cover-help-dot" aria-hidden="true"></span>
+              <span class="cover-help-text">표지 전개도 작업이 어렵다면?</span>
+              <span class="cover-help-arrow" aria-hidden="true">→</span>
+            </a>
+            <a
+              id="coverBarcodeHelpLink"
+              class="cover-layout-help-link"
+              href="https://accidental-thought-b51.notion.site/ISBN-2a77fd9fbff481989a73c98d99bc6c44"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="뒤표지 바코드 안내 열기"
+            >
+              <span class="cover-help-dot" aria-hidden="true"></span>
+              <span class="cover-help-text">뒤표지 바코드가 궁금하다면?</span>
+              <span class="cover-help-arrow" aria-hidden="true">→</span>
+            </a>
+          </div>
+          <div id="innerHelpLinks" class="cover-help-links hidden" aria-label="내지 제작 도움말">
+            <a
+              id="innerCopyrightHelpLink"
+              class="cover-layout-help-link"
+              href="https://accidental-thought-b51.notion.site/2-2a77fd9fbff481fb8052e1f589905de7"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="판권정보 작성 안내 열기"
+            >
+              <span class="cover-help-dot" aria-hidden="true"></span>
+              <span class="cover-help-text">판권정보 작성이 헷갈린다면?</span>
+              <span class="cover-help-arrow" aria-hidden="true">→</span>
+            </a>
+            <a
+              id="innerFontHelpLink"
+              class="cover-layout-help-link"
+              href="https://accidental-thought-b51.notion.site/2a77fd9fbff48132b643f9476815b9a2"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="PDF 폰트 오류 안내 열기"
+            >
+              <span class="cover-help-dot" aria-hidden="true"></span>
+              <span class="cover-help-text">PDF 폰트 오류가 걱정된다면?</span>
+              <span class="cover-help-arrow" aria-hidden="true">→</span>
+            </a>
+          </div>
         </div>
         <div class="spread-spec-line" id="spreadSpecSummary"></div>
         <div class="zoom">
@@ -9938,6 +10114,25 @@
   </div>
 </div>
 </div>
+
+    <div class="expert-design-cta" aria-label="디자인 전문 제휴 서비스">
+      <div class="expert-design-divider"></div>
+      <a
+        class="expert-design-link"
+        href="https://store.kyobobook.co.kr/pod/introduce?tab=etc_service"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="표지·내지 디자인 전문 제휴 서비스 열기"
+      >
+        <span class="expert-design-icon" aria-hidden="true">✦</span>
+        <span class="expert-design-copy">
+          <span class="expert-design-question">표지·내지 디자인을 전문가에게 맡기고 싶다면?</span>
+          <span class="expert-design-sub">디자인 전문 제휴 서비스 보기</span>
+        </span>
+        <span class="expert-design-arrow" aria-hidden="true">→</span>
+      </a>
+    </div>
+
     <div class="right-actions">
     </div>
   </aside>
@@ -10796,8 +10991,10 @@ function renderAll(){
   const autoState=$("autoMeasureState");
   if(autoState) autoState.textContent="";
   $("canvasTitle").textContent=state.mode==="cover"?"표지 제작 가이드":"내지 제작 가이드";
-  const coverHelp=$("coverLayoutHelpLink");
+  const coverHelp=$("coverHelpLinks");
+  const innerHelp=$("innerHelpLinks");
   if(coverHelp) coverHelp.classList.toggle("hidden",state.mode!=="cover");
+  if(innerHelp) innerHelp.classList.toggle("hidden",state.mode!=="inner");
 }
 
 $("pages").oninput=e=>{
@@ -13096,7 +13293,7 @@ function drawComparisonRulerAndDimensions(
   actualLeft,actualTop,actualW,actualH,
   stageW,stageH
 ){
-  // v1.39: legacy comparison ruler disabled.
+  // v1.42: legacy comparison ruler disabled.
   // Only the external overlay ruler is rendered, so rulers never duplicate.
   return;
 }
@@ -15084,8 +15281,10 @@ function syncModeUI(){
   $("canvasTitle").textContent=state.mode==="cover"
     ?"표지 제작 가이드"
     :"내지 제작 가이드";
-  const coverHelp=$("coverLayoutHelpLink");
+  const coverHelp=$("coverHelpLinks");
+  const innerHelp=$("innerHelpLinks");
   if(coverHelp) coverHelp.classList.toggle("hidden",state.mode!=="cover");
+  if(innerHelp) innerHelp.classList.toggle("hidden",state.mode!=="inner");
   updateSpec();
   updateInspectButton();
 }
@@ -15975,7 +16174,7 @@ function renderInnerSpreadGuide(){
 </script>
 
 
-<script id="mvp-v16-sidebar-layout-safeguard-disabled">// disabled in v1.39</script>
+<script id="mvp-v16-sidebar-layout-safeguard-disabled">// disabled in v1.42</script>
 
 
 <script id="mvp-v18-mode-download-emphasis">
@@ -15998,16 +16197,16 @@ function renderInnerSpreadGuide(){
 
 
 <script id="mvp-v111-inner-render-controller-disabled">
-// Disabled in v1.39: replaced by deterministic state/render controller below.
+// Disabled in v1.42: replaced by deterministic state/render controller below.
 </script>
 
 
-<script id="mvp-v112-state-render-controller-disabled">// superseded by v1.39</script>
+<script id="mvp-v112-state-render-controller-disabled">// superseded by v1.42</script>
 
-<script id="mvp-v115-inner-controller-disabled">// disabled in v1.39; guide content preserved</script>
+<script id="mvp-v115-inner-controller-disabled">// disabled in v1.42; guide content preserved</script>
 
 
-<script id="mvp-v116-authoritative-controller-disabled">// disabled in v1.39: use the original mode handler</script>
+<script id="mvp-v116-authoritative-controller-disabled">// disabled in v1.42: use the original mode handler</script>
 
 
 <script id="mvp-v119-textnode-cleanup">

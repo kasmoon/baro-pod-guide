@@ -9678,6 +9678,21 @@
 </style>
 
 
+<style id="mvp-v143-cover-pptx-action">
+  .cover-pptx-action{padding:0 18px 14px}
+  .cover-pptx-action.hidden{display:none!important}
+  .cover-pptx-card{border:1px solid #dfe2ff;background:linear-gradient(180deg,#fbfbff 0%,#f6f5ff 100%);border-radius:14px;padding:15px}
+  .cover-pptx-title{display:flex;align-items:center;gap:7px;font-size:13px;font-weight:800;color:#191f28;margin-bottom:5px}
+  .cover-pptx-title .spark{color:#4e43f5;font-size:14px}
+  .cover-pptx-desc{font-size:11.5px;line-height:1.5;color:#6b7684;margin:0 0 11px}
+  .cover-pptx-meta{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+  .cover-pptx-meta span{display:inline-flex;align-items:center;min-height:25px;padding:4px 8px;border:1px solid #e5e7f7;border-radius:999px;background:#fff;color:#4e5968;font-size:10.5px;font-weight:700}
+  .cover-pptx-btn{width:100%;height:40px;border:0;border-radius:10px;background:#4e43f5;color:#fff;font-size:12.5px;font-weight:800;cursor:pointer;box-shadow:0 4px 10px rgba(78,67,245,.14)}
+  .cover-pptx-btn:hover{filter:brightness(.97)}
+  .cover-pptx-btn:disabled{opacity:.55;cursor:wait}
+  .cover-pptx-status{display:none;margin-top:8px;padding:8px 9px;border-radius:8px;font-size:10.5px;line-height:1.4}
+  .cover-pptx-status.show{display:block}.cover-pptx-status.ok{background:#edf8f1;color:#1e6b3a}.cover-pptx-status.err{background:#fff1f1;color:#b42318}
+</style>
 <style id="mvp-v142-expert-design-cta">
   .expert-design-cta{
     margin-top:auto;
@@ -9760,6 +9775,180 @@
   }
 </style>
 
+
+<style id="mvp-v147-top-download-resource-group">
+  @media (min-width:1181px){
+    .top-download-actions .download-action{
+      padding-left:15px!important;
+      padding-right:15px!important;
+    }
+  }
+</style>
+
+
+<style id="mvp-v148-center-specs-right-guide">
+  /* Initial guide mode: numbers live in the center, the right panel is guidance only. */
+  .right.guide-only-mode .counts{display:none!important}
+  .right.guide-only-mode .cover-pptx-meta{display:none!important}
+  .right.guide-only-mode .right-head{
+    padding-bottom:18px!important;
+  }
+  .right.guide-only-mode .results{
+    padding-top:14px!important;
+  }
+  .right.guide-only-mode .guide-only-list{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+  }
+  .right.guide-only-mode .guide-only-item{
+    display:flex;
+    gap:10px;
+    align-items:flex-start;
+    padding:13px 14px;
+    border:1px solid #e7e9ee;
+    border-radius:14px;
+    background:#fff;
+  }
+  .right.guide-only-mode .guide-only-item .check{
+    flex:0 0 22px;
+    width:22px;height:22px;
+    border-radius:50%;
+    background:#f1f0ff;
+    color:#4e43f5;
+    display:flex;align-items:center;justify-content:center;
+    font-size:12px;font-weight:900;
+    margin-top:1px;
+  }
+  .right.guide-only-mode .guide-only-item strong{
+    display:block;
+    font-size:13px;
+    line-height:1.4;
+    color:#191f28;
+    margin-bottom:3px;
+  }
+  .right.guide-only-mode .guide-only-item p{
+    margin:0;
+    font-size:12px;
+    line-height:1.55;
+    color:#6b7684;
+  }
+
+  /* Center summary carries the key production values for both cover and inner modes. */
+  #spreadSpecSummary{
+    justify-content:flex-start!important;
+    flex-wrap:wrap;
+    row-gap:6px!important;
+  }
+  #spreadSpecSummary span{
+    padding:5px 8px;
+    border-radius:8px;
+    background:#f7f8fa;
+  }
+  #spreadSpecSummary em{font-size:11px!important}
+  #spreadSpecSummary b{font-size:12px!important}
+
+  /* Visual information inside the cover schematic. */
+  .segment.back .screen-barcode-zone{
+    position:absolute;
+    right:7%;
+    bottom:8%;
+    width:42%;
+    min-width:88px;
+    max-width:116px;
+    height:18%;
+    min-height:34px;
+    padding:5px 6px;
+    box-sizing:border-box;
+    border:1.5px dashed rgba(139,149,161,.9);
+    border-radius:5px;
+    background:rgba(255,255,255,.64);
+    color:#6b7684;
+    display:flex;
+    flex-direction:column;
+    gap:2px;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    font-size:10px;
+    font-weight:800;
+    line-height:1.2;
+    z-index:4;
+    pointer-events:none;
+  }
+  .segment.back .screen-barcode-zone span,
+  .segment.back .screen-barcode-zone small{
+    display:block;
+    white-space:nowrap;
+    word-break:keep-all;
+  }
+  .segment.back .screen-barcode-zone small{
+    font-size:8.5px;
+    font-weight:700;
+  }
+  .segment.front .screen-logo-hint{
+    position:absolute;
+    right:8%;
+    bottom:7%;
+    max-width:76%;
+    color:#6b7684;
+    opacity:.7;
+    font-size:9px;
+    font-weight:700;
+    line-height:1.2;
+    text-align:right;
+    z-index:4;
+    pointer-events:none;
+  }
+  .segment.spine .screen-logo-hint{
+    position:absolute;
+    left:50%;
+    bottom:6%;
+    transform:translateX(-50%);
+    color:#4e5968;
+    opacity:.65;
+    font-size:8px;
+    font-weight:800;
+    white-space:nowrap;
+    z-index:5;
+    pointer-events:none;
+  }
+  .segment .screen-logo-hint small{
+    display:block;
+    font-size:8px;
+    font-weight:500;
+    margin-top:2px;
+  }
+
+  @media(max-width:1180px){
+    .segment.back .screen-barcode-zone{font-size:9px}
+    .segment.front .screen-logo-hint{font-size:8px}
+  }
+</style>
+
+
+<style id="mvp-v150-hardcover-face-hints">
+  .hard-schematic .segment.back::after,
+  .hard-schematic .segment.front::after,
+  .hard-schematic .segment.spine::after{
+    content:"";
+    position:absolute;
+    left:0;
+    right:0;
+    top:var(--hard-wrap-ratio);
+    bottom:var(--hard-wrap-ratio);
+    border-top:1px solid rgba(139,149,161,.24);
+    border-bottom:1px solid rgba(139,149,161,.24);
+    pointer-events:none;
+    z-index:2;
+  }
+  .hard-schematic .segment.back .screen-barcode-zone,
+  .hard-schematic .segment.front .screen-logo-hint,
+  .hard-schematic .segment.spine .screen-logo-hint{
+    z-index:6;
+  }
+</style>
+
 </head>
 <body>
   <button class="fullscreen-exit-fixed" id="fullscreenExitBtn" type="button" aria-label="전체화면 종료">
@@ -9769,7 +9958,7 @@
 <div class="app" id="appShell">
   <aside class="left">
     <div class="brand">
-      <div class="kicker">BARO PUBLISH POD · PRODUCTION GUIDE v1.42</div>
+      <div class="kicker">BARO PUBLISH POD · PRODUCTION GUIDE v1.51</div>
       <h1>표지·내지 제작 가이드</h1>
       <p>제작 사양을 선택하면 표지·내지 파일의 필요한 크기와<br>작업 영역을 자동으로 계산해 보여드립니다.</p>
       <div style="margin-top:12px;padding:10px 12px;border-radius:10px;background:#f0efff;color:#4e43f5;font-size:11px;font-weight:750;line-height:1.45">1차 오픈 · 제작 규격 가이드 제공</div>
@@ -9898,6 +10087,13 @@
      target="_blank" rel="noopener noreferrer">
     <span class="ico">↓</span>
     판권 샘플 다운로드
+  </a>
+  <a class="download-action secondary"
+     href="https://store.kyobobook.co.kr/pod/notice/1000183"
+     target="_blank" rel="noopener noreferrer"
+     aria-label="퍼플 로고 다운로드 및 안내 열기">
+    <span class="ico">↓</span>
+    퍼플 로고 다운로드
   </a>
 </div>
 
@@ -10115,6 +10311,19 @@
 </div>
 </div>
 
+    <div class="cover-pptx-action" id="coverPptxAction" aria-label="맞춤 표지 PPTX 생성">
+      <div class="cover-pptx-card">
+        <div class="cover-pptx-title"><span class="spark" aria-hidden="true">✦</span>내 사양으로 표지 PPTX 만들기</div>
+        <p class="cover-pptx-desc">현재 가운데 도면의 제작 사양을 그대로 반영해 편집 가능한 PPTX를 만듭니다.</p>
+        <div class="cover-pptx-meta">
+          <span id="coverPptxSpine">책등 -</span>
+          <span id="coverPptxSize">전개도 -</span>
+        </div>
+        <button class="cover-pptx-btn" id="coverPptxBtn" type="button">표지 PPTX 만들기</button>
+        <div class="cover-pptx-status" id="coverPptxStatus" role="status" aria-live="polite"></div>
+      </div>
+    </div>
+
     <div class="expert-design-cta" aria-label="디자인 전문 제휴 서비스">
       <div class="expert-design-divider"></div>
       <a
@@ -10145,6 +10354,7 @@
 </div>
 <div class="toast" id="toast"></div>
 
+<script src="https://cdn.jsdelivr.net/npm/pptxgenjs@4.0.0/dist/pptxgen.bundle.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <script>
 if(window.pdfjsLib){
@@ -10506,16 +10716,21 @@ function updateSpec(){
 
   const spreadSummary=$("spreadSpecSummary");
   if(spreadSummary){
+    spreadSummary.classList.remove("hidden");
     if(state.mode==="cover"){
-      spreadSummary.classList.remove("hidden");
+      const hard=state.binding==="hard";
       spreadSummary.innerHTML=
-        `<span><em>제작 기준</em><b>${fmt(s.cover.w)} × ${fmt(s.cover.h)}mm</b></span>`+
-        `<i></i><span><em>책등</em><b>${fmt(s.spine)}mm</b></span>`+
-        `<i></i><span><em>제본</em><b>${bindingName()}</b></span>`+
-        `<i></i><span><em>재단여분</em><b>${state.binding==="hard"?"25mm":"3mm"}</b></span>`;
+        `<span><em>표지 전개도</em><b>${fmt(s.cover.w)} × ${fmt(s.cover.h)}mm</b></span>`+
+        `<i></i><span><em>${hard?"완성 책등":"책등"}</em><b>${fmt(s.spine)}mm</b></span>`+
+        `<i></i><span><em>완성 판형</em><b>${fmt(f.w)} × ${fmt(f.h)}mm</b></span>`+
+        `<i></i><span><em>${hard?"외곽 여분":"재단여분"}</em><b>${hard?"상·하·좌·우 25mm":"사방 3mm"}</b></span>`;
     }else{
-      spreadSummary.classList.add("hidden");
-      spreadSummary.innerHTML="";
+      spreadSummary.innerHTML=
+        `<span><em>내지 파일</em><b>${fmt(s.inner.w)} × ${fmt(s.inner.h)}mm</b></span>`+
+        `<i></i><span><em>책으로 잘린 후</em><b>${fmt(f.w)} × ${fmt(f.h)}mm</b></span>`+
+        `<i></i><span><em>재단여분</em><b>사방 3mm</b></span>`+
+        `<i></i><span><em>안쪽 여백</em><b>최대 26mm</b></span>`+
+        `<i></i><span><em>상·하·바깥쪽</em><b>20mm 이하</b></span>`;
     }
   }
 
@@ -10888,6 +11103,54 @@ function renderSchematic(){
   const total=pieces.reduce((a,b)=>a+b.mm,0);
   spread.innerHTML=pieces.map(p=>`<div class="segment ${p.cls}" style="width:${p.mm/total*100}%"><span class="${p.cls==="spine"?"spine-label":""}">${p.label}</span></div>`).join("");
 
+  // Visual-only production hints: position/area belongs in the center diagram.
+  const backSegment=spread.querySelector(".segment.back");
+  if(backSegment){
+    const barcode=document.createElement("div");
+    barcode.className="screen-barcode-zone";
+    barcode.innerHTML="<span>바코드 영역</span><small>중요 요소 배치 금지</small>";
+    barcode.title="뒤표지 바코드가 들어갈 수 있는 영역입니다. 자세한 규정은 상단 바코드 도움말에서 확인하세요.";
+
+    // 양장은 상·하 25mm 여분을 제외한 실제 뒤표지 면을 기준으로 배치합니다.
+    if(state.binding==="hard"){
+      const bodyBottom=(hardSpec.wrap + hardSpec.coverH*0.07)/hardSpec.totalH*100;
+      const zoneH=(hardSpec.coverH*0.18)/hardSpec.totalH*100;
+      barcode.style.bottom=`${bodyBottom}%`;
+      barcode.style.height=`${zoneH}%`;
+    }
+    backSegment.appendChild(barcode);
+  }
+
+  const frontSegment=spread.querySelector(".segment.front");
+  if(frontSegment){
+    const logo=document.createElement("div");
+    logo.className="screen-logo-hint";
+    logo.innerHTML="출판사 / 퍼플 로고<small>배치는 디자인에 맞게 조정</small>";
+    logo.title="로고의 정확한 좌표를 지정하는 표시는 아닙니다.";
+
+    // 양장은 하단 25mm 여분 위, 실제 앞표지 면의 우측 하단을 기준으로 배치합니다.
+    if(state.binding==="hard"){
+      const bodyBottom=(hardSpec.wrap + hardSpec.coverH*0.07)/hardSpec.totalH*100;
+      logo.style.bottom=`${bodyBottom}%`;
+    }
+    frontSegment.appendChild(logo);
+  }
+
+  const spineSegment=spread.querySelector(".segment.spine");
+  if(spineSegment && s.spine>10){
+    const spineLogo=document.createElement("div");
+    spineLogo.className="screen-logo-hint";
+    spineLogo.textContent="로고";
+    spineLogo.title="개인저자는 책등 10mm 초과 시 퍼플 로고를 사용합니다. 정확한 배치는 디자인에 맞게 조정하세요.";
+
+    // 양장 책등도 상·하 여분을 제외한 실제 책등 면 안에서 표시합니다.
+    if(state.binding==="hard"){
+      const bodyBottom=(hardSpec.wrap + hardSpec.coverH*0.06)/hardSpec.totalH*100;
+      spineLogo.style.bottom=`${bodyBottom}%`;
+    }
+    spineSegment.appendChild(spineLogo);
+  }
+
   if(state.binding==="hard"){
 
     ["top","bottom"].forEach(position=>{
@@ -10933,56 +11196,175 @@ function renderSchematic(){
 }
 
 function renderInitialResult(){
-  const s=specs();
-  const rule=getBindingProductionRule();
-  const f=state.format;
+  const panel=$("resultPanel");
+  if(panel) panel.classList.add("guide-only-mode");
 
-  const hardForSummary=state.binding==="hard"?getHardCoverProductionSpec():null;
-  const structure=rule.sections
-    .filter(x=>!String(x.key).startsWith("bleed-"))
-    .map(x=>{
-      if(state.binding==="hard" && (x.key==="back" || x.key==="front")){
-        return `${x.label} ${fmt(hardForSummary.coverW)} × ${fmt(hardForSummary.coverH)}mm`;
-      }
-      return `${x.label} ${fmt(x.mm)}mm`;
-    })
-    .join(" · ");
-
-  const verticalGuide=state.binding==="hard"
-    ? `앞·뒤표지는 내지 완성 크기 기준 가로 -3mm · 세로 +7mm · 상·하 여분 각각 25mm`
-    : `사방 재단여백 3mm 포함`;
-
-  $("results").innerHTML=`
-    <div class="guide-summary-hero">
-      <div class="eyebrow">SELECTED PRODUCTION SPEC</div>
-      <strong>${f.name} · ${bindingName()}</strong>
-      <p>${state.paper.name} · ${state.pages}p · ${state.print==="bw"?"흑백":"컬러"}</p>
-      <div class="guide-spec-grid">
-        <div class="guide-spec-item"><span>표지 전개도 크기</span><b>${fmt(s.cover.w)} × ${fmt(s.cover.h)}mm</b></div>
-        <div class="guide-spec-item"><span>만들어야 할 내지 파일 크기</span><b>${fmt(s.inner.w)} × ${fmt(s.inner.h)}mm</b></div>
-        <div class="guide-spec-item"><span>${state.binding==="hard"?"완성 책등":"책등"}</span><b>${fmt(s.spine)}mm</b></div>
-        <div class="guide-spec-item"><span>책으로 잘린 후 크기</span><b>${fmt(f.w)} × ${fmt(f.h)}mm</b></div>
+  const isCover=state.mode==="cover";
+  const coverGuide=`
+    <div class="guide-only-list">
+      <div class="guide-only-item">
+        <span class="check">1</span>
+        <div><strong>재단선 가까이는 비워주세요</strong><p>잘릴 수 있는 위치에는 글자·로고·중요 이미지를 두지 않는 것이 안전합니다.</p></div>
       </div>
-      <div class="guide-structure"><b>${bindingName()} 표지 구성</b><br>${structure}<br>${verticalGuide}</div>
-    </div>
-    <div class="result guide-card">
-      <div class="result-top">
-        <div class="ricon ok">1</div>
-        <div class="rcopy"><strong>도면에서 각 작업 영역을 확인하세요</strong><p>가운데 가이드는 실제 제작 비율에 맞춰 표지 구성과 책등 위치를 보여줍니다.</p></div>
+      <div class="guide-only-item">
+        <span class="check">2</span>
+        <div><strong>뒤표지 바코드 영역을 확인하세요</strong><p>가운데 도면에 표시된 영역에는 중요한 요소를 배치하지 마세요.</p></div>
       </div>
-    </div>
-    <div class="result guide-card">
-      <div class="result-top">
-        <div class="ricon ok">2</div>
-        <div class="rcopy"><strong>파일을 만들 때 이 크기를 기준으로 작업하세요</strong><p>현재 단계에서는 파일의 정상 여부를 판정하지 않고, 선택한 제작 사양의 기준만 안내합니다.</p></div>
+      <div class="guide-only-item">
+        <span class="check">3</span>
+        <div><strong>개인저자는 퍼플 로고를 사용합니다</strong><p>앞표지·책등 삽입이 원칙이며, 책등 10mm 이하는 책등 로고를 생략할 수 있습니다.</p></div>
+      </div>
+      <div class="guide-only-item">
+        <span class="check">4</span>
+        <div><strong>PDF 저장 후 페이지 크기를 확인하세요</strong><p>편집 프로그램의 기본값 때문에 A4로 변환되지 않았는지 최종 크기를 확인해 주세요.</p></div>
       </div>
     </div>`;
 
+  const innerGuide=`
+    <div class="guide-only-list">
+      <div class="guide-only-item">
+        <span class="check">1</span>
+        <div><strong>첫 원고 페이지는 오른쪽에서 시작합니다</strong><p>홀수 페이지는 오른쪽, 짝수 페이지는 왼쪽에 배치됩니다.</p></div>
+      </div>
+      <div class="guide-only-item">
+        <span class="check">2</span>
+        <div><strong>배경·이미지는 재단여분까지 채워주세요</strong><p>사방 3mm 영역까지 이어져야 재단 후 흰 여백이 생기지 않습니다.</p></div>
+      </div>
+      <div class="guide-only-item">
+        <span class="check">3</span>
+        <div><strong>안쪽 여백을 충분히 확보하세요</strong><p>제본되는 안쪽은 글자가 너무 가까워지지 않도록 가운데 가이드의 여백 기준을 확인하세요.</p></div>
+      </div>
+      <div class="guide-only-item">
+        <span class="check">4</span>
+        <div><strong>PDF 저장 후 페이지 크기를 확인하세요</strong><p>A4 등 프로그램 기본 크기로 바뀌지 않았는지 최종 PDF를 확인해 주세요.</p></div>
+      </div>
+    </div>`;
+
+  $("results").innerHTML=isCover?coverGuide:innerGuide;
   $("badCount").textContent=0;
   $("warnCount").textContent=0;
   $("okCount").textContent=0;
-  $("resultTitle").textContent="내 제작 사양";
-  $("resultDesc").textContent="선택한 사양으로 만들어야 할 표지·내지 규격을 한눈에 확인하세요.";
+  $("resultTitle").textContent="제작 체크포인트";
+  $("resultDesc").textContent="작업할 때 꼭 확인해야 할 사항입니다.";
+}
+const PPT_MM=1/25.4;
+
+function updateCoverPptxAction(){
+  const action=$("coverPptxAction");
+  if(!action) return;
+  action.classList.toggle("hidden",state.mode!=="cover");
+  if(state.mode!=="cover") return;
+  const s=specs();
+  $("coverPptxSpine").textContent=`책등 ${fmt(s.spine)}mm`;
+  $("coverPptxSize").textContent=`전개도 ${fmt(s.cover.w)} × ${fmt(s.cover.h)}mm`;
+}
+
+function buildCoverPptx(){
+  const PptxCtor=(typeof PptxGenJS==="function")?PptxGenJS:((typeof window!=="undefined"&&typeof window.PptxGenJS==="function")?window.PptxGenJS:null);
+  if(!PptxCtor) throw new Error("PPTX 생성 라이브러리를 불러오지 못했습니다.");
+
+  const rule=getBindingProductionRule();
+  const s=specs();
+  const pptx=new PptxCtor();
+  pptx.defineLayout({name:"BARO_CUSTOM",width:s.cover.w*PPT_MM,height:s.cover.h*PPT_MM});
+  pptx.layout="BARO_CUSTOM";
+  pptx.author="BARO PUBLISH POD";
+  pptx.company="Kyobo Book Centre";
+  pptx.lang="ko-KR";
+  pptx.title=`${state.format.name} ${bindingName()} 맞춤 표지 템플릿`;
+
+  const slide=pptx.addSlide();
+  slide.background={color:"FFFFFF"};
+  const totalW=s.cover.w*PPT_MM, totalH=s.cover.h*PPT_MM;
+  const isHard=state.binding==="hard";
+  const bodyTop=(isHard?25:3)*PPT_MM;
+  const bodyH=(isHard?(state.format.h+7):state.format.h)*PPT_MM;
+  const fills={
+    "bleed-left":"F8F9FA","bleed-right":"F8F9FA",
+    "wrap-left":"FDECEC","wrap-right":"FDECEC",
+    "back-flap":"EAF1FF","front-flap":"EAF1FF",
+    "back":"FFF8DC","front":"FFF8DC","spine":"E7F5E0",
+    "hinge-left":"E7F8FC","hinge-right":"E7F8FC"
+  };
+
+  let x=0;
+  const pos=[];
+  rule.sections.forEach(sec=>{
+    const w=sec.mm*PPT_MM;
+    pos.push({...sec,x,w});
+    slide.addShape(pptx.ShapeType.rect,{x,y:0,w,h:totalH,fill:{color:fills[sec.key]||"FFFFFF",transparency:28},line:{color:"FFFFFF",transparency:100}});
+    if(sec.mm>=8 && sec.key!=="front" && sec.key!=="spine"){
+      slide.addText(`${sec.label}\n${fmt(sec.mm)}mm`,{x:x+.03,y:totalH/2-.38,w:Math.max(w-.06,.12),h:.76,fontFace:"Arial",fontSize:12,bold:true,color:"333D4B",align:"center",valign:"mid",margin:.02,fit:"shrink"});
+    }
+    x+=w;
+    if(x<totalW-.001) slide.addShape(pptx.ShapeType.line,{x,y:0,w:0,h:totalH,line:{color:"8B95A1",width:.8,dash:"dash"}});
+  });
+
+  slide.addShape(pptx.ShapeType.line,{x:0,y:bodyTop,w:totalW,h:0,line:{color:"D14343",width:1,dash:"dash"}});
+  slide.addShape(pptx.ShapeType.line,{x:0,y:bodyTop+bodyH,w:totalW,h:0,line:{color:"D14343",width:1,dash:"dash"}});
+
+  const fr=pos.find(q=>q.key==="front");
+  if(fr){
+    const tagX=fr.x+fr.w*.28, tagY=bodyTop+bodyH*.055, tagW=fr.w*.44, tagH=.34;
+    slide.addShape(pptx.ShapeType.roundRect,{x:tagX,y:tagY,w:tagW,h:tagH,rectRadius:.04,fill:{color:"FFFFFF",transparency:4},line:{color:"C9D0DA",width:.8}});
+    slide.addText(`앞표지 ${fmt(fr.mm)}mm`,{x:tagX,y:tagY,w:tagW,h:tagH,fontFace:"Arial",fontSize:11.5,bold:true,color:"4E5968",align:"center",valign:"mid",margin:0,fit:"shrink"});
+    slide.addText("도서 제목",{x:fr.x+fr.w*.10,y:bodyTop+bodyH*.22,w:fr.w*.80,h:Math.min(.78,bodyH*.17),fontFace:"Arial",fontSize:24,bold:true,color:"191F28",align:"center",valign:"mid",margin:.02,fit:"shrink"});
+    slide.addText("부제목 또는 한 줄 소개",{x:fr.x+fr.w*.12,y:bodyTop+bodyH*.46,w:fr.w*.76,h:.42,fontFace:"Arial",fontSize:12,color:"6B7684",align:"center",valign:"mid",margin:.01,fit:"shrink"});
+    slide.addText("홍길동 지음",{x:fr.x+fr.w*.18,y:bodyTop+bodyH*.70,w:fr.w*.64,h:.40,fontFace:"Arial",fontSize:13,color:"333D4B",align:"center",valign:"mid",margin:.01,fit:"shrink"});
+  }
+
+  const ba=pos.find(q=>q.key==="back");
+  if(ba){
+    slide.addText("뒤표지 소개글을 입력해 주세요.\n중요한 이미지·로고·텍스트는 바코드 영역과 재단선 가까이에 배치하지 않는 것을 권장합니다.",{x:ba.x+ba.w*.1,y:bodyTop+bodyH*.18,w:ba.w*.8,h:Math.min(1.25,bodyH*.36),fontFace:"Arial",fontSize:11,color:"4E5968",margin:.05,fit:"shrink",valign:"top"});
+    const bw=Math.min(55*PPT_MM,ba.w*.45),bh=Math.min(35*PPT_MM,bodyH*.24);
+    const bx=ba.x+ba.w-bw-.12, by=bodyTop+bodyH-bh-.12;
+    slide.addShape(pptx.ShapeType.rect,{x:bx,y:by,w:bw,h:bh,fill:{color:"FFFFFF",transparency:45},line:{color:"A8B0BA",width:.8,dash:"dash"}});
+    slide.addText("바코드 주의 영역",{x:bx,y:by,w:bw,h:bh,fontFace:"Arial",fontSize:10.5,color:"6B7684",align:"center",valign:"mid",margin:.01,fit:"shrink"});
+  }
+
+  const sp=pos.find(q=>q.key==="spine");
+  if(sp&&sp.w>.12){
+    slide.addText("도서 제목",{x:sp.x+sp.w/2-.22,y:bodyTop+bodyH*.14,w:.44,h:bodyH*.50,fontFace:"Arial",fontSize:11.5,bold:true,color:"286B22",vert:"vert270",align:"center",valign:"mid",margin:.005,fit:"shrink"});
+    if(sp.mm>10){
+      const sw=Math.min(Math.max(sp.w*.72,.38),.70), sh=.34;
+      const sx=sp.x+sp.w/2-sw/2, sy=bodyTop+bodyH*.77;
+      slide.addShape(pptx.ShapeType.roundRect,{x:sx,y:sy,w:sw,h:sh,rectRadius:.025,fill:{color:"FFFFFF",transparency:28},line:{color:"7B61FF",width:.8,dash:"dash"}});
+      slide.addText("퍼플\n로고",{x:sx,y:sy,w:sw,h:sh,fontFace:"Arial",fontSize:8.5,bold:true,color:"5B4BD8",align:"center",valign:"mid",margin:0,fit:"shrink"});
+    }
+  }
+
+  const boxW=Math.min(5.35,totalW*.54),boxH=Math.min(.94,totalH*.30);
+  slide.addShape(pptx.ShapeType.roundRect,{x:.12,y:.12,w:boxW,h:boxH,fill:{color:"FFFFFF",transparency:2},line:{color:"DADDE2",width:.8}});
+  slide.addText([
+    {text:"바로출판POD 맞춤 표지 템플릿\n",options:{bold:true,color:"4E43F5"}},
+    {text:`${state.format.name} · ${state.paper.name} · ${state.pages}p · 책등 ${fmt(s.spine)}mm\n`,options:{bold:true,color:"333D4B"}},
+    {text:`표지 전개도 ${fmt(s.cover.w)} × ${fmt(s.cover.h)}mm\n`,options:{color:"6B7684"}},
+    {text:`개인저자: 출판사 로고가 들어가는 영역에 퍼플 로고를 넣어주세요. 앞표지·책등 삽입이 원칙${s.spine<=10?"이며 책등 10mm 이하는 책등 로고 생략 가능":"입니다"}\n`,options:{bold:true,color:"5B4BD8"}},
+    {text:"편집 후 안내 도형·문구는 삭제해 주세요.",options:{color:"6B7684"}}
+  ],{x:.2,y:.18,w:boxW-.16,h:boxH-.12,fontFace:"Arial",fontSize:10.5,margin:.015,fit:"shrink",valign:"mid"});
+
+  return {pptx,s};
+}
+
+async function downloadCoverPptx(){
+  const btn=$("coverPptxBtn"),status=$("coverPptxStatus");
+  if(!btn||!status) return;
+  btn.disabled=true;btn.textContent="PPTX 생성 중…";status.className="cover-pptx-status";
+  try{
+    const {pptx,s}=buildCoverPptx();
+    const safeFormat=state.format.name.replace(/[^0-9A-Za-z가-힣]/g,"_");
+    const safeBinding=bindingName().replace(/ /g,"_");
+    const file=`BARO_${safeFormat}_${safeBinding}_${state.pages}p_${fmt(s.spine)}mm.pptx`;
+    await pptx.writeFile({fileName:file});
+    status.textContent=`생성 완료 · ${fmt(s.cover.w)} × ${fmt(s.cover.h)}mm · 책등 ${fmt(s.spine)}mm`;
+    status.className="cover-pptx-status show ok";
+  }catch(e){
+    console.error(e);
+    status.textContent="생성 중 오류가 발생했습니다: "+(e&&e.message?e.message:String(e));
+    status.className="cover-pptx-status show err";
+  }finally{
+    btn.disabled=false;btn.textContent="표지 PPTX 만들기";
+  }
 }
 
 function renderAll(){
@@ -10995,11 +11377,12 @@ function renderAll(){
   const innerHelp=$("innerHelpLinks");
   if(coverHelp) coverHelp.classList.toggle("hidden",state.mode!=="cover");
   if(innerHelp) innerHelp.classList.toggle("hidden",state.mode!=="inner");
+  updateCoverPptxAction();
 }
 
 $("pages").oninput=e=>{
   state.pages=Math.max(1,Number(e.target.value||1));
-  updateSpec();renderSchematic();renderInitialResult();
+  updateSpec();renderSchematic();renderInitialResult();updateCoverPptxAction();
 }
 document.querySelectorAll("#printMode button").forEach(b=>b.onclick=()=>{
   document.querySelectorAll("#printMode button").forEach(x=>x.classList.remove("active"));
@@ -11013,6 +11396,7 @@ document.querySelectorAll(".mode-tabs button").forEach(b=>b.onclick=()=>{
   syncModeUI();
   renderSchematic();
   renderInitialResult();
+  updateCoverPptxAction();
 });
 
 function setupDrop(zoneId,inputId,nameId,key){
@@ -14815,6 +15199,7 @@ function bindingRuleResultCard(){
 }
 
 async function inspect(){
+  const guidePanel=$("resultPanel"); if(guidePanel) guidePanel.classList.remove("guide-only-mode");
   const isCover=state.mode==="cover";
     productionGuideState.enabled=false;
     removeProductionGuide();
@@ -15828,6 +16213,7 @@ function applyZoom(){
 }
 function toast(msg){const t=$("toast");t.textContent=msg;t.classList.add("show");clearTimeout(window.tt);window.tt=setTimeout(()=>t.classList.remove("show"),2500)}
 
+if($("coverPptxBtn")) $("coverPptxBtn").onclick=downloadCoverPptx;
 renderAll();
 syncModeUI();
 $("sidebarIssueCount").textContent="";

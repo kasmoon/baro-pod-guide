@@ -9958,7 +9958,7 @@
 <div class="app" id="appShell">
   <aside class="left">
     <div class="brand">
-      <div class="kicker">BARO PUBLISH POD · PRODUCTION GUIDE v1.51</div>
+      <div class="kicker">BARO PUBLISH POD · PRODUCTION GUIDE v1.53</div>
       <h1>표지·내지 제작 가이드</h1>
       <p>제작 사양을 선택하면 표지·내지 파일의 필요한 크기와<br>작업 영역을 자동으로 계산해 보여드립니다.</p>
       <div style="margin-top:12px;padding:10px 12px;border-radius:10px;background:#f0efff;color:#4e43f5;font-size:11px;font-weight:750;line-height:1.45">1차 오픈 · 제작 규격 가이드 제공</div>
@@ -10224,7 +10224,7 @@
           <button class="preview-view-btn" id="expandPreviewBtn" type="button" title="미리보기 세로 확장"><span aria-hidden="true">↗</span><span class="view-label">확장</span></button>
 <button class="preview-view-btn" id="fullscreenBtn" type="button" title="전체화면"><span aria-hidden="true">⛶</span><span class="view-label">전체화면</span></button>
           <button class="reinspect-btn" id="toolbarInspectBtn" type="button" title="현재 파일 다시 검수" disabled><span aria-hidden="true">↻</span><span class="view-label">다시 검수</span></button>
-          <button id="zoomOut">−</button><span id="zoomLabel">100%</span><button id="zoomIn">＋</button><button id="zoomReset">↺</button>
+          <button id="zoomOut">−</button><span id="zoomLabel">100%</span><button id="zoomIn">＋</button><button id="zoomReset" title="100% 맞춤으로 복원" aria-label="100% 맞춤으로 복원">↺</button>
         </div>
       </div>
 <div class="measurement-toolbar clean-measure-toolbar" id="measurementToolbar">
@@ -11280,19 +11280,30 @@ function buildCoverPptx(){
   const bodyTop=(isHard?25:3)*PPT_MM;
   const bodyH=(isHard?(state.format.h+7):state.format.h)*PPT_MM;
   const fills={
-    "bleed-left":"F8F9FA","bleed-right":"F8F9FA",
     "wrap-left":"FDECEC","wrap-right":"FDECEC",
     "back-flap":"EAF1FF","front-flap":"EAF1FF",
     "back":"FFF8DC","front":"FFF8DC","spine":"E7F5E0",
     "hinge-left":"E7F8FC","hinge-right":"E7F8FC"
   };
 
+  // 좌·우 3mm 재단여분은 별도 흰 영역이 아니라
+  // 인접한 표지/날개 배경이 그대로 이어지는 영역으로 표현합니다.
+  function pptSectionFill(sec){
+    if(sec.key==="bleed-left"){
+      return state.binding==="flap" ? fills["back-flap"] : fills["back"];
+    }
+    if(sec.key==="bleed-right"){
+      return state.binding==="flap" ? fills["front-flap"] : fills["front"];
+    }
+    return fills[sec.key]||"FFFFFF";
+  }
+
   let x=0;
   const pos=[];
   rule.sections.forEach(sec=>{
     const w=sec.mm*PPT_MM;
     pos.push({...sec,x,w});
-    slide.addShape(pptx.ShapeType.rect,{x,y:0,w,h:totalH,fill:{color:fills[sec.key]||"FFFFFF",transparency:28},line:{color:"FFFFFF",transparency:100}});
+    slide.addShape(pptx.ShapeType.rect,{x,y:0,w,h:totalH,fill:{color:pptSectionFill(sec),transparency:28},line:{color:"FFFFFF",transparency:100}});
     if(sec.mm>=8 && sec.key!=="front" && sec.key!=="spine"){
       slide.addText(`${sec.label}\n${fmt(sec.mm)}mm`,{x:x+.03,y:totalH/2-.38,w:Math.max(w-.06,.12),h:.76,fontFace:"Arial",fontSize:12,bold:true,color:"333D4B",align:"center",valign:"mid",margin:.02,fit:"shrink"});
     }
@@ -17047,6 +17058,275 @@ function renderInnerSpreadGuide(){
 
   // 최초 표지 화면 1회 맞춤
   setTimeout(()=>resetAndSchedule(0),120);
+})();
+</script>
+
+
+<script id="mvp-v152-unified-view-controller">
+(function(){
+  const $v=id=>document.getElementById(id);
+  const area=$v("canvasArea");
+  const workspace=document.querySelector(".workspace");
+  if(!area || !workspace || typeof state==="undefined") return;
+
+  let viewZoom=1;
+  let layoutToken=0;
+
+  function isGuideMode(){
+    return (state.mode==="cover" && !state.coverInfo) ||
+           (state.mode==="inner" && !state.innerInfo);
+  }
+
+  function setZoomLabel(){
+    const label=$v("zoomLabel");
+    if(label) label.textContent=`${Math.round(viewZoom*100)}%`;
+  }
+
+  function centerElement(el){
+    if(!el) return;
+    requestAnimationFrame(()=>{
+      const left=Math.max(0,el.offsetLeft+el.offsetWidth/2-area.clientWidth/2);
+      const top=Math.max(0,el.offsetTop+el.offsetHeight/2-area.clientHeight/2);
+      area.scrollTo({left,top,behavior:"auto"});
+    });
+  }
+
+  function coverFitSize(){
+    const s=typeof specs==="function"?specs():null;
+    if(!s) return null;
+    const ratio=s.cover.w/s.cover.h;
+    const cw=Math.max(320,area.clientWidth);
+    const ch=Math.max(260,area.clientHeight);
+    const padX=document.body.classList.contains("preview-fullscreen-active")?76:86;
+    const padY=document.body.classList.contains("preview-fullscreen-active")?70:92;
+    const usableW=Math.max(260,cw-padX);
+    const usableH=Math.max(220,ch-padY);
+    let w=Math.min(usableW,usableH*ratio);
+    let h=w/ratio;
+    if(h>usableH){h=usableH;w=h*ratio;}
+    return {w,h};
+  }
+
+  function applyCover(center=true){
+    const schematic=$v("schematic");
+    if(!schematic) return;
+    const fit=coverFitSize();
+    if(!fit) return;
+
+    const w=fit.w*viewZoom;
+    const h=fit.h*viewZoom;
+    schematic.style.setProperty("width",`${w}px`,"important");
+    schematic.style.setProperty("height",`${h}px`,"important");
+    schematic.style.setProperty("min-width","0","important");
+    schematic.style.setProperty("max-width","none","important");
+    schematic.style.setProperty("transform","none","important");
+    schematic.style.setProperty("margin","auto","important");
+    state.zoom=viewZoom;
+    state.previewOffsetX=0;
+    state.previewOffsetY=0;
+    setZoomLabel();
+    if(center) centerElement(schematic);
+  }
+
+  function innerRatio(){
+    const f=state.format;
+    return (f.w+6)/(f.h+6);
+  }
+
+  function applyInner(center=true){
+    const spread=document.querySelector(".inner-flow-spread");
+    const schematic=$v("schematic");
+    if(!spread || !schematic) return;
+
+    const ratio=innerRatio();
+    const cw=Math.max(320,area.clientWidth);
+    const ch=Math.max(260,area.clientHeight);
+    const gap=12;
+    const padX=document.body.classList.contains("preview-fullscreen-active")?104:120;
+    const padY=document.body.classList.contains("preview-fullscreen-active")?86:118;
+    const usableW=Math.max(300,cw-padX);
+    const usableH=Math.max(220,ch-padY);
+
+    let pageW=Math.min((usableW-gap)/2,usableH*ratio);
+    pageW=Math.max(120,pageW)*viewZoom;
+    const pageH=pageW/ratio;
+
+    spread.style.setProperty("display","grid","important");
+    spread.style.setProperty("grid-template-columns",`${pageW}px ${pageW}px`,"important");
+    spread.style.setProperty("gap",`${gap}px`,"important");
+    spread.style.setProperty("width",`${pageW*2+gap}px`,"important");
+    spread.style.setProperty("height",`${pageH}px`,"important");
+    spread.style.setProperty("min-width","0","important");
+    spread.style.setProperty("max-width","none","important");
+    spread.style.setProperty("aspect-ratio","auto","important");
+    spread.style.setProperty("margin","0 auto","important");
+
+    spread.querySelectorAll(":scope > .inner-flow-page").forEach(page=>{
+      page.style.setProperty("width",`${pageW}px`,"important");
+      page.style.setProperty("height",`${pageH}px`,"important");
+      page.style.setProperty("min-width","0","important");
+      page.style.setProperty("max-width","none","important");
+      page.style.setProperty("aspect-ratio","auto","important");
+    });
+
+    schematic.style.setProperty("width","100%","important");
+    schematic.style.setProperty("height","auto","important");
+    schematic.style.setProperty("min-width",`${pageW*2+gap+40}px`,"important");
+    schematic.style.setProperty("max-width","none","important");
+    schematic.style.setProperty("transform","none","important");
+    schematic.style.setProperty("margin","auto","important");
+
+    state.zoom=viewZoom;
+    state.previewOffsetX=0;
+    state.previewOffsetY=0;
+    setZoomLabel();
+    if(center) centerElement(spread);
+  }
+
+  function applyGuide(center=true){
+    if(!isGuideMode()) return false;
+    const token=++layoutToken;
+    requestAnimationFrame(()=>{
+      if(token!==layoutToken) return;
+      if(state.mode==="cover") applyCover(center);
+      else applyInner(center);
+    });
+    return true;
+  }
+
+  function fitGuide(){
+    if(!isGuideMode()) return false;
+    viewZoom=1;
+    applyGuide(true);
+    return true;
+  }
+
+  function zoomGuide(delta){
+    if(!isGuideMode()) return false;
+    viewZoom=Math.max(.6,Math.min(1.8,Math.round((viewZoom+delta)*10)/10));
+    applyGuide(true);
+    return true;
+  }
+
+  async function toggleExpandedGuide(){
+    if(!isGuideMode()) return false;
+    const active=workspace.classList.toggle("preview-expanded");
+    const btn=$v("expandPreviewBtn");
+    if(btn){
+      btn.classList.toggle("active",active);
+      const label=btn.querySelector(".view-label");
+      if(label) label.textContent=active?"복원":"확장";
+    }
+    await new Promise(r=>setTimeout(r,190));
+    applyGuide(true);
+    return true;
+  }
+
+  async function enterFullGuide(){
+    if(!isGuideMode()) return false;
+    if(typeof enterFullscreenPreview==="function") await enterFullscreenPreview();
+    viewZoom=1;
+    await new Promise(r=>setTimeout(r,240));
+    applyGuide(true);
+    return true;
+  }
+
+  async function exitFullGuide(){
+    if(!isGuideMode()) return false;
+    if(typeof exitFullscreenPreview==="function") await exitFullscreenPreview();
+    viewZoom=1;
+    await new Promise(r=>setTimeout(r,260));
+    applyGuide(true);
+    return true;
+  }
+
+  // Final ownership of the toolbar controls.
+  const fit=$v("fitHeightBtn");
+  const plus=$v("zoomIn");
+  const minus=$v("zoomOut");
+  const reset=$v("zoomReset");
+  const expand=$v("expandPreviewBtn");
+  const full=$v("fullscreenBtn");
+  const exit=$v("fullscreenExitBtn");
+
+  if(fit) fit.onclick=()=>{
+    if(!fitGuide() && typeof fitPreviewHeight==="function") fitPreviewHeight();
+  };
+  if(plus) plus.onclick=()=>{
+    if(!zoomGuide(.1)){
+      state.zoom=Math.min(1.8,state.zoom+.1);
+      if(typeof updatePreviewCenterOffset==="function") updatePreviewCenterOffset();
+      if(typeof applyZoom==="function") applyZoom();
+    }
+  };
+  if(minus) minus.onclick=()=>{
+    if(!zoomGuide(-.1)){
+      state.zoom=Math.max(.5,state.zoom-.1);
+      if(typeof updatePreviewCenterOffset==="function") updatePreviewCenterOffset();
+      if(typeof applyZoom==="function") applyZoom();
+    }
+  };
+  if(reset) reset.onclick=()=>{
+    if(!fitGuide()){
+      state.zoom=1;
+      if(typeof updatePreviewCenterOffset==="function") updatePreviewCenterOffset();
+      if(typeof applyZoom==="function") applyZoom();
+    }
+  };
+  if(expand) expand.onclick=async()=>{
+    if(!await toggleExpandedGuide() && typeof togglePreviewExpanded==="function"){
+      await togglePreviewExpanded();
+    }
+  };
+  if(full) full.onclick=async()=>{
+    if(!await enterFullGuide() && typeof enterFullscreenPreview==="function"){
+      await enterFullscreenPreview();
+    }
+  };
+  if(exit) exit.onclick=async()=>{
+    if(!await exitFullGuide() && typeof exitFullscreenPreview==="function"){
+      await exitFullscreenPreview();
+    }
+  };
+
+  // Older ResizeObservers may fire after layout changes. Re-assert only once after
+  // the layout has settled, rather than starting another resize loop.
+  let resizeTimer=0;
+  function refitAfterResize(){
+    if(!isGuideMode()) return;
+    clearTimeout(resizeTimer);
+    resizeTimer=setTimeout(()=>applyGuide(false),180);
+  }
+  window.addEventListener("resize",refitAfterResize);
+
+  document.addEventListener("click",e=>{
+    if(!e.target.closest) return;
+    if(e.target.closest(".format-card") ||
+       e.target.closest(".binding-card") ||
+       e.target.closest(".paper-card") ||
+       e.target.closest("button[data-mode]") ||
+       e.target.closest("#sidebarCollapseBtn") ||
+       e.target.closest("#sidebarRestoreBtn")){
+      viewZoom=1;
+      setTimeout(()=>applyGuide(false),360);
+    }
+  });
+
+  const pages=$v("pages");
+  if(pages) pages.addEventListener("input",()=>{
+    if(!isGuideMode()) return;
+    viewZoom=1;
+    setTimeout(()=>applyGuide(false),140);
+  });
+
+  // Keep the fullscreen exit predictable with Escape.
+  document.addEventListener("keydown",e=>{
+    if(e.key==="Escape" && document.body.classList.contains("preview-fullscreen-active")){
+      setTimeout(()=>{ viewZoom=1; applyGuide(true); },300);
+    }
+  });
+
+  setTimeout(()=>{ viewZoom=1; applyGuide(false); },260);
 })();
 </script>
 

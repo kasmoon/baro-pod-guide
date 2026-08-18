@@ -9956,6 +9956,67 @@
     margin-top:2px;
   }
 
+  .segment.flap-seg .screen-flap-text-zone{
+    position:absolute;
+    top:27%;
+    height:38%;
+    min-height:54px;
+    padding:7px 7px;
+    box-sizing:border-box;
+    border:1.5px dashed rgba(139,149,161,.9);
+    border-radius:6px;
+    background:rgba(255,255,255,.62);
+    color:#6b7684;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    gap:4px;
+    font-size:10px;
+    font-weight:800;
+    line-height:1.25;
+    z-index:4;
+    pointer-events:none;
+  }
+  .segment.flap-seg .screen-flap-text-zone small{
+    display:block;
+    font-size:8.5px;
+    font-weight:700;
+    white-space:normal;
+    word-break:keep-all;
+  }
+  .segment.flap-seg .screen-flap-text-zone em{
+    display:block;
+    margin-top:1px;
+    font-style:normal;
+    font-size:8px;
+    font-weight:700;
+    color:#8b95a1;
+    white-space:normal;
+    word-break:keep-all;
+  }
+
+  .segment.flap-seg{
+    align-items:flex-end!important;
+  }
+
+  .segment.flap-seg > span{
+    position:absolute!important;
+    left:50%!important;
+    bottom:34px!important;
+    transform:translateX(-50%)!important;
+    z-index:2!important;
+    width:100%!important;
+    padding:0 6px!important;
+    box-sizing:border-box!important;
+    text-align:center!important;
+    font-size:11px!important;
+    line-height:1.25!important;
+    color:#66758a!important;
+    text-shadow:0 1px 0 rgba(255,255,255,.8)!important;
+  }
+
   @media(max-width:1180px){
     .segment.back .screen-barcode-zone{font-size:9px}
     .segment.front .screen-logo-hint{font-size:8px}
@@ -9994,7 +10055,7 @@
 <div class="app" id="appShell">
   <aside class="left">
     <div class="brand">
-      <div class="kicker">BARO PUBLISH POD · PRODUCTION GUIDE v1.59</div>
+      <div class="kicker">BARO PUBLISH POD · PRODUCTION GUIDE v1.63</div>
       <h1>표지·내지 제작 가이드</h1>
       <p>제작 사양을 선택하면 표지·내지 파일의 필요한 크기와<br>작업 영역을 자동으로 계산해 보여드립니다.</p>
       <div style="margin-top:12px;padding:10px 12px;border-radius:10px;background:#f0efff;color:#4e43f5;font-size:11px;font-weight:750;line-height:1.45">1차 오픈 · 제작 규격 가이드 제공</div>
@@ -10478,10 +10539,11 @@ function softSpineRaw(){
   return rawPaperBlock()+0.78;
 }
 function bookSpine(){
-  // 양장: 용지 두께 + 6mm, 최소 11mm.
-  // 무선·날개: 내지 두께×페이지/2 + 0.78mm.
+  // 무선·날개: (내지 두께×페이지/2) + 0.78mm.
+  // 양장: (내지 두께×페이지/2) + 0.78mm + 6mm, 최소 11mm.
+  // 모든 중간 계산은 원값을 유지하고 최종 결과에만 소수점 둘째 자리 반올림을 적용합니다.
   const raw=state.binding==="hard"
-    ? Math.max(rawPaperBlock()+6,11)
+    ? Math.max(softSpineRaw()+6,11)
     : softSpineRaw();
   return roundOne(raw);
 }
@@ -10772,13 +10834,13 @@ function updateSpec(){
 
   $("spineOutput").value=fmt(s.spine);
   if(state.binding==="hard"){
-    const paperRaw=rawPaperBlock();
-    const beforeMin=paperRaw+6;
-    $("spineLabel").innerHTML='자동 계산된 양장 책등 <small>최소 11mm 적용</small>';
+    const softRaw=softSpineRaw();
+    const beforeMin=softRaw+6;
+    $("spineLabel").innerHTML='자동 계산된 양장 책등 <small>0.78mm + 양장 6mm 포함 · 최소 11mm</small>';
     $("spineHelp").innerHTML=
-      `(${state.paper.coef} × ${state.pages} ÷ 2) + 6 = ${beforeMin.toFixed(3)}mm`+
-      `${beforeMin<11?" → 최소값 11mm 적용":` → ${fmt(s.spine)}mm`}`+
-      `<br>중간값은 반올림하지 않고 최종 결과만 소수점 둘째 자리에서 반올림합니다.`;
+      `(${state.paper.coef} × ${state.pages} ÷ 2) + 0.78 + 6 = ${beforeMin.toFixed(3)}mm`+
+      `${beforeMin<11?" → 최소값 11mm 적용":` → <b>${fmt(s.spine)}mm</b>`}`+
+      `<br>0.78mm = 면지 0.28mm + 표지 0.5mm · 중간값은 반올림하지 않고 최종 결과만 소수점 둘째 자리에서 반올림`;
   }else{
     const raw=softSpineRaw();
     $("spineLabel").innerHTML='자동 계산된 책등 두께 <small>면지·표지 두께 포함</small>';
@@ -11156,6 +11218,19 @@ function renderSchematic(){
       label.textContent=hintText;
       label.title=hintTitle;
       seg.appendChild(label);
+
+      const textZone=document.createElement("div");
+      textZone.className="screen-flap-text-zone";
+      const safeInsetMm=Math.min(10,Math.max(5,flapMm/6));
+      const safeInsetPct=safeInsetMm/flapMm*100;
+      textZone.style.left=`${safeInsetPct}%`;
+      textZone.style.right=`${safeInsetPct}%`;
+      textZone.innerHTML=
+        "<span>날개 텍스트 안전영역</span>"+
+        "<small>양쪽 끝에서 5~10mm 이상 안쪽에 배치</small>"+
+        "<em>재단·접힘 오차를 고려한 권장 영역</em>";
+      textZone.title="날개 텍스트는 재단 및 접힘 오차를 고려해 양쪽 끝에서 안쪽으로 5~10mm 이상의 안전 여백을 두고 배치해 주세요.";
+      seg.appendChild(textZone);
     });
   }
 
@@ -11264,7 +11339,7 @@ function renderInitialResult(){
       </div>
       ${state.binding==="flap"?`<div class="guide-only-item">
         <span class="check">2</span>
-        <div><strong>날개제본은 배경만 2~3mm 더 연장해 주세요</strong><p>판형은 그대로 두고, 앞·뒤표지의 배경 이미지·배경색만 날개 방향으로 2~3mm 더 빼 주세요. 텍스트·로고는 연장하지 않습니다.</p></div>
+        <div><strong>날개는 배경과 텍스트 기준을 함께 확인해 주세요</strong><p>배경은 날개 방향으로 2~3mm 더 연장하고, 텍스트는 재단·접힘 오차를 고려해 양쪽 끝에서 5~10mm 이상 안쪽에 배치해 주세요.</p></div>
       </div>`:""}
       <div class="guide-only-item">
         <span class="check">${state.binding==="flap"?3:2}</span>
@@ -11382,12 +11457,28 @@ function buildCoverPptx(){
       const extX=backFlap.x+backFlap.w-extW;
       slide.addShape(pptx.ShapeType.rect,{x:extX,y:0,w:extW,h:totalH,fill:{color:fills["back"],transparency:0},line:{color:"D6B970",width:.7,dash:"dash"}});
       slide.addText("배경 +2~3mm",{x:Math.max(backFlap.x+.02,extX-.42),y:bodyTop+.06,w:.84,h:.22,fontFace:"Arial",fontSize:8,bold:true,color:"A06500",align:"center",valign:"mid",margin:0,fit:"shrink"});
+
+      const safeInset=10*PPT_MM;
+      const tzW=Math.max(.55,backFlap.w-safeInset*2);
+      const tzH=Math.max(.82,bodyH*.28);
+      const tzX=backFlap.x+safeInset;
+      const tzY=bodyTop+bodyH*.30;
+      slide.addShape(pptx.ShapeType.roundRect,{x:tzX,y:tzY,w:tzW,h:tzH,rectRadius:.03,fill:{color:"FFFFFF",transparency:36},line:{color:"8B95A1",width:.8,dash:"dash"}});
+      slide.addText("날개 텍스트 안전영역\n양쪽 끝에서 5~10mm 이상 안쪽에 배치\n재단·접힘 오차를 고려해 주세요",{x:tzX+.04,y:tzY+.05,w:tzW-.08,h:tzH-.10,fontFace:"Arial",fontSize:9.2,bold:true,color:"6B7684",align:"center",valign:"mid",margin:.01,fit:"shrink"});
     }
     if(front&&frontFlap){
       const extW=Math.min(flapExtendMm*PPT_MM,frontFlap.w-.02);
       const extX=frontFlap.x;
       slide.addShape(pptx.ShapeType.rect,{x:extX,y:0,w:extW,h:totalH,fill:{color:fills["front"],transparency:0},line:{color:"D6B970",width:.7,dash:"dash"}});
       slide.addText("배경 +2~3mm",{x:Math.min(frontFlap.x+frontFlap.w-.86,extX-.02),y:bodyTop+.06,w:.84,h:.22,fontFace:"Arial",fontSize:8,bold:true,color:"A06500",align:"center",valign:"mid",margin:0,fit:"shrink"});
+
+      const safeInset=10*PPT_MM;
+      const tzW=Math.max(.55,frontFlap.w-safeInset*2);
+      const tzH=Math.max(.82,bodyH*.28);
+      const tzX=frontFlap.x+safeInset;
+      const tzY=bodyTop+bodyH*.30;
+      slide.addShape(pptx.ShapeType.roundRect,{x:tzX,y:tzY,w:tzW,h:tzH,rectRadius:.03,fill:{color:"FFFFFF",transparency:36},line:{color:"8B95A1",width:.8,dash:"dash"}});
+      slide.addText("날개 텍스트 안전영역\n양쪽 끝에서 5~10mm 이상 안쪽에 배치\n재단·접힘 오차를 고려해 주세요",{x:tzX+.04,y:tzY+.05,w:tzW-.08,h:tzH-.10,fontFace:"Arial",fontSize:9.2,bold:true,color:"6B7684",align:"center",valign:"mid",margin:.01,fit:"shrink"});
     }
   }
 

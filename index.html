@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="baro-pod-build" content="guide-mvp-v1.1" />
-  <title>바로출판POD 표지·내지 제작 가이드 v1.1</title>
+  <meta name="baro-pod-build" content="guide-v1.81" />
+  <title>바로출판POD 표지·내지 제작 가이드 v1.81</title>
   <style>
     :root{
       --bg:#f4f6f8; --panel:#fff; --line:#e5e8eb; --text:#191f28;
@@ -10064,6 +10064,87 @@
   }
 </style>
 
+
+<style id="quality-polish-v173">
+  /* v1.74 quality polish: final visual contract for inner preview pages. */
+  .inner-flow-page.left,.inner-flow-page.right,
+  .inner-guide-page.left,.inner-guide-page.right,
+  .book-page-shell.left,.book-page-shell.right{border-radius:0!important;}
+
+
+    /* v1.74 Beginner-first: 이용 유형 분리 및 내지 안내 명확화 */
+    .copyright-type-split{
+      display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:8px;
+    }
+    .copyright-type-card{
+      display:flex;flex-direction:column;gap:3px;padding:8px;border:1px solid #e5e8eb;
+      background:#fff;border-radius:8px;font-size:8px;line-height:1.4;color:#4e5968;
+    }
+    .copyright-type-card>b{font-size:9px;color:#191f28}
+    .copyright-type-card.author{background:#f8f7ff;border-color:#ddd9ff}
+    .copyright-grid.beginner-common{margin-top:7px}
+    .inner-flow-side-label{max-width:82px;text-align:center;line-height:1.25}
+    .guide-only-item p b{color:#191f28;font-weight:850}
+</style>
+
+<style id="v175-checkpoint-readability">
+  .right.guide-only-mode .guide-only-list{gap:8px!important}
+  .right.guide-only-mode .guide-only-item{
+    display:grid!important;
+    grid-template-columns:22px minmax(0,1fr)!important;
+    gap:9px!important;
+    padding:11px 12px!important;
+    border-radius:12px!important;
+  }
+  .right.guide-only-mode .guide-only-item > div{min-width:0}
+  .right.guide-only-mode .guide-only-item strong{
+    font-size:12.5px!important;
+    line-height:1.35!important;
+    margin-bottom:2px!important;
+    letter-spacing:-.015em;
+    word-break:keep-all;
+  }
+  .right.guide-only-mode .guide-only-item p{
+    font-size:11.2px!important;
+    line-height:1.45!important;
+    letter-spacing:-.01em;
+    word-break:keep-all;
+  }
+  .copyright-sample-help{
+    margin-top:8px;
+    padding-top:7px;
+    border-top:1px solid #e8ebef;
+    color:#6b7684;
+    font-size:8px;
+    line-height:1.45;
+    text-align:left;
+  }
+</style>
+
+
+<style id="v178-left-panel-polish">
+  /* 왼쪽은 입력에 집중: 같은 제작정보를 여러 번 반복하지 않습니다. */
+  #bindingRule,
+  .format-filter-head,
+  .left .spec-box{display:none!important;}
+  #spineHelp{
+    padding:0!important;
+    margin-top:6px!important;
+    background:transparent!important;
+    color:#8b95a1!important;
+    font-size:10.5px!important;
+  }
+  .left .section{padding-top:20px;padding-bottom:20px;}
+  .left .section-title{margin-bottom:13px;}
+  .left .brand p{max-width:310px;}
+</style>
+
+
+<style id="v179-left-binding-info-cleanup">
+  /* 제본 방식별 선택 가능 판형 정보는 카드의 숫자 배지만 유지합니다. */
+  .binding-card .binding-count{display:inline-block!important}
+  .selection-transition{display:none!important}
+</style>
 </head>
 <body>
   <button class="fullscreen-exit-fixed" id="fullscreenExitBtn" type="button" aria-label="전체화면 종료">
@@ -10073,18 +10154,17 @@
 <div class="app" id="appShell">
   <aside class="left">
     <div class="brand">
-      <div class="kicker">교보문고 바로출판POD · 제작 가이드 v1.72</div>
+      <div class="kicker">교보문고 바로출판POD · 제작 가이드 v1.81</div>
       <h1>표지·내지 제작 가이드</h1>
-      <p>제작 사양을 선택하면 표지·내지 파일의 필요한 크기와<br>작업 영역을 자동으로 계산해 보여드립니다.</p>
-      <div style="margin-top:12px;padding:10px 12px;border-radius:10px;background:#f0efff;color:#4e43f5;font-size:11px;font-weight:750;line-height:1.45">1차 오픈 · 제작 규격 가이드 제공</div>
+      <p>제작 사양을 선택하면 필요한 파일 크기와 작업 영역을 자동으로 계산합니다.</p>
+      
     </div>
 
     <section class="section">
       <div class="section-title">
         <span class="step">1</span>
         <span class="section-title-copy">
-          <strong>제본 방식을 먼저 선택해 주세요</strong>
-          <small>선택한 제본으로 제작할 수 있는 판형만 다음 단계에 표시합니다.</small>
+          <strong>제본 방식을 선택해 주세요</strong>
         </span>
       </div>
       <div class="binding-grid" id="bindingGrid">
@@ -10111,8 +10191,7 @@
       <div class="section-title">
         <span class="step">2</span>
         <span class="section-title-copy">
-          <strong id="formatSectionTitle">무선 제본으로 제작할 판형을 선택해 주세요</strong>
-          <small id="formatSectionSubtitle">현재 제본에서 선택 가능한 판형만 표시합니다.</small>
+          <strong id="formatSectionTitle">판형을 선택해 주세요</strong>
         </span>
       </div>
       <div class="format-filter-head">
@@ -10127,7 +10206,7 @@
     </section>
 
     <section class="section">
-      <div class="section-title"><span class="step">3</span> 내지 사양을 선택해 주세요</div>
+      <div class="section-title"><span class="step">3</span> 용지와 페이지를 설정해 주세요</div>
       <div class="paper-grid" id="paperGrid"></div>
 
       <div class="row2">
@@ -10206,9 +10285,9 @@
   <a class="download-action secondary" id="gaPurpleLogoDownload"
      href="https://store.kyobobook.co.kr/pod/notice/1000183"
      target="_blank" rel="noopener noreferrer"
-     aria-label="퍼플 로고 다운로드 및 안내 열기">
+     aria-label="개인저자용 퍼플 로고 다운로드 및 안내 열기">
     <span class="ico">↓</span>
-    퍼플 로고 다운로드
+    개인저자 · 퍼플 로고
   </a>
 </div>
 
@@ -10412,16 +10491,16 @@
     <p>실제 도서는 홀수 페이지가 오른쪽, 짝수 페이지가 왼쪽에 배치됩니다. 첫 원고 페이지는 오른쪽에서 시작합니다.</p>
   </div>
   <div class="guide-detail-card">
-    <strong>내지 여백</strong>
-    <p>판형별 템플릿의 기본 여백을 우선 사용해 주세요. 여백 변경 시 상·하·바깥쪽은 20mm 이하, 안쪽은 26mm까지 제작 가능합니다.</p>
+    <strong>본문 권장 여백</strong>
+    <p>책을 펼쳤을 때 <b>가운데 쪽은 26mm</b>, <b>바깥쪽은 20mm</b>를 권장합니다. 처음이라면 제공된 템플릿의 기본 여백을 그대로 사용해 주세요.</p>
   </div>
   <div class="guide-detail-card">
-    <strong>재단여분</strong>
-    <p>내지 파일은 사방 3mm 재단여분이 포함된 크기로 제작합니다. 배경색이나 이미지는 재단여분 끝까지 채워주세요.</p>
+    <strong>재단여분 · 잘려 나가는 3mm</strong>
+    <p>내지 파일은 완성 책 크기보다 사방 3mm 크게 만듭니다. 이 3mm는 제작할 때 잘려 나가는 영역입니다. 페이지 끝까지 이어지는 배경색·배경 이미지만 파일 끝까지 채워 주세요.</p>
   </div>
   <div class="guide-detail-card">
     <strong>판권 페이지</strong>
-    <p>판권정보에는 도서명, 발행일, 저자/발행처, 출판등록번호, ISBN, 저작권 정보 등이 포함됩니다. 개인저자는 퍼플 출판등록 정보를 사용해 주세요.</p>
+    <p>출판사와 개인저자는 들어가는 정보가 다릅니다. 처음이라면 상단의 <b>판권 샘플 다운로드</b>에서 작성 방법과 필요한 정보를 먼저 확인해 주세요.</p>
   </div>
 </div>
 </div>
@@ -10477,14 +10556,14 @@ if(window.pdfjsLib){
 }
 
 const formats=[
-  {id:"A4",name:"A4(국배판)",w:210,h:297,use:"문제집·논문집"},
+  {id:"A4",name:"A4(국배판)",w:210,h:297,use:"문서집·논문집"},
   {id:"B5",name:"B5(46배판)",w:188,h:254,use:"학습·참고서"},
   {id:"CROWN",name:"크라운판",w:176,h:248,use:"교재·어린이"},
   {id:"NEW_A5",name:"NEW A5(신국판)",w:152,h:225,use:"소설·에세이"},
-  {id:"SQUARE",name:"정사각판",w:210,h:210,use:"그림책·아트북"},
+  {id:"SQUARE",name:"정사각판",w:210,h:210,use:"그림책·포토북·아트북"},
   {id:"MOD_A5",name:"변형신국판",w:152,h:210,use:"단어장"},
   {id:"A5",name:"A5(국판)",w:148,h:210,use:"소설·수필·시집"},
-  {id:"LANDSCAPE",name:"가로판",w:254,h:188,use:"동화책·사진집"},
+  {id:"LANDSCAPE",name:"가로판",w:254,h:188,use:"동화책·교재·사진집"},
   {id:"B6",name:"B6(46판)",w:128,h:188,use:"시집·에세이"},
   {id:"A6",name:"A6(국반판)",w:105,h:148,use:"포켓북"}
 ];
@@ -10578,8 +10657,7 @@ function renderFormats(){
   const unavailable=unavailableFormats();
   const rule=bindingRules[state.binding];
 
-  $("formatSectionTitle").textContent=`${rule.name} 제본으로 제작할 판형을 선택해 주세요`;
-  $("formatSectionSubtitle").textContent=`선택 가능한 ${allowed.length}개 판형만 우선 표시합니다.`;
+  $("formatSectionTitle").textContent=`${rule.name} 제본 · 판형을 선택해 주세요`;
   $("formatGuide").textContent=rule.guide;
   $("formatCount").textContent=`${allowed.length}종`;
 
@@ -10602,7 +10680,7 @@ function renderPapers(){
   $("paperGrid").innerHTML=papers.map(p=>`
     <button class="paper-card ${state.paper.id===p.id?"active":""}" data-id="${p.id}">
       <span class="paper-swatch ${p.tone}"></span>
-      <span><strong>${p.name}</strong><span>${p.desc}<br>두께 계수 ${p.coef}</span></span>
+      <span><strong>${p.name}</strong><span>${p.desc}</span></span>
     </button>`).join("");
   document.querySelectorAll(".paper-card").forEach(b=>b.onclick=()=>{
     state.paper=papers.find(p=>p.id===b.dataset.id);renderAll();
@@ -10637,7 +10715,7 @@ function getBindingProductionRule(){
       expected:{w:f.w*2+spine+6,h:f.h+6},
       sections:[
         {key:"bleed-left",label:"좌측 재단여백",mm:3},
-        {key:"back",label:"뒷표지",mm:f.w},
+        {key:"back",label:"뒤표지",mm:f.w},
         {key:"spine",label:"책등",mm:spine},
         {key:"front",label:"앞표지",mm:f.w},
         {key:"bleed-right",label:"우측 재단여백",mm:3}
@@ -10664,8 +10742,8 @@ function getBindingProductionRule(){
       expected:{w:f.w*2+spine+flap*2+6,h:f.h+6},
       sections:[
         {key:"bleed-left",label:"좌측 재단여백",mm:3},
-        {key:"back-flap",label:"뒷표지 날개",mm:flap},
-        {key:"back",label:"뒷표지",mm:f.w},
+        {key:"back-flap",label:"뒤표지 날개",mm:flap},
+        {key:"back",label:"뒤표지",mm:f.w},
         {key:"spine",label:"책등",mm:spine},
         {key:"front",label:"앞표지",mm:f.w},
         {key:"front-flap",label:"앞표지 날개",mm:flap},
@@ -10693,7 +10771,7 @@ function getBindingProductionRule(){
     expected:{w:hard.totalW,h:hard.totalH},
     sections:[
       {key:"wrap-left",label:"좌측 여분",mm:hard.wrap},
-      {key:"back",label:"뒷표지",mm:hard.coverW},
+      {key:"back",label:"뒤표지",mm:hard.coverW},
       {key:"hinge-left",label:"좌측 꺾임",mm:hard.hinge},
       {key:"spine",label:"책등",mm:hard.spine},
       {key:"hinge-right",label:"우측 꺾임",mm:hard.hinge},
@@ -10838,15 +10916,15 @@ function updateSpec(){
       spreadSummary.innerHTML=
         `<span><em>표지 전개도</em><b>${fmt(s.cover.w)} × ${fmt(s.cover.h)}mm</b></span>`+
         `<i></i><span><em>${hard?"완성 책등":"책등"}</em><b>${fmt(s.spine)}mm</b></span>`+
-        `<i></i><span><em>완성 판형</em><b>${fmt(f.w)} × ${fmt(f.h)}mm</b></span>`+
+        `<i></i><span><em>책으로 잘린 후 크기</em><b>${fmt(f.w)} × ${fmt(f.h)}mm</b></span>`+
         `<i></i><span><em>${hard?"외곽 여분":"재단여분"}</em><b>${hard?"상·하·좌·우 25mm":"사방 3mm"}</b></span>`;
     }else{
       spreadSummary.innerHTML=
         `<span><em>내지 파일</em><b>${fmt(s.inner.w)} × ${fmt(s.inner.h)}mm</b></span>`+
         `<i></i><span><em>책으로 잘린 후</em><b>${fmt(f.w)} × ${fmt(f.h)}mm</b></span>`+
         `<i></i><span><em>재단여분</em><b>사방 3mm</b></span>`+
-        `<i></i><span><em>안쪽 여백</em><b>최대 26mm</b></span>`+
-        `<i></i><span><em>상·하·바깥쪽</em><b>20mm 이하</b></span>`;
+        `<i></i><span><em>책 가운데 쪽</em><b>26mm</b></span>`+
+        `<i></i><span><em>상·하·책 바깥쪽</em><b>20mm</b></span>`;
     }
   }
 
@@ -10854,17 +10932,12 @@ function updateSpec(){
   if(state.binding==="hard"){
     const softRaw=softSpineRaw();
     const beforeMin=softRaw+6;
-    $("spineLabel").innerHTML='자동 계산된 양장 책등 <small>0.78mm + 양장 6mm 포함 · 최소 11mm</small>';
-    $("spineHelp").innerHTML=
-      `(${state.paper.coef} × ${state.pages} ÷ 2) + 0.78 + 6 = ${beforeMin.toFixed(3)}mm`+
-      `${beforeMin<11?" → 최소값 11mm 적용":` → <b>${fmt(s.spine)}mm</b>`}`+
-      `<br>0.78mm = 면지 0.28mm + 표지 0.5mm · 중간값은 반올림하지 않고 최종 결과만 소수점 둘째 자리에서 반올림`;
+    $("spineLabel").innerHTML='자동 계산된 책등 두께 <small>양장 기준</small>';
+    $("spineHelp").innerHTML='선택한 용지와 페이지 수에 맞춰 자동 계산됩니다.';
   }else{
     const raw=softSpineRaw();
-    $("spineLabel").innerHTML='자동 계산된 책등 두께 <small>면지·표지 두께 포함</small>';
-    $("spineHelp").innerHTML=
-      `(${state.paper.coef} × ${state.pages} ÷ 2) + 0.78 = ${raw.toFixed(3)}mm → <b>${fmt(s.spine)}mm</b>`+
-      `<br>0.78mm = 면지 0.28mm + 표지 0.5mm · 최종 결과만 소수점 둘째 자리에서 반올림`;
+    $("spineLabel").innerHTML='자동 계산된 책등 두께 <small>자동 계산</small>';
+    $("spineHelp").innerHTML='선택한 용지와 페이지 수에 맞춰 자동 계산됩니다.';
   }
   if(state.mode==="cover"){
     $("topDimension").textContent="";
@@ -10969,7 +11042,7 @@ function renderInnerGuidePage(side,pageNo){
   const trimW=(f.w/pageW)*100;
   const trimH=(f.h/pageH)*100;
 
-  // 시각적 안내용: 공식 가이드의 변경 가능 범위를 사용.
+  // 초보자용 시각 가이드: 템플릿 작업 여백을 이해하기 위한 권장 안내값.
   const outer=20;
   const inner=26;
   const tb=20;
@@ -11016,10 +11089,10 @@ function renderInnerGuidePage(side,pageNo){
            style="left:${marginL}%;right:${marginR}%;top:${marginT}%;bottom:${marginB}%"></div>
 
       <div class="inner-flow-side-label outside ${side==="left"?"leftpage":"rightpage"}">
-        바깥쪽 · 20mm 이하
+        책 바깥쪽 · 20mm 권장
       </div>
       <div class="inner-flow-side-label inside ${side==="left"?"leftpage":"rightpage"}">
-        안쪽(제본부) · 26mm까지
+        책 가운데 쪽 · 26mm 권장
       </div>
 
       ${content}
@@ -11094,9 +11167,9 @@ function renderInnerSpreadGuide(){
           <p>첫 화면의 왼쪽은 앞표지 뒷면으로 표시됩니다.</p>
         </div>
         <div class="inner-flow-guide-card">
-          <span>여백 방향</span>
-          <strong>제본부 쪽을 더 넓게</strong>
-          <p>바깥쪽은 20mm 이하, 안쪽은 26mm까지 변경 가능합니다.</p>
+          <span>본문 여백</span>
+          <strong>책 가운데 쪽은 여백을 더 넓게</strong>
+          <p>가운데 쪽 26mm · 바깥쪽 20mm 권장. 처음이라면 템플릿 기본 여백을 사용해 주세요.</p>
         </div>
         <div class="inner-flow-guide-card">
           <span>파일 크기</span>
@@ -11108,7 +11181,7 @@ function renderInnerSpreadGuide(){
       <div class="inner-flow-note">
         <strong>판권 페이지는 2페이지에 ‘예시’로 표시했습니다.</strong>
         공식 내지 가이드는 판권의 고정 위치를 지정하지 않으므로 실제 배치는 원고 구성에 따라 달라질 수 있습니다.
-        배경색이나 이미지는 빨간 재단여분 끝까지 충분히 채워주세요.
+        페이지 끝까지 이어지는 배경색·배경 이미지만 빨간 재단선 바깥의 3mm 재단여분 끝까지 채워 주세요.
       </div>
     </div>
   `;
@@ -11193,18 +11266,18 @@ function renderSchematic(){
   const pieces=[];
   const add=(cls,label,mm)=>pieces.push({cls,label,mm});
   if(state.binding==="perfect"){
-    add("back",`뒷표지<br>${fmt(f.w)}mm`,f.w);
+    add("back",`뒤표지<br>${fmt(f.w)}mm`,f.w);
     add("spine",`<span class="spine-text">책등 ${fmt(s.spine)}mm</span>`,s.spine);
     add("front",`앞표지<br>${fmt(f.w)}mm`,f.w);
   }else if(state.binding==="flap"){
     const fw=flapWidth();
-    add("flap-seg",`뒷표지 날개<br>${fmt(fw)}mm`,fw);
-    add("back",`뒷표지<br>${fmt(f.w)}mm`,f.w);
+    add("flap-seg",`뒤표지 날개<br>${fmt(fw)}mm`,fw);
+    add("back",`뒤표지<br>${fmt(f.w)}mm`,f.w);
     add("spine",`<span class="spine-text">책등 ${fmt(s.spine)}mm</span>`,s.spine);
     add("front",`앞표지<br>${fmt(f.w)}mm`,f.w);
     add("flap-seg",`앞표지 날개<br>${fmt(fw)}mm`,fw);
   }else{
-    add("turnin","여분<br>25mm",25);add("back",`뒷표지
+    add("turnin","여분<br>25mm",25);add("back",`뒤표지
 <div class="hardcover-formula">
   <span>가로 = 판형 -3mm</span>
   <span>세로 = 판형 +7mm</span>
@@ -11223,8 +11296,8 @@ function renderSchematic(){
 
   if(state.binding==="flap"){
     const flapMm=flapWidth();
-    const hintText="배경 +2~3mm";
-    const hintTitle="날개제본은 판형을 늘리는 것이 아니라, 앞·뒤표지의 배경 이미지·배경색만 날개 방향으로 2~3mm 더 연장하면 접힌 뒤 경계가 더 자연스럽게 보입니다.";
+    const hintText="배경 연장 2~3mm";
+    const hintTitle="앞·뒤표지의 배경색이나 배경 이미지는 날개와 만나는 선을 넘어 날개 쪽으로 2~3mm 더 이어 주세요. 판형 크기 자체를 늘리는 것은 아닙니다.";
     [...spread.querySelectorAll(".segment.flap-seg")].forEach((seg,idx)=>{
       const ext=document.createElement("div");
       ext.className="screen-flap-extension";
@@ -11283,7 +11356,7 @@ function renderSchematic(){
   if(frontSegment){
     const logo=document.createElement("div");
     logo.className="screen-logo-hint";
-    logo.innerHTML="출판사 / 로고<small>배치는 디자인에 맞게 조정</small>";
+    logo.innerHTML="로고 영역<small>배치는 디자인에 맞게 조정</small>";
     logo.title="로고의 정확한 좌표를 지정하는 고정 규정이 아니라, 하단 배치 예시를 보여주는 시각 가이드입니다.";
 
     // 양장은 하단 25mm 여분 위, 실제 앞표지 면의 우측 하단을 기준으로 배치합니다.
@@ -11299,7 +11372,7 @@ function renderSchematic(){
     const spineLogo=document.createElement("div");
     spineLogo.className="screen-logo-hint";
     spineLogo.textContent="로고";
-    spineLogo.title="책등 로고 위치를 보여주는 시각 가이드입니다. 책등이 10mm 이하인 경우에는 로고를 생략할 수 있습니다. 개인저자는 필요한 경우 퍼플 로고 다운로드 자료를 활용해 주세요.";
+    spineLogo.title="책등 로고 위치를 보여주는 시각 가이드입니다. 출판사는 출판사 로고, 개인저자는 퍼플 로고를 사용합니다. 책등이 10mm 이하인 경우에는 책등 로고를 생략할 수 있습니다.";
 
     // 양장 책등도 상·하 여분을 제외한 실제 책등 면 안에서 표시합니다.
     if(state.binding==="hard"){
@@ -11362,23 +11435,27 @@ function renderInitialResult(){
     <div class="guide-only-list">
       <div class="guide-only-item">
         <span class="check">1</span>
-        <div><strong>재단선 가까이는 비워주세요</strong><p>잘릴 수 있는 위치에는 글자·로고·중요 이미지를 두지 않는 것이 안전합니다.</p></div>
+        <div><strong>글자·로고는 빨간 재단선에서 떨어뜨려 주세요</strong><p>잘리면 안 되는 요소는 안쪽에, 배경은 파일 끝까지 채워 주세요.</p></div>
+      </div>
+      <div class="guide-only-item">
+        <span class="check">2</span>
+        <div><strong>책등은 자동 계산된 크기를 그대로 사용해 주세요</strong><p>용지와 페이지 수에 맞춰 자동 계산됩니다.</p></div>
       </div>
       ${state.binding==="flap"?`<div class="guide-only-item">
-        <span class="check">2</span>
-        <div><strong>날개는 배경과 텍스트 기준을 함께 확인해 주세요</strong><p>배경은 날개 방향으로 2~3mm 더 연장하고, 텍스트는 재단·접힘 오차를 고려해 양쪽 끝에서 5~10mm 이상 안쪽에 배치해 주세요.</p></div>
+        <span class="check">3</span>
+        <div><strong>날개는 배경과 글자 위치를 따로 확인해 주세요</strong><p>배경은 날개 쪽으로 2~3mm 더 이어 주고, 글자는 양쪽 끝에서 5~10mm 안쪽에 배치해 주세요.</p></div>
       </div>`:""}
       <div class="guide-only-item">
-        <span class="check">${state.binding==="flap"?3:2}</span>
-        <div><strong>뒤표지 바코드 영역을 확인하세요</strong><p>가운데 도면에 표시된 영역에는 중요한 요소를 배치하지 마세요.</p></div>
-      </div>
-      <div class="guide-only-item">
         <span class="check">${state.binding==="flap"?4:3}</span>
-        <div><strong>로고 적용 위치를 확인하세요</strong><p>표지 디자인에 맞게 배치하고, 책등이 10mm 이하인 경우 책등 로고는 생략할 수 있습니다. 개인저자는 필요한 경우 퍼플 로고 다운로드 자료를 활용해 주세요.</p></div>
+        <div><strong>바코드가 붙는 뒤표지 오른쪽 아래는 비워 주세요</strong><p>55×35mm 영역에는 글자·로고·중요 이미지를 넣지 마세요.</p></div>
       </div>
       <div class="guide-only-item">
         <span class="check">${state.binding==="flap"?5:4}</span>
-        <div><strong>PDF 저장 후 페이지 크기를 확인하세요</strong><p>편집 프로그램의 기본값 때문에 A4로 변환되지 않았는지 최종 크기를 확인해 주세요.</p></div>
+        <div><strong>로고는 이용 유형에 맞게 사용해 주세요</strong><p>출판사 → 출판사 로고 · 개인저자 → 퍼플 로고. 책등 10mm 이하는 책등 로고 생략 가능.</p></div>
+      </div>
+      <div class="guide-only-item">
+        <span class="check">${state.binding==="flap"?6:5}</span>
+        <div><strong>PDF 크기를 마지막으로 확인해 주세요</strong><p>화면의 표지 제작 규격과 같은지 확인해 주세요.</p></div>
       </div>
     </div>`;
 
@@ -11386,19 +11463,27 @@ function renderInitialResult(){
     <div class="guide-only-list">
       <div class="guide-only-item">
         <span class="check">1</span>
-        <div><strong>첫 원고 페이지는 오른쪽에서 시작합니다</strong><p>홀수 페이지는 오른쪽, 짝수 페이지는 왼쪽에 배치됩니다.</p></div>
+        <div><strong>화면의 내지 파일 크기로 문서를 만들어 주세요</strong><p>책으로 잘린 후 크기 + 사방 3mm 재단여분이 포함된 크기입니다.</p></div>
       </div>
       <div class="guide-only-item">
         <span class="check">2</span>
-        <div><strong>배경·이미지는 재단여분까지 채워주세요</strong><p>사방 3mm 영역까지 이어져야 재단 후 흰 여백이 생기지 않습니다.</p></div>
+        <div><strong>1페이지는 책을 펼쳤을 때 오른쪽입니다</strong><p>홀수는 오른쪽 · 짝수는 왼쪽. PDF는 한 페이지씩 만들어 주세요.</p></div>
       </div>
       <div class="guide-only-item">
         <span class="check">3</span>
-        <div><strong>안쪽 여백을 충분히 확보하세요</strong><p>제본되는 안쪽은 글자가 너무 가까워지지 않도록 가운데 가이드의 여백 기준을 확인하세요.</p></div>
+        <div><strong>책 가운데 쪽은 여백을 더 넓게 잡아 주세요</strong><p>가운데 쪽 26mm · 바깥쪽 20mm 권장. 처음이라면 템플릿 기본 여백을 사용하세요.</p></div>
       </div>
       <div class="guide-only-item">
         <span class="check">4</span>
-        <div><strong>PDF 저장 후 페이지 크기를 확인하세요</strong><p>A4 등 프로그램 기본 크기로 바뀌지 않았는지 최종 PDF를 확인해 주세요.</p></div>
+        <div><strong>페이지 끝까지 배경이 있다면 파일 끝까지 채워 주세요</strong><p>배경만 재단선 밖 3mm까지 이어 주고, 글자·중요 이미지는 안쪽에 두세요.</p></div>
+      </div>
+      <div class="guide-only-item">
+        <span class="check">5</span>
+        <div><strong>판권 페이지는 샘플을 보고 작성해 주세요</strong><p>출판사·개인저자의 정보가 다릅니다. 상단 ‘판권 샘플 다운로드’에서 확인해 주세요.</p></div>
+      </div>
+      <div class="guide-only-item">
+        <span class="check">6</span>
+        <div><strong>PDF 크기를 마지막으로 확인해 주세요</strong><p>화면의 내지 파일 크기와 같은지 확인해 주세요.</p></div>
       </div>
     </div>`;
 
@@ -11407,8 +11492,9 @@ function renderInitialResult(){
   $("warnCount").textContent=0;
   $("okCount").textContent=0;
   $("resultTitle").textContent="제작 체크포인트";
-  $("resultDesc").textContent="작업할 때 꼭 확인해야 할 사항입니다.";
+  $("resultDesc").textContent="처음 출판한다면 위에서부터 하나씩 확인해 주세요.";
 }
+
 const PPT_MM=1/25.4;
 
 function updateCoverPptxAction(){
@@ -11466,7 +11552,7 @@ function buildCoverPptx(){
     const w=sec.mm*PPT_MM;
     pos.push({...sec,x,w});
     slide.addShape(pptx.ShapeType.rect,{x,y:0,w,h:totalH,fill:{color:pptSectionFill(sec),transparency:28},line:{color:"FFFFFF",transparency:100}});
-    if(sec.mm>=8 && sec.key!=="front" && sec.key!=="spine"){
+    if(sec.mm>=8 && sec.key!=="front" && sec.key!=="back" && sec.key!=="spine"){
       slide.addText(`${sec.label}\n${fmt(sec.mm)}mm`,{x:x+.03,y:totalH/2-.38,w:Math.max(w-.06,.12),h:.76,fontFace:"Arial",fontSize:12,bold:true,color:"333D4B",align:"center",valign:"mid",margin:.02,fit:"shrink"});
     }
     x+=w;
@@ -11483,7 +11569,7 @@ function buildCoverPptx(){
       const extW=Math.min(flapExtendMm*PPT_MM,backFlap.w-.02);
       const extX=backFlap.x+backFlap.w-extW;
       slide.addShape(pptx.ShapeType.rect,{x:extX,y:0,w:extW,h:totalH,fill:{color:fills["back"],transparency:0},line:{color:"D6B970",width:.7,dash:"dash"}});
-      slide.addText("배경 +2~3mm",{x:Math.max(backFlap.x+.02,extX-.42),y:bodyTop+.06,w:.84,h:.22,fontFace:"Arial",fontSize:8,bold:true,color:"A06500",align:"center",valign:"mid",margin:0,fit:"shrink"});
+      slide.addText("배경 연장 2~3mm",{x:Math.max(backFlap.x+.02,extX-.42),y:bodyTop+.06,w:.84,h:.22,fontFace:"Arial",fontSize:8,bold:true,color:"A06500",align:"center",valign:"mid",margin:0,fit:"shrink"});
 
       const safeInset=10*PPT_MM;
       const tzW=Math.max(.55,backFlap.w-safeInset*2);
@@ -11497,7 +11583,7 @@ function buildCoverPptx(){
       const extW=Math.min(flapExtendMm*PPT_MM,frontFlap.w-.02);
       const extX=frontFlap.x;
       slide.addShape(pptx.ShapeType.rect,{x:extX,y:0,w:extW,h:totalH,fill:{color:fills["front"],transparency:0},line:{color:"D6B970",width:.7,dash:"dash"}});
-      slide.addText("배경 +2~3mm",{x:Math.min(frontFlap.x+frontFlap.w-.86,extX-.02),y:bodyTop+.06,w:.84,h:.22,fontFace:"Arial",fontSize:8,bold:true,color:"A06500",align:"center",valign:"mid",margin:0,fit:"shrink"});
+      slide.addText("배경 연장 2~3mm",{x:Math.min(frontFlap.x+frontFlap.w-.86,extX-.02),y:bodyTop+.06,w:.84,h:.22,fontFace:"Arial",fontSize:8,bold:true,color:"A06500",align:"center",valign:"mid",margin:0,fit:"shrink"});
 
       const safeInset=10*PPT_MM;
       const tzW=Math.max(.55,frontFlap.w-safeInset*2);
@@ -11516,7 +11602,7 @@ function buildCoverPptx(){
   if(fr){
     const tagX=fr.x+fr.w*.28, tagY=bodyTop+bodyH*.055, tagW=fr.w*.44, tagH=.34;
     slide.addShape(pptx.ShapeType.roundRect,{x:tagX,y:tagY,w:tagW,h:tagH,rectRadius:.04,fill:{color:"FFFFFF",transparency:4},line:{color:"C9D0DA",width:.8}});
-    slide.addText(`앞표지 ${fmt(fr.mm)}mm`,{x:tagX,y:tagY,w:tagW,h:tagH,fontFace:"Arial",fontSize:11.5,bold:true,color:"4E5968",align:"center",valign:"mid",margin:0,fit:"shrink"});
+    slide.addText(`앞표지 가로 ${fmt(fr.mm)}mm`,{x:tagX,y:tagY,w:tagW,h:tagH,fontFace:"Arial",fontSize:11.5,bold:true,color:"4E5968",align:"center",valign:"mid",margin:0,fit:"shrink"});
     slide.addText("도서 제목",{x:fr.x+fr.w*.10,y:bodyTop+bodyH*.22,w:fr.w*.80,h:Math.min(.78,bodyH*.17),fontFace:"Arial",fontSize:24,bold:true,color:"191F28",align:"center",valign:"mid",margin:.02,fit:"shrink"});
     slide.addText("부제목 또는 한 줄 소개",{x:fr.x+fr.w*.12,y:bodyTop+bodyH*.46,w:fr.w*.76,h:.42,fontFace:"Arial",fontSize:12,color:"6B7684",align:"center",valign:"mid",margin:.01,fit:"shrink"});
     slide.addText("홍길동 지음",{x:fr.x+fr.w*.18,y:bodyTop+bodyH*.70,w:fr.w*.64,h:.40,fontFace:"Arial",fontSize:13,color:"333D4B",align:"center",valign:"mid",margin:.01,fit:"shrink"});
@@ -11535,7 +11621,7 @@ function buildCoverPptx(){
       fill:{color:"FFFFFF",transparency:42},
       line:{color:"7B61FF",width:.8,dash:"dash"}
     });
-    slide.addText("출판사 / 로고\n배치는 디자인에 맞게 조정",{
+    slide.addText("로고 영역\n배치는 디자인에 맞게 조정",{
       x:logoX+.03,y:logoY+.03,w:logoW-.06,h:logoH-.06,
       fontFace:"Arial",fontSize:8.4,bold:true,color:"5B4BD8",
       align:"center",valign:"mid",margin:.005,fit:"shrink"
@@ -11544,6 +11630,9 @@ function buildCoverPptx(){
 
   const ba=pos.find(q=>q.key==="back");
   if(ba){
+    const backTagX=ba.x+ba.w*.28, backTagY=bodyTop+bodyH*.055, backTagW=ba.w*.44, backTagH=.34;
+    slide.addShape(pptx.ShapeType.roundRect,{x:backTagX,y:backTagY,w:backTagW,h:backTagH,rectRadius:.04,fill:{color:"FFFFFF",transparency:4},line:{color:"C9D0DA",width:.8}});
+    slide.addText(`뒤표지 가로 ${fmt(ba.mm)}mm`,{x:backTagX,y:backTagY,w:backTagW,h:backTagH,fontFace:"Arial",fontSize:11.5,bold:true,color:"4E5968",align:"center",valign:"mid",margin:0,fit:"shrink"});
     slide.addText("뒤표지 소개글을 입력해 주세요.\n중요한 이미지·로고·텍스트는 바코드 영역과 재단선 가까이에 배치하지 않는 것을 권장합니다.",{x:ba.x+ba.w*.1,y:bodyTop+bodyH*.18,w:ba.w*.8,h:Math.min(1.25,bodyH*.36),fontFace:"Arial",fontSize:11,color:"4E5968",margin:.05,fit:"shrink",valign:"top"});
     const bw=55*PPT_MM, bh=35*PPT_MM;
     const barcodeInsetX=8*PPT_MM, barcodeInsetY=8*PPT_MM;
@@ -11564,17 +11653,19 @@ function buildCoverPptx(){
     }
   }
 
-  const boxW=Math.min(5.35,totalW*.54),boxH=Math.min(.94,totalH*.30);
+  const boxW=Math.min(state.binding==="flap"?5.75:5.35,totalW*(state.binding==="flap"?.60:.54));
+  const boxH=state.binding==="flap"
+    ? Math.min(1.48,totalH*.42)
+    : Math.min(1.02,totalH*.32);
   slide.addShape(pptx.ShapeType.roundRect,{x:.12,y:.12,w:boxW,h:boxH,fill:{color:"FFFFFF",transparency:2},line:{color:"DADDE2",width:.8}});
   slide.addText([
     {text:"바로출판POD 맞춤 표지 템플릿\n",options:{bold:true,color:"4E43F5"}},
     {text:`${state.format.name} · ${state.paper.name} · ${state.pages}p · 책등 ${fmt(s.spine)}mm\n`,options:{bold:true,color:"333D4B"}},
     {text:`표지 전개도 ${fmt(s.cover.w)} × ${fmt(s.cover.h)}mm\n`,options:{color:"6B7684"}},
-    ...(state.binding==="flap"?[{text:"날개제본 팁: 판형은 그대로 두고, 앞·뒤표지의 배경 이미지·배경색만 날개 방향으로 2~3mm 더 연장해 주세요. 템플릿의 노란 확장 영역을 참고해 주세요.\n",options:{bold:true,color:"2563EB"}}]:[]),
-    {text:`로고는 디자인에 맞게 배치해 주세요.${s.spine<=10?" 책등이 10mm 이하인 경우 책등 로고는 생략할 수 있습니다.":""} 필요 시 퍼플 로고 다운로드 자료를 활용할 수 있습니다.
-`,options:{bold:true,color:"5B4BD8"}},
+    {text:`표지 한 면 크기 ${fmt(state.format.w)} × ${fmt(state.format.h)}mm\n`,options:{color:"6B7684"}},
+    ...(state.binding==="flap"?[{text:"날개제본 팁: 판형 크기는 그대로 두고, 앞·뒤표지의 배경색이나 배경 이미지만 날개와 만나는 선을 넘어 2~3mm 더 이어 주세요. 표시된 ‘배경 연장 2~3mm’ 영역을 참고해 주세요.\n",options:{bold:true,color:"2563EB"}}]:[]),
     {text:"편집 후 안내 도형·문구는 삭제해 주세요.",options:{color:"6B7684"}}
-  ],{x:.2,y:.18,w:boxW-.16,h:boxH-.12,fontFace:"Arial",fontSize:10.5,margin:.015,fit:"shrink",valign:"mid"});
+  ],{x:.2,y:.18,w:boxW-.16,h:boxH-.12,fontFace:"Arial",fontSize:state.binding==="flap"?10.2:10.5,margin:.02,fit:"shrink",valign:"mid"});
 
   return {pptx,s};
 }
@@ -13243,7 +13334,7 @@ function createInnerViewToolbar(info){
 
   const marginSummary=document.createElement("div");
   marginSummary.className=`inner-margin-summary ${state.innerViewOptions.margin?"":"hidden"}`;
-  marginSummary.innerHTML='<b>권장 여백</b><span>안쪽 26mm · 바깥쪽 20mm · 상하 20mm</span>';
+  marginSummary.innerHTML='<b>권장 여백</b><span>책 가운데 쪽 26mm · 바깥쪽 20mm · 상하 20mm</span>';
   toolbar.appendChild(marginSummary);
 
   return toolbar;
@@ -14303,7 +14394,7 @@ function drawHardCoverOuterGuides(overlay,actual,displayWidth,displayHeight,geom
   });
   overlay.appendChild(rightMarginBadge);
 
-  // 중앙 구조: 뒷표지 → 경첩 → 책등 → 경첩 → 앞표지
+  // 중앙 구조: 뒤표지 → 경첩 → 책등 → 경첩 → 앞표지
   let cursor=s.wrap;
 
   const backStart=cursor;
@@ -14394,7 +14485,7 @@ function drawHardCoverOuterGuides(overlay,actual,displayWidth,displayHeight,geom
     overlay.appendChild(el);
   };
 
-  addCoverLabel(`뒷표지 ${fmt(s.coverW)} × ${fmt(s.coverH)}mm`,backStart,backEnd);
+  addCoverLabel(`뒤표지 ${fmt(s.coverW)} × ${fmt(s.coverH)}mm`,backStart,backEnd);
   addCoverLabel(`앞표지 ${fmt(s.coverW)} × ${fmt(s.coverH)}mm`,frontStart,frontEnd);
 }
 
@@ -14544,7 +14635,7 @@ function drawFileGuides(info){
     overlay.appendChild(ext);
 
     const badge=document.createElement("div");
-    badge.textContent="배경 +2~3mm";
+    badge.textContent="배경 연장 2~3mm";
     Object.assign(badge.style,{
       position:"absolute",
       left:`${guideOriginX+(startMm+widthMm/2)*scaleX}px`,
@@ -14662,7 +14753,7 @@ function drawFileGuides(info){
       addV(backEnd,"spine");
       addV(spineEnd,"spine");
 
-      addCoverSection(backStart,backEnd,`뒷표지 ${fmt(f.w)}mm`);
+      addCoverSection(backStart,backEnd,`뒤표지 ${fmt(f.w)}mm`);
       addCoverSection(backEnd,spineEnd,`책등 ${fmt(s.spine)}mm`,"spine");
       addCoverSection(spineEnd,frontEnd,`앞표지 ${fmt(f.w)}mm`);
     }else{
@@ -14680,7 +14771,7 @@ function drawFileGuides(info){
       addV(frontEnd,"fold");
 
       addCoverSection(backFlapStart,backStart,`뒷날개 ${fmt(fw)}mm`,"flap");
-      addCoverSection(backStart,backEnd,`뒷표지 ${fmt(f.w)}mm`);
+      addCoverSection(backStart,backEnd,`뒤표지 ${fmt(f.w)}mm`);
       addCoverSection(backEnd,spineEnd,`책등 ${fmt(s.spine)}mm`,"spine");
       addCoverSection(spineEnd,frontEnd,`앞표지 ${fmt(f.w)}mm`);
       addCoverSection(frontEnd,frontFlapEnd,`앞날개 ${fmt(fw)}mm`,"flap");
@@ -14712,7 +14803,7 @@ function drawFileGuides(info){
     addV(spineEnd,"spine");
     addV(rightHingeEnd,"blue");
 
-    addCoverSection(backStart,backEnd,`뒷표지 ${fmt(f.w-3)} × ${fmt(f.h+7)}mm`);
+    addCoverSection(backStart,backEnd,`뒤표지 ${fmt(f.w-3)} × ${fmt(f.h+7)}mm`);
     addCoverSection(backEnd,leftHingeEnd,"꺾임 10mm","hinge");
     addCoverSection(leftHingeEnd,spineEnd,`책등 ${fmt(s.spine)}mm`,"spine");
     addCoverSection(spineEnd,rightHingeEnd,"꺾임 10mm","hinge");
@@ -14737,7 +14828,7 @@ function drawFileGuides(info){
   }else if(state.binding==="hard"){
     addNote("파란선 바깥 25mm는 양장 표지가 안쪽으로 말려 들어가는 제작 여분입니다.");
   }else if(state.binding==="flap"){
-    addNote("빨간 점선 바깥 3mm는 재단 여분입니다. 날개제본은 판형을 늘리지 않고, 앞·뒤표지의 배경 이미지·배경색만 날개 방향으로 2~3mm 더 연장해 주세요.");
+    addNote("빨간 점선 바깥 3mm는 재단 여분입니다. 날개제본은 판형 크기를 늘리지 않습니다. 앞·뒤표지의 배경색이나 배경 이미지만 날개와 만나는 선을 넘어 날개 쪽으로 2~3mm 더 이어 주세요.");
   }else{
     addNote("빨간 점선 바깥 3mm는 제작 시 잘려 나가는 재단 여분입니다.");
   }
@@ -16661,10 +16752,10 @@ function renderInnerGuidePage(side, pageNo){
            style="left:${marginL}%;right:${marginR}%;top:${marginT}%;bottom:${marginB}%"></div>
 
       <div class="inner-flow-side-label outside ${side==="left"?"leftpage":"rightpage"}">
-        바깥쪽 · 20mm 이하
+        책 바깥쪽 · 20mm 권장
       </div>
       <div class="inner-flow-side-label inside ${side==="left"?"leftpage":"rightpage"}">
-        안쪽(제본부) · 26mm까지
+        책 가운데 쪽 · 26mm 권장
       </div>
 
       ${content}
@@ -16786,21 +16877,21 @@ function renderInnerSpreadGuide(){
           <p>첫 화면은 앞표지와 1페이지, 마지막 화면은 뒤표지까지 이어집니다.</p>
         </div>
         <div class="inner-flow-guide-card">
-          <span>여백 방향</span>
-          <strong>제본부 쪽을 더 넓게</strong>
-          <p>바깥쪽은 20mm 이하, 안쪽은 26mm까지 변경 가능합니다.</p>
+          <span>본문 여백</span>
+          <strong>책 가운데 쪽은 여백을 더 넓게</strong>
+          <p>가운데 쪽 26mm · 바깥쪽 20mm 권장. 처음이라면 템플릿 기본 여백을 사용해 주세요.</p>
         </div>
         <div class="inner-flow-guide-card">
-          <span>판권 페이지 예시</span>
-          <strong>2페이지 예시 제공</strong>
-          <p><strong>발행일은 공란 불가</strong>이며, 개인저자는 퍼플 출판등록 정보를 포함해 주세요.</p>
+          <span>판권 페이지</span>
+          <strong>판권 샘플을 보고 작성해 주세요</strong>
+          <p>출판사·개인저자의 작성 정보가 다릅니다. 상단 <b>판권 샘플 다운로드</b>에서 자세히 확인해 주세요.</p>
         </div>
       </div>
 
       <div class="inner-flow-note">
-        <strong>판권 페이지는 2페이지에 예시로 표시했습니다.</strong>
-        일반적으로 원고의 제목 뒤 페이지 또는 마지막 페이지에 넣을 수 있으며,
-        발행일·저자/발행처 이름·출판등록번호·ISBN 등 필요한 정보를 포함해야 합니다.
+        <strong>판권 페이지는 2페이지에 ‘작성 방식 예시’로 표시했습니다.</strong>
+        위치는 원고 구성에 따라 달라질 수 있습니다. 출판사는 출판사 발행정보와 직접 발급한 ISBN을 사용하고,
+        개인저자는 퍼플 판권정보를 사용합니다. 개인저자의 ISBN은 판매승인 후 교보문고가 발급을 대행하므로 등록 전에 직접 발급할 필요가 없습니다.
       </div>
     </div>
   `;
@@ -17631,7 +17722,7 @@ function renderInnerSpreadGuide(){
   function track(eventName, params){
     if(!enabled || typeof window.gtag !== "function") return;
     window.gtag("event", eventName, Object.assign({
-      guide_version: "v1.72",
+      guide_version: "v1.81",
       page_location: window.location.href,
       page_title: document.title
     }, params || {}));

@@ -221,8 +221,8 @@
       position:relative;background:#fff;overflow:hidden;
       box-shadow:0 18px 40px rgba(25,31,40,.16)
     }
-    .book-page-shell.left{border-radius:10px 3px 3px 10px}
-    .book-page-shell.right{border-radius:3px 10px 10px 3px}
+    .book-page-shell.left{border-radius:0!important}
+    .book-page-shell.right{border-radius:0!important}
     .book-page-shell.blank{
       display:flex;align-items:center;justify-content:center;color:#9aa4b2;font-size:11px;font-weight:700;
       background:
@@ -7842,8 +7842,8 @@
     overflow:visible;
     border:1px solid #dfe3e8;
   }
-  .inner-guide-page.left{border-radius:14px 3px 3px 14px}
-  .inner-guide-page.right{border-radius:3px 14px 14px 3px}
+  .inner-guide-page.left{border-radius:0!important}
+  .inner-guide-page.right{border-radius:0!important}
 
   .inner-page-bleed{
     position:absolute;
@@ -8083,8 +8083,8 @@
     position:relative;background:#fff;border:1px solid #dfe3e8;
     box-shadow:0 16px 34px rgba(25,31,40,.14);overflow:hidden;
   }
-  .inner-flow-page.left{border-radius:14px 3px 3px 14px}
-  .inner-flow-page.right{border-radius:3px 14px 14px 3px}
+  .inner-flow-page.left{border-radius:0!important}
+  .inner-flow-page.right{border-radius:0!important}
   .inner-flow-page.cover-back{
     display:flex;align-items:center;justify-content:center;
     background:#f7f8fa;color:#8b95a1
@@ -8095,13 +8095,36 @@
   .cover-back-mark small{display:block;font-size:10px;font-weight:650;margin-top:6px}
 
   .inner-flow-bleed{
-    position:absolute;inset:0;border:2px dashed #f04452;pointer-events:none
+    position:absolute;
+    inset:0;
+    border:1px solid #a8b0ba;
+    box-sizing:border-box;
+    pointer-events:none;
   }
   .inner-flow-trim{
-    position:absolute;border:1.5px solid #191f28;pointer-events:none
+    position:absolute;
+    border:2px dashed #f04452;
+    box-sizing:border-box;
+    pointer-events:none;
+    z-index:2;
   }
   .inner-flow-margin{
     position:absolute;border:1.5px solid #4e43f5;background:rgba(78,67,245,.025);pointer-events:none
+  }
+  .inner-flow-trim-label{
+    position:absolute;
+    top:7px;
+    left:50%;
+    transform:translateX(-50%);
+    z-index:5;
+    padding:3px 6px;
+    border-radius:6px;
+    background:rgba(255,255,255,.94);
+    color:#f04452;
+    font-size:8px;
+    font-weight:850;
+    white-space:nowrap;
+    pointer-events:none;
   }
   .inner-flow-page.left .inner-flow-margin{
     border-right-width:2px;
@@ -9889,11 +9912,6 @@
     position:absolute;
     right:7%;
     bottom:8%;
-    width:42%;
-    min-width:88px;
-    max-width:116px;
-    height:18%;
-    min-height:34px;
     padding:5px 6px;
     box-sizing:border-box;
     border:1.5px dashed rgba(139,149,161,.9);
@@ -10055,7 +10073,7 @@
 <div class="app" id="appShell">
   <aside class="left">
     <div class="brand">
-      <div class="kicker">교보문고 바로출판POD · 제작 가이드 v1.64</div>
+      <div class="kicker">교보문고 바로출판POD · 제작 가이드 v1.72</div>
       <h1>표지·내지 제작 가이드</h1>
       <p>제작 사양을 선택하면 표지·내지 파일의 필요한 크기와<br>작업 영역을 자동으로 계산해 보여드립니다.</p>
       <div style="margin-top:12px;padding:10px 12px;border-radius:10px;background:#f0efff;color:#4e43f5;font-size:11px;font-weight:750;line-height:1.45">1차 오픈 · 제작 규격 가이드 제공</div>
@@ -10173,19 +10191,19 @@
     </div>
 
 <div class="top-download-actions" id="topDownloadActions">
-  <a class="download-action primary"
+  <a class="download-action primary" id="gaTemplateDownload"
      href="https://store.kyobobook.co.kr/pod/notice/1006675"
      target="_blank" rel="noopener noreferrer">
     <span class="ico">↓</span>
     템플릿 문서 다운로드
   </a>
-  <a class="download-action secondary"
+  <a class="download-action secondary" id="gaCopyrightDownload"
      href="https://store.kyobobook.co.kr/pod/notice/1006529"
      target="_blank" rel="noopener noreferrer">
     <span class="ico">↓</span>
     판권 샘플 다운로드
   </a>
-  <a class="download-action secondary"
+  <a class="download-action secondary" id="gaPurpleLogoDownload"
      href="https://store.kyobobook.co.kr/pod/notice/1000183"
      target="_blank" rel="noopener noreferrer"
      aria-label="퍼플 로고 다운로드 및 안내 열기">
@@ -10990,8 +11008,9 @@ function renderInnerGuidePage(side,pageNo){
 
   return `
     <div class="inner-flow-page ${side}">
-      <div class="inner-flow-bleed"></div>
+      <div class="inner-flow-bleed" title="내지 파일 외곽"></div>
       <div class="inner-flow-trim"
+           title="재단선 · 파일 외곽에서 3mm 안쪽"
            style="left:${trimL}%;top:${trimT}%;width:${trimW}%;height:${trimH}%"></div>
       <div class="inner-flow-margin"
            style="left:${marginL}%;right:${marginR}%;top:${marginT}%;bottom:${marginB}%"></div>
@@ -11004,6 +11023,7 @@ function renderInnerGuidePage(side,pageNo){
       </div>
 
       ${content}
+      <div class="inner-flow-trim-label">재단선 · 3mm 안쪽</div>
       <div class="inner-flow-page-label">${pageNo}페이지 · ${sideKo}</div>
     </div>`;
 }
@@ -11239,16 +11259,23 @@ function renderSchematic(){
   if(backSegment){
     const barcode=document.createElement("div");
     barcode.className="screen-barcode-zone";
-    barcode.innerHTML="<span>바코드 영역</span><small>중요 요소 배치 금지</small>";
-    barcode.title="뒤표지 바코드가 들어갈 수 있는 영역입니다. 자세한 규정은 상단 바코드 도움말에서 확인하세요.";
+    barcode.innerHTML="<span>바코드 영역</span><small>55 × 35mm 권장 확보 영역</small>";
+    barcode.title="실제 바코드 스티커 45 × 25mm를 고려해 중요한 요소를 피하도록 55 × 35mm 영역을 확보한 가이드입니다.";
 
-    // 양장은 상·하 25mm 여분을 제외한 실제 뒤표지 면을 기준으로 배치합니다.
-    if(state.binding==="hard"){
-      const bodyBottom=(hardSpec.wrap + hardSpec.coverH*0.07)/hardSpec.totalH*100;
-      const zoneH=(hardSpec.coverH*0.18)/hardSpec.totalH*100;
-      barcode.style.bottom=`${bodyBottom}%`;
-      barcode.style.height=`${zoneH}%`;
-    }
+    // 55 × 35mm 권장 확보 영역을 현재 도면의 실제 치수 비율에 맞춰 표시합니다.
+    const backFaceW=state.binding==="hard" ? hardSpec.coverW : f.w;
+    const schematicH=state.binding==="hard" ? hardSpec.totalH : s.cover.h;
+    barcode.style.width=`${Math.min(55/backFaceW*100,92)}%`;
+    barcode.style.height=`${Math.min(35/schematicH*100,80)}%`;
+
+    // 배치 위치 자체는 고정 규정이 아니라 하단 우측의 시각 가이드입니다.
+    // 다만 실제 활용성을 위해 재단선에서 충분히 떨어진 8mm 안쪽 기준으로 통일합니다.
+    const barcodeInsetXmm=8;
+    const barcodeInsetYmm=8;
+    const rightBase=barcodeInsetXmm/backFaceW*100;
+    const bottomBase=((state.binding==="hard" ? hardSpec.wrap : 3) + barcodeInsetYmm)/schematicH*100;
+    barcode.style.right=`${rightBase}%`;
+    barcode.style.bottom=`${bottomBase}%`;
     backSegment.appendChild(barcode);
   }
 
@@ -11256,8 +11283,8 @@ function renderSchematic(){
   if(frontSegment){
     const logo=document.createElement("div");
     logo.className="screen-logo-hint";
-    logo.innerHTML="출판사 / 퍼플 로고<small>배치는 디자인에 맞게 조정</small>";
-    logo.title="로고의 정확한 좌표를 지정하는 표시는 아닙니다.";
+    logo.innerHTML="출판사 / 로고<small>배치는 디자인에 맞게 조정</small>";
+    logo.title="로고의 정확한 좌표를 지정하는 고정 규정이 아니라, 하단 배치 예시를 보여주는 시각 가이드입니다.";
 
     // 양장은 하단 25mm 여분 위, 실제 앞표지 면의 우측 하단을 기준으로 배치합니다.
     if(state.binding==="hard"){
@@ -11272,7 +11299,7 @@ function renderSchematic(){
     const spineLogo=document.createElement("div");
     spineLogo.className="screen-logo-hint";
     spineLogo.textContent="로고";
-    spineLogo.title="개인저자는 책등 10mm 초과 시 퍼플 로고를 사용합니다. 정확한 배치는 디자인에 맞게 조정하세요.";
+    spineLogo.title="책등 로고 위치를 보여주는 시각 가이드입니다. 책등이 10mm 이하인 경우에는 로고를 생략할 수 있습니다. 개인저자는 필요한 경우 퍼플 로고 다운로드 자료를 활용해 주세요.";
 
     // 양장 책등도 상·하 여분을 제외한 실제 책등 면 안에서 표시합니다.
     if(state.binding==="hard"){
@@ -11347,7 +11374,7 @@ function renderInitialResult(){
       </div>
       <div class="guide-only-item">
         <span class="check">${state.binding==="flap"?4:3}</span>
-        <div><strong>개인저자는 퍼플 로고를 사용합니다</strong><p>앞표지·책등 삽입이 원칙이며, 책등 10mm 이하는 책등 로고를 생략할 수 있습니다.</p></div>
+        <div><strong>로고 적용 위치를 확인하세요</strong><p>표지 디자인에 맞게 배치하고, 책등이 10mm 이하인 경우 책등 로고는 생략할 수 있습니다. 개인저자는 필요한 경우 퍼플 로고 다운로드 자료를 활용해 주세요.</p></div>
       </div>
       <div class="guide-only-item">
         <span class="check">${state.binding==="flap"?5:4}</span>
@@ -11493,15 +11520,36 @@ function buildCoverPptx(){
     slide.addText("도서 제목",{x:fr.x+fr.w*.10,y:bodyTop+bodyH*.22,w:fr.w*.80,h:Math.min(.78,bodyH*.17),fontFace:"Arial",fontSize:24,bold:true,color:"191F28",align:"center",valign:"mid",margin:.02,fit:"shrink"});
     slide.addText("부제목 또는 한 줄 소개",{x:fr.x+fr.w*.12,y:bodyTop+bodyH*.46,w:fr.w*.76,h:.42,fontFace:"Arial",fontSize:12,color:"6B7684",align:"center",valign:"mid",margin:.01,fit:"shrink"});
     slide.addText("홍길동 지음",{x:fr.x+fr.w*.18,y:bodyTop+bodyH*.70,w:fr.w*.64,h:.40,fontFace:"Arial",fontSize:13,color:"333D4B",align:"center",valign:"mid",margin:.01,fit:"shrink"});
+
+    // Front-cover logo guide: visual hint only, not a fixed mandatory coordinate.
+    // Keep it inside the actual cover face for hardcover as well.
+    const logoW=Math.min(Math.max(fr.w*.34,.92),1.38);
+    const logoH=Math.min(Math.max(bodyH*.10,.42),.62);
+    // Keep the logo hint visibly inside the trimmed cover, away from cut edges.
+    const logoInsetX=Math.max(.28, fr.w*.08);
+    const logoInsetY=Math.max(.28, bodyH*.07);
+    const logoX=fr.x+fr.w-logoW-logoInsetX;
+    const logoY=bodyTop+bodyH-logoH-logoInsetY;
+    slide.addShape(pptx.ShapeType.roundRect,{
+      x:logoX,y:logoY,w:logoW,h:logoH,rectRadius:.025,
+      fill:{color:"FFFFFF",transparency:42},
+      line:{color:"7B61FF",width:.8,dash:"dash"}
+    });
+    slide.addText("출판사 / 로고\n배치는 디자인에 맞게 조정",{
+      x:logoX+.03,y:logoY+.03,w:logoW-.06,h:logoH-.06,
+      fontFace:"Arial",fontSize:8.4,bold:true,color:"5B4BD8",
+      align:"center",valign:"mid",margin:.005,fit:"shrink"
+    });
   }
 
   const ba=pos.find(q=>q.key==="back");
   if(ba){
     slide.addText("뒤표지 소개글을 입력해 주세요.\n중요한 이미지·로고·텍스트는 바코드 영역과 재단선 가까이에 배치하지 않는 것을 권장합니다.",{x:ba.x+ba.w*.1,y:bodyTop+bodyH*.18,w:ba.w*.8,h:Math.min(1.25,bodyH*.36),fontFace:"Arial",fontSize:11,color:"4E5968",margin:.05,fit:"shrink",valign:"top"});
-    const bw=Math.min(55*PPT_MM,ba.w*.45),bh=Math.min(35*PPT_MM,bodyH*.24);
-    const bx=ba.x+ba.w-bw-.12, by=bodyTop+bodyH-bh-.12;
+    const bw=55*PPT_MM, bh=35*PPT_MM;
+    const barcodeInsetX=8*PPT_MM, barcodeInsetY=8*PPT_MM;
+    const bx=ba.x+ba.w-bw-barcodeInsetX, by=bodyTop+bodyH-bh-barcodeInsetY;
     slide.addShape(pptx.ShapeType.rect,{x:bx,y:by,w:bw,h:bh,fill:{color:"FFFFFF",transparency:45},line:{color:"A8B0BA",width:.8,dash:"dash"}});
-    slide.addText("바코드 주의 영역",{x:bx,y:by,w:bw,h:bh,fontFace:"Arial",fontSize:10.5,color:"6B7684",align:"center",valign:"mid",margin:.01,fit:"shrink"});
+    slide.addText("바코드 영역\n55 × 35mm 권장 확보",{x:bx,y:by,w:bw,h:bh,fontFace:"Arial",fontSize:9.6,color:"6B7684",align:"center",valign:"mid",margin:.01,fit:"shrink"});
   }
 
   const sp=pos.find(q=>q.key==="spine");
@@ -11509,9 +11557,10 @@ function buildCoverPptx(){
     slide.addText("도서 제목",{x:sp.x+sp.w/2-.22,y:bodyTop+bodyH*.14,w:.44,h:bodyH*.50,fontFace:"Arial",fontSize:11.5,bold:true,color:"286B22",vert:"vert270",align:"center",valign:"mid",margin:.005,fit:"shrink"});
     if(sp.mm>10){
       const sw=Math.min(Math.max(sp.w*.72,.38),.70), sh=.34;
-      const sx=sp.x+sp.w/2-sw/2, sy=bodyTop+bodyH*.77;
-      slide.addShape(pptx.ShapeType.roundRect,{x:sx,y:sy,w:sw,h:sh,rectRadius:.025,fill:{color:"FFFFFF",transparency:28},line:{color:"7B61FF",width:.8,dash:"dash"}});
-      slide.addText("퍼플\n로고",{x:sx,y:sy,w:sw,h:sh,fontFace:"Arial",fontSize:8.5,bold:true,color:"5B4BD8",align:"center",valign:"mid",margin:0,fit:"shrink"});
+      const spineLogoBottomInset=Math.max(.14,bodyH*.07);
+      const sx=sp.x+sp.w/2-sw/2, sy=bodyTop+bodyH-sh-spineLogoBottomInset;
+      slide.addShape(pptx.ShapeType.roundRect,{x:sx,y:sy,w:sw,h:sh,rectRadius:.025,fill:{color:"FFFFFF",transparency:32},line:{color:"7B61FF",width:.8,dash:"dash"}});
+      slide.addText("로고",{x:sx,y:sy,w:sw,h:sh,fontFace:"Arial",fontSize:8.7,bold:true,color:"5B4BD8",align:"center",valign:"mid",margin:0,fit:"shrink"});
     }
   }
 
@@ -11522,7 +11571,8 @@ function buildCoverPptx(){
     {text:`${state.format.name} · ${state.paper.name} · ${state.pages}p · 책등 ${fmt(s.spine)}mm\n`,options:{bold:true,color:"333D4B"}},
     {text:`표지 전개도 ${fmt(s.cover.w)} × ${fmt(s.cover.h)}mm\n`,options:{color:"6B7684"}},
     ...(state.binding==="flap"?[{text:"날개제본 팁: 판형은 그대로 두고, 앞·뒤표지의 배경 이미지·배경색만 날개 방향으로 2~3mm 더 연장해 주세요. 템플릿의 노란 확장 영역을 참고해 주세요.\n",options:{bold:true,color:"2563EB"}}]:[]),
-    {text:`개인저자: 출판사 로고가 들어가는 영역에 퍼플 로고를 넣어주세요. 앞표지·책등 삽입이 원칙${s.spine<=10?"이며 책등 10mm 이하는 책등 로고 생략 가능":"입니다"}\n`,options:{bold:true,color:"5B4BD8"}},
+    {text:`로고는 디자인에 맞게 배치해 주세요.${s.spine<=10?" 책등이 10mm 이하인 경우 책등 로고는 생략할 수 있습니다.":""} 필요 시 퍼플 로고 다운로드 자료를 활용할 수 있습니다.
+`,options:{bold:true,color:"5B4BD8"}},
     {text:"편집 후 안내 도형·문구는 삭제해 주세요.",options:{color:"6B7684"}}
   ],{x:.2,y:.18,w:boxW-.16,h:boxH-.12,fontFace:"Arial",fontSize:10.5,margin:.015,fit:"shrink",valign:"mid"});
 
@@ -17557,6 +17607,78 @@ function renderInnerSpreadGuide(){
 ">
   본 가이드는 교보문고 바로출판POD 도서 제작을 위한 안내 도구입니다.
 </div>
+
+
+<!-- GA4: analytics only. Product/PPT logic remains v1.64. -->
+<script id="baro-ga4-tracking">
+(function(){
+  const GA_MEASUREMENT_ID = "G-FNQ1KXG0T3";
+  const enabled = /^G-[A-Z0-9]+$/i.test(GA_MEASUREMENT_ID);
+
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = window.gtag || function(){ window.dataLayer.push(arguments); };
+
+  if(enabled){
+    window.gtag("js", new Date());
+    window.gtag("config", GA_MEASUREMENT_ID);
+
+    const tag = document.createElement("script");
+    tag.async = true;
+    tag.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(GA_MEASUREMENT_ID);
+    document.head.appendChild(tag);
+  }
+
+  function track(eventName, params){
+    if(!enabled || typeof window.gtag !== "function") return;
+    window.gtag("event", eventName, Object.assign({
+      guide_version: "v1.72",
+      page_location: window.location.href,
+      page_title: document.title
+    }, params || {}));
+  }
+
+  function bindClick(id, eventName, paramsFactory){
+    const el = document.getElementById(id);
+    if(!el) return;
+    el.addEventListener("click", function(){
+      const params = typeof paramsFactory === "function" ? paramsFactory() : (paramsFactory || {});
+      track(eventName, params);
+    });
+  }
+
+  bindClick("gaTemplateDownload", "download_template_document", {resource_name:"제작 템플릿 문서"});
+  bindClick("gaCopyrightDownload", "download_copyright_sample", {resource_name:"판권 샘플"});
+  bindClick("gaPurpleLogoDownload", "download_purple_logo", {resource_name:"퍼플 로고"});
+
+  bindClick("coverPptxBtn", "generate_cover_pptx", function(){
+    try{
+      const s = specs();
+      return {
+        binding: bindingName(),
+        format: state.format ? state.format.name : "",
+        paper: state.paper ? state.paper.name : "",
+        pages: state.pages || 0,
+        spine_mm: s && s.spine != null ? Number(s.spine) : undefined,
+        cover_width_mm: s && s.cover ? Number(s.cover.w) : undefined,
+        cover_height_mm: s && s.cover ? Number(s.cover.h) : undefined
+      };
+    }catch(e){
+      return {action_source:"cover_pptx_button"};
+    }
+  });
+
+  document.querySelectorAll('.mode-tabs button[data-mode]').forEach(function(btn){
+    btn.addEventListener("click", function(){
+      track("select_guide_mode", {guide_mode:btn.dataset.mode || ""});
+    });
+  });
+
+  document.addEventListener("click", function(e){
+    const btn = e.target.closest && e.target.closest(".binding-card[data-binding]");
+    if(btn) track("select_binding", {binding:btn.dataset.binding || ""});
+  });
+})();
+</script>
 
 </body>
 </html>

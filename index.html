@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="baro-pod-build" content="guide-v2.04" />
-  <title>바로출판POD 표지·내지 제작 가이드 v2.04</title>
+  <meta name="baro-pod-build" content="guide-v2.08" />
+  <title>바로출판POD 표지·내지 제작 가이드 v2.08</title>
   <style>
     :root{
       --bg:#f4f6f8; --panel:#fff; --line:#e5e8eb; --text:#191f28;
@@ -11594,6 +11594,113 @@ body.preview-fullscreen-active .next-spec-cue{display:none!important;}
   .cover-layout-help-link{font-size:13.75px!important; min-height:34px!important; height:34px!important;}
 }
 </style>
+
+<style id="v205-rejection-prevention">
+/* v2.08 — 조건 기반 반려 예방 안내 */
+.page-policy-hint{
+  margin-top:8px;
+  color:#6b7684;
+  font-size:11px;
+  line-height:1.5;
+}
+.page-policy-alert{
+  display:none;
+  margin-top:10px;
+  padding:11px 12px;
+  border:1px solid transparent;
+  border-radius:10px;
+  font-size:11px;
+  line-height:1.55;
+  letter-spacing:-.01em;
+}
+.page-policy-alert.show{display:block}
+.page-policy-alert strong{display:block;margin-bottom:3px;font-size:12px}
+.page-policy-alert.warning{
+  border-color:#f7c96f;
+  background:#fff8e8;
+  color:#7a4b00;
+}
+.page-policy-alert.error{
+  border-color:#fda4af;
+  background:#fff1f2;
+  color:#b42318;
+}
+.page-policy-alert .policy-copy{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:8px;
+  margin-top:8px;
+  padding:8px 9px;
+  border:1px solid rgba(122,75,0,.18);
+  border-radius:8px;
+  background:rgba(255,255,255,.78);
+}
+.page-policy-alert .policy-copy code{
+  flex:1 1 auto;
+  color:#5d3b00;
+  font-family:inherit;
+  font-size:10.5px;
+  line-height:1.5;
+  white-space:normal;
+}
+.page-policy-alert .policy-copy button,
+.guide-only-item .checkpoint-copy-btn{
+  flex:0 0 auto;
+  min-height:28px;
+  padding:0 9px;
+  border:1px solid #d0d5dd;
+  border-radius:8px;
+  background:#fff;
+  color:#344054;
+  font-size:10px;
+  font-weight:800;
+  cursor:pointer;
+}
+.page-policy-alert .policy-copy button:hover,
+.guide-only-item .checkpoint-copy-btn:hover{
+  border-color:#4b4f8f;
+  color:#4b4f8f;
+  background:#f7f7ff;
+}
+.guide-only-item .checkpoint-action{
+  margin-top:7px;
+  display:flex;
+  align-items:center;
+  gap:7px;
+  flex-wrap:wrap;
+}
+.guide-only-item .checkpoint-action code{
+  padding:3px 6px;
+  border-radius:6px;
+  background:#f2f4f7;
+  color:#475467;
+  font-family:inherit;
+  font-size:9.5px;
+}
+</style>
+
+
+<style id="v207-pagination-polish">
+/* v2.08 — 초기 렌더링 중 n/n 등 미완성 페이지 표기를 숨김 */
+[data-page-counter],
+.page-counter,
+.pagination-counter,
+.page-indicator,
+.preview-page-count,
+.preview-pagination .counter{
+  visibility:hidden;
+}
+[data-page-counter].is-ready,
+.page-counter.is-ready,
+.pagination-counter.is-ready,
+.page-indicator.is-ready,
+.preview-page-count.is-ready,
+.preview-pagination .counter.is-ready{
+  visibility:visible;
+}
+</style>
+
 </head>
 <body>
   <button class="fullscreen-exit-fixed" id="fullscreenExitBtn" type="button" aria-label="전체화면 종료">
@@ -11603,7 +11710,7 @@ body.preview-fullscreen-active .next-spec-cue{display:none!important;}
 <div class="app" id="appShell">
   <aside class="left">
     <div class="brand">
-      <div class="kicker">교보문고 바로출판POD · 제작 가이드 v2.04</div>
+      <div class="kicker">교보문고 바로출판POD · 제작 가이드 v2.08</div>
       <h1>표지·내지 제작 가이드</h1>
       <p>제작 사양을 선택하면 필요한 파일 크기와 작업 영역을 자동으로 계산합니다.</p>
       <nav class="spec-flow-map" aria-label="제작 사양 선택 3단계">
@@ -11669,7 +11776,9 @@ body.preview-fullscreen-active .next-spec-cue{display:none!important;}
 
       <div class="page-setting-block">
         <div class="label">페이지 수</div>
-        <div class="input-wrap"><input id="pages" type="number" min="1" step="1" value="200"><b>p</b></div>
+        <div class="input-wrap"><input id="pages" type="number" min="1" step="1" value="200" aria-describedby="pagePolicyHint pagePolicyAlert"><b>p</b></div>
+        <div class="page-policy-hint" id="pagePolicyHint" hidden></div>
+        <div class="page-policy-alert" id="pagePolicyAlert" role="status" aria-live="polite"></div>
       </div>
 
       <div class="label" id="spineLabel">자동 계산된 책등 두께 <small>내지·페이지 기준</small></div>
@@ -12898,17 +13007,28 @@ function renderInitialResult(){
       ${state.binding==="flap"?`<div class="guide-only-item">
         <span class="check">3</span>
         <div><strong>날개는 배경과 글자 위치를 따로 확인해 주세요</strong><p>배경은 날개 쪽으로 2~3mm 더 이어 주고, 글자는 양쪽 끝에서 5~10mm 안쪽에 배치해 주세요.</p></div>
+      </div>
+      <div class="guide-only-item">
+        <span class="check">4</span>
+        <div>
+          <strong>표지 파일에 날개가 없지만 날개제본을 원하시나요?</strong>
+          <p>뒤표지+책등+앞표지만 제작한 경우, STEP5 요청사항에 <b>‘백색날개 적용’</b>을 입력하면 백색날개로 제작할 수 있습니다.</p>
+          <div class="checkpoint-action">
+            <code>백색날개 적용</code>
+            <button class="checkpoint-copy-btn" type="button" data-copy-text="백색날개 적용" data-copy-kind="white_flap">문구 복사</button>
+          </div>
+        </div>
       </div>`:""}
       <div class="guide-only-item">
-        <span class="check">${state.binding==="flap"?4:3}</span>
+        <span class="check">${state.binding==="flap"?5:3}</span>
         <div><strong>바코드가 붙는 뒤표지 오른쪽 아래는 비워 주세요</strong><p>55×35mm 영역에는 글자·로고·중요 이미지를 넣지 마세요.</p></div>
       </div>
       <div class="guide-only-item">
-        <span class="check">${state.binding==="flap"?5:4}</span>
+        <span class="check">${state.binding==="flap"?6:4}</span>
         <div><strong>로고는 이용 유형에 맞게 사용해 주세요</strong><p>출판사 → 출판사 로고 · 개인저자 → 퍼플 로고. 책등 10mm 이하는 책등 로고 생략 가능.</p></div>
       </div>
       <div class="guide-only-item">
-        <span class="check">${state.binding==="flap"?6:5}</span>
+        <span class="check">${state.binding==="flap"?7:5}</span>
         <div><strong>PDF 크기를 마지막으로 확인해 주세요</strong><p>화면의 표지 제작 규격과 같은지 확인해 주세요.</p></div>
       </div>
     </div>`;
@@ -13158,8 +13278,95 @@ async function downloadCoverPptx(){
   }
 }
 
+
+const PAGE_RECOMMENDED=50;
+const PAGE_MAX=1000;
+const UNDER_50_REQUEST_TEXT="50p 미만 도서의 납본 제외와 30p 미만 도서의 종이 빠짐 현상을 숙지하였습니다";
+let lastPagePolicyBand="";
+
+function renderPagePolicy(){
+  const alert=$("pagePolicyAlert");
+  const input=$("pages");
+  if(!alert||!input) return;
+
+  const raw=Number(input.value);
+  alert.className="page-policy-alert";
+  alert.innerHTML="";
+  const hint=$("pagePolicyHint");
+  if(hint) hint.hidden=true;
+
+  if(!Number.isFinite(raw) || input.value==="") return;
+
+  const band=raw<30?"under_30":(raw>PAGE_MAX?"above_max":(raw<PAGE_RECOMMENDED?"under_50":"normal"));
+  if(band!==lastPagePolicyBand){
+    lastPagePolicyBand=band;
+    if(typeof window.baroTrack==="function" && band!=="normal"){
+      window.baroTrack("show_page_policy_alert",{page_policy_band:band,pages:raw});
+    }
+  }
+
+  if(raw>PAGE_MAX){
+    alert.classList.add("show","error");
+    alert.innerHTML=`<strong>제작 가능한 최대 페이지 수는 1,000p입니다.</strong>
+      본문 원고 기준 최대 1,000p(500장)까지 제작할 수 있습니다.`;
+    return;
+  }
+
+  if(raw<30){
+    alert.classList.add("show","warning");
+    alert.innerHTML=`<strong>30p 미만 도서입니다.</strong>
+      제작은 가능하지만 국립중앙도서관 납본 대상에서 제외되며, 얇은 도서는 제작 과정에서 종이 빠짐 현상이 발생할 수 있습니다. 안정적인 제작을 위해 50p 이상을 권장하며, 등록 시 STEP5 요청사항에 아래 문구를 반드시 입력해 주세요.
+      <div class="policy-copy">
+        <code>${UNDER_50_REQUEST_TEXT}</code>
+        <button type="button" data-copy-text="${UNDER_50_REQUEST_TEXT}" data-copy-kind="under_30_pages">문구 복사</button>
+      </div>`;
+    return;
+  }
+
+  if(raw<PAGE_RECOMMENDED){
+    alert.classList.add("show","warning");
+    alert.innerHTML=`<strong>50p 미만 도서입니다.</strong>
+      제작 및 판매 승인은 가능하지만 국립중앙도서관 납본 대상에서 제외됩니다. 안정적인 제작을 위해 50p 이상을 권장하며, 등록 시 STEP5 요청사항에 아래 문구를 반드시 입력해 주세요.
+      <div class="policy-copy">
+        <code>${UNDER_50_REQUEST_TEXT}</code>
+        <button type="button" data-copy-text="${UNDER_50_REQUEST_TEXT}" data-copy-kind="under_50_pages">문구 복사</button>
+      </div>`;
+  }
+}
+
+async function copyGuideText(text,button,kind){
+  try{
+    await navigator.clipboard.writeText(text);
+    const original=button.textContent;
+    button.textContent="복사됨";
+    setTimeout(()=>{button.textContent=original},1200);
+    if(typeof window.baroTrack==="function"){
+      window.baroTrack("copy_rejection_prevention_text",{copy_kind:kind||"",copy_text_length:text.length});
+    }
+  }catch(e){
+    const ta=document.createElement("textarea");
+    ta.value=text;
+    ta.style.position="fixed";
+    ta.style.opacity="0";
+    document.body.appendChild(ta);
+    ta.select();
+    try{ document.execCommand("copy"); }catch(_){}
+    ta.remove();
+    const original=button.textContent;
+    button.textContent="복사됨";
+    setTimeout(()=>{button.textContent=original},1200);
+  }
+}
+
+document.addEventListener("click",e=>{
+  const button=e.target.closest && e.target.closest("[data-copy-text]");
+  if(!button) return;
+  e.preventDefault();
+  copyGuideText(button.dataset.copyText||"",button,button.dataset.copyKind||"");
+});
+
 function renderAll(){
-  renderBindings();renderFormats();renderPapers();updateSpec();renderSchematic();renderInitialResult();
+  renderBindings();renderFormats();renderPapers();updateSpec();renderSchematic();renderInitialResult();renderPagePolicy();
   removeAutoMeasurementLayer();
   const autoState=$("autoMeasureState");
   if(autoState) autoState.textContent="";
@@ -13173,7 +13380,7 @@ function renderAll(){
 
 $("pages").oninput=e=>{
   state.pages=Math.max(1,Number(e.target.value||1));
-  updateSpec();renderSchematic();renderInitialResult();updateCoverPptxAction();
+  updateSpec();renderSchematic();renderInitialResult();renderPagePolicy();updateCoverPptxAction();
 }
 document.querySelectorAll(".mode-tabs button").forEach(b=>b.onclick=()=>{
   state.mode=b.dataset.mode;
@@ -19273,7 +19480,7 @@ function renderInnerSpreadGuide(){
   function track(eventName, params){
     if(!enabled || typeof window.gtag !== "function") return;
     window.gtag("event", eventName, Object.assign({
-      guide_version: "v2.04",
+      guide_version: "v2.08",
       page_location: window.location.href,
       page_title: document.title
     }, currentContext(), params || {}));
@@ -19474,6 +19681,58 @@ function renderInnerSpreadGuide(){
   const bodyObserver=new MutationObserver(updateCue);
   bodyObserver.observe(document.body,{attributes:true,attributeFilter:['class']});
   setTimeout(()=>{alignCue();updateCue();},0);
+})();
+</script>
+
+
+<script id="v207-pagination-ready">
+(function(){
+  const selectors=[
+    '[data-page-counter]',
+    '.page-counter',
+    '.pagination-counter',
+    '.page-indicator',
+    '.preview-page-count',
+    '.preview-pagination .counter'
+  ];
+
+  function normalizeCounter(el){
+    if(!el) return;
+    const txt=(el.textContent||'').trim();
+    const ready=/^\d+\s*\/\s*\d+$/.test(txt);
+    el.classList.toggle('is-ready', ready);
+    if(!ready){
+      el.setAttribute('aria-hidden','true');
+    }else{
+      el.removeAttribute('aria-hidden');
+    }
+  }
+
+  function scan(){
+    selectors.forEach(sel=>{
+      document.querySelectorAll(sel).forEach(normalizeCounter);
+    });
+  }
+
+  const observer=new MutationObserver(mutations=>{
+    let shouldScan=false;
+    for(const m of mutations){
+      if(m.type==='characterData' || m.type==='childList' || m.type==='attributes'){
+        shouldScan=true; break;
+      }
+    }
+    if(shouldScan) scan();
+  });
+
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',()=>{
+      scan();
+      observer.observe(document.body,{subtree:true,childList:true,characterData:true,attributes:true});
+    },{once:true});
+  }else{
+    scan();
+    observer.observe(document.body,{subtree:true,childList:true,characterData:true,attributes:true});
+  }
 })();
 </script>
 

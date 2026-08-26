@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="baro-pod-build" content="guide-v2.09" />
-  <title>바로출판POD 표지·내지 제작 가이드 v2.09</title>
+  <meta name="baro-pod-build" content="guide-v2.15" />
+  <title>바로출판POD 표지·내지 제작 가이드 v2.15</title>
   <style>
     :root{
       --bg:#f4f6f8; --panel:#fff; --line:#e5e8eb; --text:#191f28;
@@ -11596,7 +11596,7 @@ body.preview-fullscreen-active .next-spec-cue{display:none!important;}
 </style>
 
 <style id="v205-rejection-prevention">
-/* v2.09 — 조건 기반 반려 예방 안내 */
+/* v2.15 — 조건 기반 반려 예방 안내 */
 .page-policy-hint{
   margin-top:8px;
   color:#6b7684;
@@ -11682,7 +11682,7 @@ body.preview-fullscreen-active .next-spec-cue{display:none!important;}
 
 
 <style id="v207-pagination-polish">
-/* v2.09 — 초기 렌더링 중 n/n 등 미완성 페이지 표기를 숨김 */
+/* v2.15 — 초기 렌더링 중 n/n 등 미완성 페이지 표기를 숨김 */
 [data-page-counter],
 .page-counter,
 .pagination-counter,
@@ -11704,7 +11704,7 @@ body.preview-fullscreen-active .next-spec-cue{display:none!important;}
 
 <style id="v209-ui-polish">
 /* =========================================================
-   v2.09 — UI polish
+   v2.15 — UI polish
    원칙: 구조는 유지하고, 위계·정렬·가독성·상태 인지만 정돈
    ========================================================= */
 
@@ -12006,6 +12006,1022 @@ summary:focus-visible{
 }
 </style>
 
+
+<style id="v211-toolbar-recovery-polish">
+/* =========================================================
+   v2.15 — toolbar recovery + border polish
+   IMPORTANT: expandPreviewBtn remains in DOM because existing
+   preview scripts reference it during initialization.
+   ========================================================= */
+
+/* Hide only visually; do not remove from DOM. */
+#expandPreviewBtn{
+  display:none!important;
+}
+
+/* Toolbar layout */
+.zoom{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:flex-end!important;
+  gap:8px!important;
+  flex-wrap:nowrap!important;
+}
+
+/* View controls */
+.zoom .preview-view-btn{
+  height:36px!important;
+  min-height:36px!important;
+  padding:0 12px!important;
+  border:1px solid #dfe3e8!important;
+  border-radius:9px!important;
+  background:#fff!important;
+  color:#475467!important;
+  box-shadow:none!important;
+  box-sizing:border-box!important;
+  font-size:11.5px!important;
+  font-weight:750!important;
+  line-height:1!important;
+}
+.zoom .preview-view-btn:hover{
+  border-color:#bbb8da!important;
+  background:#f8f8fc!important;
+  color:#3f4380!important;
+}
+.zoom .preview-view-btn:active{
+  transform:none!important;
+}
+
+/* The zoom cluster has ONE outer border and 1px separators. */
+.zoom-stepper{
+  display:inline-flex!important;
+  align-items:stretch!important;
+  flex:0 0 auto!important;
+  height:36px!important;
+  margin-left:4px!important;
+  overflow:hidden!important;
+  border:1px solid #dfe3e8!important;
+  border-radius:9px!important;
+  background:#fff!important;
+  box-shadow:none!important;
+  box-sizing:border-box!important;
+}
+
+.zoom-stepper #zoomOut,
+.zoom-stepper #zoomIn{
+  width:36px!important;
+  min-width:36px!important;
+  height:34px!important;
+  min-height:34px!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:#fff!important;
+  color:#667085!important;
+  box-shadow:none!important;
+  box-sizing:border-box!important;
+  font-size:15px!important;
+  font-weight:650!important;
+  line-height:1!important;
+}
+
+.zoom-stepper #zoomLabel{
+  width:56px!important;
+  min-width:56px!important;
+  height:34px!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  background:#fff!important;
+  color:#475467!important;
+  box-shadow:none!important;
+  box-sizing:border-box!important;
+  font-size:11px!important;
+  font-weight:750!important;
+  line-height:1!important;
+  font-variant-numeric:tabular-nums!important;
+}
+
+.zoom-stepper #zoomOut{
+  border-right:1px solid #e6e9ed!important;
+}
+.zoom-stepper #zoomIn{
+  border-left:1px solid #e6e9ed!important;
+}
+
+.zoom-stepper #zoomOut:hover,
+.zoom-stepper #zoomIn:hover{
+  background:#f8f8fc!important;
+  color:#3f4380!important;
+}
+.zoom-stepper #zoomOut:active,
+.zoom-stepper #zoomIn:active{
+  transform:none!important;
+}
+
+/* Reset is intentionally separate from zoom +/- cluster. */
+.zoom #zoomReset.zoom-reset-btn,
+.zoom #zoomReset{
+  width:36px!important;
+  min-width:36px!important;
+  height:36px!important;
+  min-height:36px!important;
+  margin:0!important;
+  padding:0!important;
+  border:1px solid #dfe3e8!important;
+  border-radius:9px!important;
+  background:#fff!important;
+  color:#667085!important;
+  box-shadow:none!important;
+  box-sizing:border-box!important;
+}
+.zoom #zoomReset:hover{
+  border-color:#bbb8da!important;
+  background:#f8f8fc!important;
+  color:#3f4380!important;
+}
+.zoom #zoomReset:active{
+  transform:none!important;
+}
+
+/* Prevent older rules from visually joining reset to +/- cluster. */
+.zoom-stepper + #zoomReset{
+  margin-left:0!important;
+}
+
+/* Border system: don't change thickness on hover/active. */
+.format-card,
+.binding-card,
+.paper-card,
+.guide-only-item,
+.clean-measure-toolbar,
+.page-policy-alert,
+.page-policy-alert .policy-copy{
+  border-width:1px!important;
+  box-sizing:border-box!important;
+}
+
+.format-card:hover,
+.binding-card:hover,
+.paper-card:hover,
+.format-card.active,
+.binding-card.active,
+.paper-card.active{
+  border-width:1px!important;
+}
+
+/* Responsive safety */
+@media(max-width:1280px){
+  .zoom{gap:6px!important}
+  .zoom .preview-view-btn{
+    padding:0 10px!important;
+    font-size:11px!important;
+  }
+  .zoom-stepper{margin-left:2px!important}
+}
+</style>
+
+
+<style id="v212-toolbar-spec-strip">
+/* =========================================================
+   v2.15 — Toolbar + Specification Strip
+   Principle: controls look interactive; information does not.
+   ========================================================= */
+
+/* A. Toolbar layout */
+.canvas-toolbar{
+  column-gap:16px!important;
+  row-gap:8px!important;
+  padding:10px 15px 11px!important;
+  border-bottom:1px solid #e8ebef!important;
+  background:#fff!important;
+}
+
+.zoom{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:flex-end!important;
+  gap:5px!important;
+  flex-wrap:nowrap!important;
+}
+
+/* B. View actions: flat text buttons, not capsules */
+.zoom .preview-view-btn{
+  height:34px!important;
+  min-height:34px!important;
+  padding:0 9px!important;
+  border:0!important;
+  border-radius:7px!important;
+  background:transparent!important;
+  color:#596273!important;
+  box-shadow:none!important;
+  box-sizing:border-box!important;
+  font-size:11.5px!important;
+  font-weight:700!important;
+  line-height:1!important;
+  gap:6px!important;
+}
+.zoom .preview-view-btn::before{
+  width:15px!important;
+  height:15px!important;
+}
+.zoom .preview-view-btn:hover{
+  border:0!important;
+  background:#f3f4f7!important;
+  color:#343968!important;
+}
+.zoom .preview-view-btn:active{
+  transform:none!important;
+  background:#eceef3!important;
+}
+.zoom .preview-view-btn:focus-visible{
+  outline:2px solid rgba(75,79,143,.22)!important;
+  outline-offset:1px!important;
+}
+
+/* expand remains hidden for compatibility; DOM is preserved */
+#expandPreviewBtn{display:none!important;}
+
+/* C. Zoom stepper: one rectangular control, one outer border */
+.zoom-stepper{
+  display:inline-flex!important;
+  align-items:stretch!important;
+  flex:0 0 auto!important;
+  height:34px!important;
+  margin-left:5px!important;
+  overflow:hidden!important;
+  border:1px solid #dfe3e8!important;
+  border-radius:7px!important;
+  background:#fff!important;
+  box-shadow:none!important;
+  box-sizing:border-box!important;
+}
+
+.zoom-stepper #zoomOut,
+.zoom-stepper #zoomIn{
+  position:relative!important;
+  width:34px!important;
+  min-width:34px!important;
+  height:32px!important;
+  min-height:32px!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:#fff!important;
+  color:#667085!important;
+  box-shadow:none!important;
+  box-sizing:border-box!important;
+  font-size:0!important; /* literal glyphs are intentionally not used */
+  line-height:0!important;
+}
+.zoom-stepper #zoomOut{border-right:1px solid #e7eaee!important;}
+.zoom-stepper #zoomIn{border-left:1px solid #e7eaee!important;}
+
+.zoom-stepper #zoomOut::before,
+.zoom-stepper #zoomIn::before{
+  content:""!important;
+  display:block!important;
+  width:14px!important;
+  height:14px!important;
+  background:currentColor!important;
+}
+
+.zoom-stepper #zoomOut:hover,
+.zoom-stepper #zoomIn:hover{
+  background:#f6f7f9!important;
+  color:#343968!important;
+}
+.zoom-stepper #zoomOut:active,
+.zoom-stepper #zoomIn:active{
+  transform:none!important;
+  background:#eceef3!important;
+}
+
+/* Numeric zoom value is the visual anchor */
+.zoom-stepper #zoomLabel{
+  width:56px!important;
+  min-width:56px!important;
+  height:32px!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  background:#fff!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  box-sizing:border-box!important;
+  color:#344054!important;
+  font-size:11px!important;
+  font-weight:760!important;
+  line-height:1!important;
+  font-variant-numeric:tabular-nums!important;
+}
+
+/* D. Reset: quiet icon action, no permanent capsule */
+.zoom #zoomReset,
+.zoom #zoomReset.zoom-reset-btn{
+  position:relative!important;
+  width:34px!important;
+  min-width:34px!important;
+  height:34px!important;
+  min-height:34px!important;
+  margin-left:2px!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:7px!important;
+  background:transparent!important;
+  color:#667085!important;
+  box-shadow:none!important;
+  box-sizing:border-box!important;
+  font-size:0!important;
+  line-height:0!important;
+}
+.zoom #zoomReset::before{
+  content:""!important;
+  display:block!important;
+  width:15px!important;
+  height:15px!important;
+  background:currentColor!important;
+}
+.zoom #zoomReset:hover{
+  border:0!important;
+  background:#f3f4f7!important;
+  color:#343968!important;
+}
+.zoom #zoomReset:active{
+  transform:none!important;
+  background:#eceef3!important;
+}
+
+/* E. Specification information: remove pill/card language completely */
+#spreadSpecSummary{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:flex-end!important;
+  flex-wrap:wrap!important;
+  gap:0!important;
+  row-gap:6px!important;
+  min-width:0!important;
+}
+
+#spreadSpecSummary span{
+  position:relative!important;
+  min-height:26px!important;
+  margin:0!important;
+  padding:0 13px!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  display:inline-flex!important;
+  align-items:baseline!important;
+  gap:5px!important;
+  box-sizing:border-box!important;
+  white-space:nowrap!important;
+}
+
+/* subtle separators create a single information rail */
+#spreadSpecSummary span + i{display:none!important;}
+#spreadSpecSummary span:not(:first-of-type)::before{
+  content:""!important;
+  position:absolute!important;
+  left:0!important;
+  top:6px!important;
+  bottom:6px!important;
+  width:1px!important;
+  background:#e4e7ec!important;
+}
+
+#spreadSpecSummary em{
+  color:#8a94a3!important;
+  font-size:10.5px!important;
+  font-weight:620!important;
+  font-style:normal!important;
+  line-height:1!important;
+}
+#spreadSpecSummary b{
+  color:#344054!important;
+  font-size:12px!important;
+  font-weight:760!important;
+  line-height:1!important;
+  font-variant-numeric:tabular-nums!important;
+  letter-spacing:-.012em!important;
+}
+
+/* First value is important, but still remains information rather than a badge */
+#spreadSpecSummary span:first-child{
+  border:0!important;
+  background:transparent!important;
+}
+#spreadSpecSummary span:first-child em{color:#70798a!important;}
+#spreadSpecSummary span:first-child b{color:#343968!important;}
+
+/* F. Avoid border thickness shifts across the preview UI */
+.zoom-stepper,
+.canvas-card,
+.clean-measure-toolbar,
+.guide-only-item,
+.page-policy-alert,
+.page-policy-alert .policy-copy{
+  box-sizing:border-box!important;
+}
+.zoom-stepper:hover{border-width:1px!important;}
+
+/* G. Responsive hierarchy */
+@media(max-width:1400px){
+  #spreadSpecSummary span{padding:0 10px!important;}
+  #spreadSpecSummary em{font-size:10px!important;}
+  #spreadSpecSummary b{font-size:11.5px!important;}
+  .zoom .preview-view-btn{padding:0 8px!important;}
+}
+@media(max-width:1200px){
+  #spreadSpecSummary{
+    justify-content:flex-start!important;
+  }
+}
+</style>
+
+
+<style id="v213-fullscreen-layout-fix">
+/* =========================================================
+   v2.15 — Fullscreen inspection layout
+   - no overlap between toolbar and fullscreen-exit
+   - safe title area
+   - preview centered in actual available canvas
+   ========================================================= */
+
+body.preview-fullscreen-active{
+  background:#eef1f4!important;
+  overflow:hidden!important;
+}
+
+body.preview-fullscreen-active #appShell > .workspace.fullscreen-preview{
+  position:fixed!important;
+  inset:0!important;
+  width:100vw!important;
+  height:100vh!important;
+  margin:0!important;
+  padding:10px!important;
+  background:#eef1f4!important;
+  overflow:hidden!important;
+  box-sizing:border-box!important;
+}
+
+body.preview-fullscreen-active .workspace.fullscreen-preview > .canvas-card{
+  position:relative!important;
+  width:100%!important;
+  height:100%!important;
+  margin:0!important;
+  border:1px solid #dce2e8!important;
+  border-radius:12px!important;
+  background:#fff!important;
+  box-shadow:0 10px 30px rgba(16,24,40,.07)!important;
+  overflow:hidden!important;
+  box-sizing:border-box!important;
+}
+
+/* Fullscreen gets a dedicated single-row inspection toolbar. */
+body.preview-fullscreen-active .workspace.fullscreen-preview .canvas-toolbar{
+  position:absolute!important;
+  top:0!important;
+  left:0!important;
+  right:0!important;
+  z-index:40!important;
+  display:grid!important;
+  grid-template-columns:minmax(220px,1fr) auto!important;
+  grid-template-areas:"title controls"!important;
+  align-items:center!important;
+  gap:16px!important;
+  width:100%!important;
+  height:60px!important;
+  min-height:60px!important;
+  margin:0!important;
+  /* reserve a guaranteed lane for the fixed Exit button */
+  padding:0 164px 0 18px!important;
+  border:0!important;
+  border-bottom:1px solid #e6eaf0!important;
+  background:rgba(255,255,255,.98)!important;
+  backdrop-filter:blur(10px)!important;
+  -webkit-backdrop-filter:blur(10px)!important;
+  box-shadow:none!important;
+  overflow:visible!important;
+  box-sizing:border-box!important;
+}
+
+body.preview-fullscreen-active .workspace.fullscreen-preview .canvas-title{
+  grid-area:title!important;
+  display:flex!important;
+  align-items:center!important;
+  min-width:0!important;
+  height:100%!important;
+  margin:0!important;
+  padding:0!important;
+  overflow:visible!important;
+}
+body.preview-fullscreen-active .workspace.fullscreen-preview .canvas-title-main{
+  display:flex!important;
+  align-items:center!important;
+  min-width:0!important;
+  height:100%!important;
+  margin:0!important;
+  padding:0!important;
+  overflow:visible!important;
+}
+body.preview-fullscreen-active .workspace.fullscreen-preview .canvas-title-main strong{
+  display:block!important;
+  margin:0!important;
+  padding:0!important;
+  color:#172033!important;
+  font-size:14px!important;
+  font-weight:760!important;
+  line-height:1.4!important;
+  white-space:nowrap!important;
+  overflow:visible!important;
+  text-overflow:clip!important;
+}
+
+/* Fullscreen is for inspecting the preview, not reading contextual help/spec chips. */
+body.preview-fullscreen-active .workspace.fullscreen-preview .canvas-title-main > span,
+body.preview-fullscreen-active .workspace.fullscreen-preview .cover-help-links,
+body.preview-fullscreen-active .workspace.fullscreen-preview .spread-spec-line,
+body.preview-fullscreen-active .workspace.fullscreen-preview #spreadSpecSummary{
+  display:none!important;
+}
+
+/* Right controls own only the free space before the exit lane. */
+body.preview-fullscreen-active .workspace.fullscreen-preview .zoom{
+  grid-area:controls!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:flex-end!important;
+  flex-wrap:nowrap!important;
+  gap:5px!important;
+  min-width:0!important;
+  max-width:100%!important;
+  margin:0!important;
+  padding:0!important;
+  overflow:visible!important;
+}
+
+/* Not useful after entering fullscreen. */
+body.preview-fullscreen-active .workspace.fullscreen-preview #fullscreenBtn,
+body.preview-fullscreen-active .workspace.fullscreen-preview #expandPreviewBtn,
+body.preview-fullscreen-active .workspace.fullscreen-preview #toolbarInspectBtn{
+  display:none!important;
+}
+
+/* View action remains intentionally quiet. */
+body.preview-fullscreen-active .workspace.fullscreen-preview .zoom .preview-view-btn{
+  height:34px!important;
+  min-height:34px!important;
+  padding:0 9px!important;
+  border:0!important;
+  border-radius:7px!important;
+  background:transparent!important;
+  color:#596273!important;
+  box-shadow:none!important;
+}
+body.preview-fullscreen-active .workspace.fullscreen-preview .zoom .preview-view-btn:hover{
+  border:0!important;
+  background:#f3f4f7!important;
+  color:#343968!important;
+}
+
+/* Zoom control keeps the compact v2.12 visual grammar. */
+body.preview-fullscreen-active .workspace.fullscreen-preview .zoom-stepper{
+  height:34px!important;
+  margin-left:4px!important;
+  border:1px solid #dfe3e8!important;
+  border-radius:7px!important;
+  background:#fff!important;
+  overflow:hidden!important;
+  box-shadow:none!important;
+}
+body.preview-fullscreen-active .workspace.fullscreen-preview .zoom-stepper #zoomOut,
+body.preview-fullscreen-active .workspace.fullscreen-preview .zoom-stepper #zoomIn{
+  width:34px!important;
+  min-width:34px!important;
+  height:32px!important;
+  min-height:32px!important;
+  border-radius:0!important;
+}
+body.preview-fullscreen-active .workspace.fullscreen-preview .zoom-stepper #zoomLabel{
+  width:56px!important;
+  min-width:56px!important;
+  height:32px!important;
+}
+body.preview-fullscreen-active .workspace.fullscreen-preview #zoomReset{
+  width:34px!important;
+  min-width:34px!important;
+  height:34px!important;
+  min-height:34px!important;
+  margin-left:1px!important;
+  border:0!important;
+  border-radius:7px!important;
+  background:transparent!important;
+}
+
+/* Exit is a dedicated final action aligned to the card toolbar.
+   It no longer floats over normal toolbar controls. */
+body.preview-fullscreen-active .fullscreen-exit-fixed{
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:7px!important;
+  position:fixed!important;
+  top:23px!important;       /* 10px workspace inset + centered inside 60px toolbar */
+  right:22px!important;
+  z-index:10050!important;
+  width:auto!important;
+  min-width:122px!important;
+  height:34px!important;
+  margin:0!important;
+  padding:0 12px!important;
+  border:1px solid #d7dee7!important;
+  border-radius:8px!important;
+  background:#fff!important;
+  color:#344054!important;
+  box-shadow:0 2px 8px rgba(16,24,40,.06)!important;
+  box-sizing:border-box!important;
+  font-size:11.5px!important;
+  font-weight:720!important;
+  line-height:1!important;
+  white-space:nowrap!important;
+}
+body.preview-fullscreen-active .fullscreen-exit-fixed:hover{
+  background:#f7f8fa!important;
+  border-color:#c9d1dc!important;
+  color:#172033!important;
+}
+
+/* Preview canvas uses all remaining vertical space and centers the schematic
+   in the true available area. */
+body.preview-fullscreen-active .workspace.fullscreen-preview .canvas-area{
+  position:absolute!important;
+  top:60px!important;
+  left:0!important;
+  right:0!important;
+  bottom:38px!important;
+  width:auto!important;
+  height:auto!important;
+  min-height:0!important;
+  margin:0!important;
+  padding:24px 28px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  overflow:auto!important;
+  background:#f5f7f9!important;
+  box-sizing:border-box!important;
+}
+
+body.preview-fullscreen-active .workspace.fullscreen-preview .schematic,
+body.preview-fullscreen-active .workspace.fullscreen-preview .schematic-wrap,
+body.preview-fullscreen-active .workspace.fullscreen-preview .file-preview,
+body.preview-fullscreen-active .workspace.fullscreen-preview .inner-spread-preview,
+body.preview-fullscreen-active .workspace.fullscreen-preview .preview-stage,
+body.preview-fullscreen-active .workspace.fullscreen-preview .book-shell.reference-layout{
+  margin-left:auto!important;
+  margin-right:auto!important;
+}
+
+/* Footer remains quiet and fixed to the bottom. */
+body.preview-fullscreen-active .workspace.fullscreen-preview .canvas-footer{
+  position:absolute!important;
+  left:0!important;
+  right:0!important;
+  bottom:0!important;
+  z-index:30!important;
+  height:38px!important;
+  min-height:38px!important;
+  padding:5px 10px!important;
+  border-top:1px solid #e6eaf0!important;
+  background:#fff!important;
+  box-sizing:border-box!important;
+}
+
+/* On narrower desktop widths, protect title first, then reduce labels. */
+@media(max-width:1100px){
+  body.preview-fullscreen-active .workspace.fullscreen-preview .canvas-toolbar{
+    grid-template-columns:minmax(150px,1fr) auto!important;
+    height:56px!important;
+    min-height:56px!important;
+    padding:0 148px 0 14px!important;
+    gap:8px!important;
+  }
+  body.preview-fullscreen-active .workspace.fullscreen-preview .canvas-title-main strong{
+    font-size:13px!important;
+  }
+  body.preview-fullscreen-active .workspace.fullscreen-preview .zoom .preview-view-btn .view-label{
+    display:none!important;
+  }
+  body.preview-fullscreen-active .workspace.fullscreen-preview .canvas-area{
+    top:56px!important;
+    padding:16px!important;
+  }
+  body.preview-fullscreen-active .fullscreen-exit-fixed{
+    top:21px!important;
+    right:18px!important;
+    min-width:112px!important;
+    height:32px!important;
+  }
+}
+
+@media(max-width:760px){
+  body.preview-fullscreen-active #appShell > .workspace.fullscreen-preview{
+    padding:6px!important;
+  }
+  body.preview-fullscreen-active .workspace.fullscreen-preview > .canvas-card{
+    border-radius:9px!important;
+  }
+  body.preview-fullscreen-active .workspace.fullscreen-preview .canvas-toolbar{
+    height:52px!important;
+    min-height:52px!important;
+    padding:0 128px 0 12px!important;
+  }
+  body.preview-fullscreen-active .workspace.fullscreen-preview .canvas-area{
+    top:52px!important;
+    bottom:34px!important;
+    padding:10px!important;
+  }
+  body.preview-fullscreen-active .workspace.fullscreen-preview .canvas-footer{
+    height:34px!important;
+    min-height:34px!important;
+  }
+  body.preview-fullscreen-active .fullscreen-exit-fixed{
+    top:16px!important;
+    right:12px!important;
+    min-width:104px!important;
+    height:32px!important;
+    padding:0 9px!important;
+    font-size:10.5px!important;
+  }
+}
+</style>
+
+
+<style id="v214-fullscreen-state-and-layout">
+/* =========================================================
+   v2.15 — Fullscreen state fix + robust layout
+   The primary fullscreen state is .workspace.fullscreen-preview.
+   ========================================================= */
+
+/* Root full-screen surface */
+.workspace.fullscreen-preview{
+  position:fixed!important;
+  inset:0!important;
+  z-index:9999!important;
+  width:100vw!important;
+  height:100vh!important;
+  margin:0!important;
+  padding:10px!important;
+  background:#eef1f4!important;
+  overflow:hidden!important;
+  box-sizing:border-box!important;
+}
+
+/* Main card */
+.workspace.fullscreen-preview > .canvas-card{
+  position:relative!important;
+  width:100%!important;
+  height:100%!important;
+  min-height:0!important;
+  margin:0!important;
+  padding:0!important;
+  border:1px solid #dce2e8!important;
+  border-radius:12px!important;
+  background:#fff!important;
+  box-shadow:0 10px 30px rgba(16,24,40,.06)!important;
+  overflow:hidden!important;
+  box-sizing:border-box!important;
+}
+
+/* One-row fullscreen toolbar */
+.workspace.fullscreen-preview .canvas-toolbar{
+  position:absolute!important;
+  top:0!important;
+  left:0!important;
+  right:0!important;
+  z-index:50!important;
+  display:grid!important;
+  grid-template-columns:minmax(180px,1fr) auto!important;
+  grid-template-areas:"title controls"!important;
+  align-items:center!important;
+  gap:14px!important;
+  width:100%!important;
+  height:56px!important;
+  min-height:56px!important;
+  margin:0!important;
+  padding:0 162px 0 18px!important;
+  border:0!important;
+  border-bottom:1px solid #e6eaf0!important;
+  background:#fff!important;
+  box-shadow:none!important;
+  overflow:visible!important;
+  box-sizing:border-box!important;
+}
+
+/* Title only; no help links in fullscreen */
+.workspace.fullscreen-preview .canvas-title{
+  grid-area:title!important;
+  display:flex!important;
+  align-items:center!important;
+  min-width:0!important;
+  height:56px!important;
+  margin:0!important;
+  padding:0!important;
+  overflow:visible!important;
+}
+.workspace.fullscreen-preview .canvas-title-main{
+  display:flex!important;
+  align-items:center!important;
+  min-width:0!important;
+  margin:0!important;
+  padding:0!important;
+  overflow:visible!important;
+}
+.workspace.fullscreen-preview .canvas-title-main strong{
+  display:block!important;
+  margin:0!important;
+  padding:0!important;
+  color:#172033!important;
+  font-size:14px!important;
+  font-weight:780!important;
+  line-height:1.3!important;
+  white-space:nowrap!important;
+  overflow:visible!important;
+  text-overflow:clip!important;
+}
+.workspace.fullscreen-preview .canvas-title-main > span,
+.workspace.fullscreen-preview #coverHelpLinks,
+.workspace.fullscreen-preview #innerHelpLinks,
+.workspace.fullscreen-preview .cover-help-links,
+.workspace.fullscreen-preview .spread-spec-line,
+.workspace.fullscreen-preview #spreadSpecSummary{
+  display:none!important;
+}
+
+/* Controls */
+.workspace.fullscreen-preview .zoom{
+  grid-area:controls!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:flex-end!important;
+  flex-wrap:nowrap!important;
+  gap:5px!important;
+  min-width:max-content!important;
+  margin:0!important;
+  padding:0!important;
+  overflow:visible!important;
+}
+
+/* Hide actions that no longer make sense in fullscreen */
+.workspace.fullscreen-preview #fullscreenBtn,
+.workspace.fullscreen-preview #expandPreviewBtn,
+.workspace.fullscreen-preview #toolbarInspectBtn{
+  display:none!important;
+}
+
+/* Keep only screen-fit + zoom controls */
+.workspace.fullscreen-preview #fitHeightBtn{
+  display:inline-flex!important;
+}
+
+/* Exit gets its own reserved lane, never overlapping toolbar controls */
+body.preview-fullscreen-active .fullscreen-exit-fixed,
+.workspace.fullscreen-preview ~ .fullscreen-exit-fixed{
+  z-index:10060!important;
+}
+body.preview-fullscreen-active #fullscreenExitBtn{
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:6px!important;
+  position:fixed!important;
+  top:21px!important;
+  right:22px!important;
+  width:auto!important;
+  min-width:120px!important;
+  height:34px!important;
+  margin:0!important;
+  padding:0 12px!important;
+  border:1px solid #d7dee7!important;
+  border-radius:8px!important;
+  background:#fff!important;
+  color:#344054!important;
+  box-shadow:0 2px 8px rgba(16,24,40,.06)!important;
+  box-sizing:border-box!important;
+  font-size:11.5px!important;
+  font-weight:740!important;
+  line-height:1!important;
+  white-space:nowrap!important;
+}
+
+/* Hide the old contextual measurement bar in fullscreen */
+.workspace.fullscreen-preview .measurement-toolbar{
+  display:none!important;
+}
+
+/* True available preview area */
+.workspace.fullscreen-preview .canvas-area{
+  position:absolute!important;
+  top:56px!important;
+  left:0!important;
+  right:0!important;
+  bottom:38px!important;
+  width:auto!important;
+  height:auto!important;
+  min-height:0!important;
+  margin:0!important;
+  padding:22px 28px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  overflow:auto!important;
+  background:#f5f7f9!important;
+  box-sizing:border-box!important;
+}
+
+/* Center the actual preview */
+.workspace.fullscreen-preview .schematic,
+.workspace.fullscreen-preview .file-preview,
+.workspace.fullscreen-preview .inner-spread-preview,
+.workspace.fullscreen-preview .preview-stage,
+.workspace.fullscreen-preview .book-shell.reference-layout{
+  margin-left:auto!important;
+  margin-right:auto!important;
+}
+
+/* Footer */
+.workspace.fullscreen-preview .canvas-footer{
+  position:absolute!important;
+  left:0!important;
+  right:0!important;
+  bottom:0!important;
+  z-index:30!important;
+  height:38px!important;
+  min-height:38px!important;
+  max-height:38px!important;
+  margin:0!important;
+  padding:5px 10px!important;
+  border-top:1px solid #e6eaf0!important;
+  background:#fff!important;
+  overflow:hidden!important;
+  box-sizing:border-box!important;
+}
+
+/* Keep the fullscreen zoom group compact */
+.workspace.fullscreen-preview .zoom-stepper{
+  margin-left:4px!important;
+}
+
+/* Narrow desktop */
+@media(max-width:1100px){
+  .workspace.fullscreen-preview{
+    padding:8px!important;
+  }
+  .workspace.fullscreen-preview .canvas-toolbar{
+    height:54px!important;
+    min-height:54px!important;
+    padding:0 146px 0 14px!important;
+  }
+  .workspace.fullscreen-preview .canvas-title{
+    height:54px!important;
+  }
+  .workspace.fullscreen-preview .canvas-title-main strong{
+    font-size:13px!important;
+  }
+  .workspace.fullscreen-preview .zoom .view-label{
+    display:none!important;
+  }
+  .workspace.fullscreen-preview .canvas-area{
+    top:54px!important;
+    padding:16px!important;
+  }
+  body.preview-fullscreen-active #fullscreenExitBtn{
+    top:18px!important;
+    right:18px!important;
+    min-width:110px!important;
+    height:32px!important;
+  }
+}
+</style>
+
+
+<style id="v215-fullscreen-fit-stability">
+/* v2.15 — fullscreen fit should settle once, without visual size animation */
+.workspace.fullscreen-preview #schematic,
+.workspace.fullscreen-preview .inner-flow-spread{
+  transition:none!important;
+  animation:none!important;
+}
+</style>
+
 </head>
 <body>
   <button class="fullscreen-exit-fixed" id="fullscreenExitBtn" type="button" aria-label="전체화면 종료">
@@ -12015,7 +13031,7 @@ summary:focus-visible{
 <div class="app" id="appShell">
   <aside class="left">
     <div class="brand">
-      <div class="kicker">교보문고 바로출판POD · 제작 가이드 v2.09</div>
+      <div class="kicker">교보문고 바로출판POD · 제작 가이드 v2.15</div>
       <h1>표지·내지 제작 가이드</h1>
       <p>제작 사양을 선택하면 필요한 파일 크기와 작업 영역을 자동으로 계산합니다.</p>
       <nav class="spec-flow-map" aria-label="제작 사양 선택 3단계">
@@ -12268,16 +13284,16 @@ summary:focus-visible{
         </div>
         <div class="spread-spec-line" id="spreadSpecSummary"></div>
         <div class="zoom">
-          <button class="preview-view-btn" id="fitHeightBtn" type="button" title="미리보기를 화면에 맞춤"><span aria-hidden="true">↕</span><span class="view-label">맞춤</span></button>
+          <button class="preview-view-btn" id="fitHeightBtn" type="button" title="미리보기를 화면에 맞춤"><span aria-hidden="true">↕</span><span class="view-label">화면 맞춤</span></button>
           <button class="preview-view-btn" id="expandPreviewBtn" type="button" title="미리보기 영역 확장"><span aria-hidden="true">↗</span><span class="view-label">확장</span></button>
 <button class="preview-view-btn" id="fullscreenBtn" type="button" title="전체화면"><span aria-hidden="true">⛶</span><span class="view-label">전체화면</span></button>
           <button class="reinspect-btn" id="toolbarInspectBtn" type="button" title="현재 파일 다시 검수" disabled><span aria-hidden="true">↻</span><span class="view-label">다시 검수</span></button>
           <div class="zoom-stepper" role="group" aria-label="확대 및 축소">
-            <button id="zoomOut" type="button" title="축소" aria-label="축소">−</button>
+            <button id="zoomOut" type="button" title="축소" aria-label="축소"></button>
             <span id="zoomLabel" aria-live="polite">100%</span>
-            <button id="zoomIn" type="button" title="확대" aria-label="확대">＋</button>
+            <button id="zoomIn" type="button" title="확대" aria-label="확대"></button>
           </div>
-          <button id="zoomReset" class="zoom-reset-btn" type="button" title="확대/축소 초기화 (100%)" aria-label="확대/축소 초기화 (100%)">↺</button>
+          <button id="zoomReset" class="zoom-reset-btn" type="button" title="100%로 초기화" aria-label="100%로 초기화"></button>
         </div>
       </div>
 <div class="measurement-toolbar clean-measure-toolbar" id="measurementToolbar">
@@ -18180,7 +19196,8 @@ document.addEventListener("click",event=>{
 
 
 document.addEventListener("fullscreenchange",()=>{
-  const active=!!document.fullscreenElement;
+  const workspace=document.querySelector(".workspace");
+  const active=!!document.fullscreenElement || !!(workspace && workspace.classList.contains("fullscreen-preview"));
   document.body.classList.toggle("preview-fullscreen-active",active);
   refreshAfterFullscreenChange().catch(error=>{
     console.error("전체화면 전환 후 미리보기 정렬 복구 실패",error);
@@ -18413,11 +19430,9 @@ function resetFullscreenPreviewAlignment(){
     el.style.removeProperty("transform");
   });
 
-  if(document.fullscreenElement){
-    document.body.classList.add("preview-fullscreen-active");
-  }else{
-    document.body.classList.remove("preview-fullscreen-active");
-  }
+  const classFullscreen=workspace && workspace.classList.contains("fullscreen-preview");
+  const browserFullscreen=!!document.fullscreenElement;
+  document.body.classList.toggle("preview-fullscreen-active", classFullscreen || browserFullscreen);
 }
 
 async function refreshAfterFullscreenChange(){
@@ -18516,6 +19531,13 @@ async function togglePreviewExpanded(){
   $("expandPreviewBtn").querySelector(".view-label").textContent=active?"복원":"확장";
   await refreshCurrentPreviewLayout(160);
 }
+function isStaticGuidePreview(){
+  return typeof state!=="undefined" && (
+    (state.mode==="cover" && !state.coverInfo) ||
+    (state.mode==="inner" && !state.innerInfo)
+  );
+}
+
 async function enterFullscreenPreview(){
   const workspace=document.querySelector(".workspace");
   const app=document.querySelector(".app");
@@ -18531,8 +19553,14 @@ async function enterFullscreenPreview(){
   resetFullscreenPreviewAlignment();
   await nextAnimationFrame();
   await nextAnimationFrame();
-  await refreshCurrentPreviewLayout(100);
-  queuePreviewLayoutRefresh(220);
+
+  // 제작가이드(파일 미업로드) 화면은 unified-view-controller가 단독으로
+  // 최종 크기를 계산한다. 공통 fitter를 함께 실행하면 진입 순간 확대 후
+  // 다시 축소되는 이중 맞춤이 발생한다.
+  if(!isStaticGuidePreview()){
+    await refreshCurrentPreviewLayout(100);
+    queuePreviewLayoutRefresh(220);
+  }
 }
 async function exitFullscreenPreview(){
   const workspace=document.querySelector(".workspace");
@@ -18549,8 +19577,11 @@ async function exitFullscreenPreview(){
   resetFullscreenPreviewAlignment();
   await nextAnimationFrame();
   await nextAnimationFrame();
-  await refreshCurrentPreviewLayout(120);
-  queuePreviewLayoutRefresh(260);
+
+  if(!isStaticGuidePreview()){
+    await refreshCurrentPreviewLayout(120);
+    queuePreviewLayoutRefresh(260);
+  }
 }
 $("fitHeightBtn").onclick=fitPreviewHeight;
 $("expandPreviewBtn").onclick=()=>togglePreviewExpanded();
@@ -18558,6 +19589,8 @@ $("fullscreenBtn").onclick=()=>enterFullscreenPreview();
 $("fullscreenExitBtn").onclick=()=>exitFullscreenPreview();
 
 const previewResizeObserver=new ResizeObserver(entries=>{
+  if(isStaticGuidePreview()) return;
+
   const area=$("canvasArea");
   const rect=area.getBoundingClientRect();
   const next={w:Math.round(rect.width),h:Math.round(rect.height)};
@@ -18578,6 +19611,11 @@ window.addEventListener("resize",()=>{
     if(document.body.classList.contains("preview-fullscreen-active")){
       resetFullscreenPreviewAlignment();
     }
+
+    // 제작가이드 정적 미리보기는 unified-view-controller의 resize handler가
+    // 단독으로 다시 맞춘다.
+    if(isStaticGuidePreview()) return;
+
     previewLayoutRefreshPending=true;
     queuePreviewLayoutRefresh(80);
   },120);
@@ -18586,6 +19624,7 @@ previewResizeObserver.observe(document.querySelector(".workspace"));
 previewResizeObserver.observe($("appShell"));
 
 const previewClassObserver=new MutationObserver(mutations=>{
+  if(isStaticGuidePreview()) return;
   const changed=mutations.some(m=>m.attributeName==="class");
   if(changed) queuePreviewLayoutRefresh(150);
 });
@@ -19636,19 +20675,46 @@ function renderInnerSpreadGuide(){
 
   async function enterFullGuide(){
     if(!isGuideMode()) return false;
+
+    const schematic=$v("schematic");
+    if(schematic){
+      schematic.style.setProperty("visibility","hidden","important");
+    }
+
     if(typeof enterFullscreenPreview==="function") await enterFullscreenPreview();
+
+    // Wait only for the fullscreen CSS geometry to settle, then fit once.
     viewZoom=1;
-    await new Promise(r=>setTimeout(r,240));
-    applyGuide(true);
+    await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));
+    applyGuide(false);
+    await new Promise(r=>requestAnimationFrame(r));
+
+    if(schematic){
+      schematic.style.removeProperty("visibility");
+    }
+    centerElement(state.mode==="cover" ? schematic : document.querySelector(".inner-flow-spread"));
     return true;
   }
 
   async function exitFullGuide(){
     if(!isGuideMode()) return false;
+
+    const schematic=$v("schematic");
+    if(schematic){
+      schematic.style.setProperty("visibility","hidden","important");
+    }
+
     if(typeof exitFullscreenPreview==="function") await exitFullscreenPreview();
+
     viewZoom=1;
-    await new Promise(r=>setTimeout(r,260));
-    applyGuide(true);
+    await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));
+    applyGuide(false);
+    await new Promise(r=>requestAnimationFrame(r));
+
+    if(schematic){
+      schematic.style.removeProperty("visibility");
+    }
+    centerElement(state.mode==="cover" ? schematic : document.querySelector(".inner-flow-spread"));
     return true;
   }
 
@@ -19707,7 +20773,8 @@ function renderInnerSpreadGuide(){
   function refitAfterResize(){
     if(!isGuideMode()) return;
     clearTimeout(resizeTimer);
-    resizeTimer=setTimeout(()=>applyGuide(false),180);
+    const delay=document.body.classList.contains("preview-fullscreen-active")?220:180;
+    resizeTimer=setTimeout(()=>applyGuide(false),delay);
   }
   window.addEventListener("resize",refitAfterResize);
 
@@ -19790,7 +20857,7 @@ function renderInnerSpreadGuide(){
   function track(eventName, params){
     if(!enabled || typeof window.gtag !== "function") return;
     window.gtag("event", eventName, Object.assign({
-      guide_version: "v2.09",
+      guide_version: "v2.15",
       page_location: window.location.href,
       page_title: document.title
     }, currentContext(), params || {}));

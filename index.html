@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="baro-pod-build" content="guide-v2.08" />
-  <title>바로출판POD 표지·내지 제작 가이드 v2.08</title>
+  <meta name="baro-pod-build" content="guide-v2.09" />
+  <title>바로출판POD 표지·내지 제작 가이드 v2.09</title>
   <style>
     :root{
       --bg:#f4f6f8; --panel:#fff; --line:#e5e8eb; --text:#191f28;
@@ -11596,7 +11596,7 @@ body.preview-fullscreen-active .next-spec-cue{display:none!important;}
 </style>
 
 <style id="v205-rejection-prevention">
-/* v2.08 — 조건 기반 반려 예방 안내 */
+/* v2.09 — 조건 기반 반려 예방 안내 */
 .page-policy-hint{
   margin-top:8px;
   color:#6b7684;
@@ -11682,7 +11682,7 @@ body.preview-fullscreen-active .next-spec-cue{display:none!important;}
 
 
 <style id="v207-pagination-polish">
-/* v2.08 — 초기 렌더링 중 n/n 등 미완성 페이지 표기를 숨김 */
+/* v2.09 — 초기 렌더링 중 n/n 등 미완성 페이지 표기를 숨김 */
 [data-page-counter],
 .page-counter,
 .pagination-counter,
@@ -11701,6 +11701,311 @@ body.preview-fullscreen-active .next-spec-cue{display:none!important;}
 }
 </style>
 
+
+<style id="v209-ui-polish">
+/* =========================================================
+   v2.09 — UI polish
+   원칙: 구조는 유지하고, 위계·정렬·가독성·상태 인지만 정돈
+   ========================================================= */
+
+/* ---------- 공통 인터랙션 ---------- */
+button, a{
+  -webkit-tap-highlight-color:transparent;
+}
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+summary:focus-visible{
+  outline:3px solid rgba(75,79,143,.20)!important;
+  outline-offset:2px!important;
+}
+
+/* ---------- 왼쪽 사양 선택: 정보 위계와 가독성 ---------- */
+.left .section-title{
+  font-size:15.5px!important;
+  line-height:1.35!important;
+  letter-spacing:-.018em!important;
+}
+.left .label{
+  color:#344054!important;
+  font-size:13px!important;
+  letter-spacing:-.01em!important;
+}
+.format-card,
+.binding-card,
+.paper-card{
+  border-color:#e3e7ec!important;
+}
+.format-card:hover,
+.paper-card:hover{
+  border-color:#b8b4e8!important;
+  box-shadow:0 4px 12px rgba(25,31,40,.045)!important;
+}
+.format-card span{font-size:11.25px!important;line-height:1.45!important}
+.format-card em{font-size:10.5px!important;line-height:1.4!important}
+.binding-card span{font-size:10.75px!important;line-height:1.45!important}
+.paper-card span{font-size:10.75px!important;line-height:1.45!important}
+
+.input-wrap input{
+  font-size:14px!important;
+  color:#191f28!important;
+}
+.input-wrap input[readonly]{
+  background:#f8f9fb!important;
+  border-color:#e4e8ed!important;
+}
+
+/* 책등 자동계산 도움말: 비활성 입력창처럼 보이던 capsule 제거 */
+#spineHelp{
+  display:block!important;
+  margin:7px 1px 0!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  color:#7b8491!important;
+  font-size:11.5px!important;
+  line-height:1.45!important;
+  letter-spacing:-.01em!important;
+}
+
+/* ---------- 조건부 반려 예방 안내 ---------- */
+.page-policy-alert{
+  margin-top:10px!important;
+  padding:12px 13px!important;
+  border-radius:11px!important;
+  font-size:12px!important;
+  line-height:1.55!important;
+  box-shadow:0 2px 8px rgba(25,31,40,.025)!important;
+}
+.page-policy-alert strong{
+  margin-bottom:4px!important;
+  font-size:13px!important;
+  line-height:1.4!important;
+}
+.page-policy-alert.warning{
+  border-color:#efca83!important;
+  background:#fff9eb!important;
+  color:#704700!important;
+}
+.page-policy-alert.error{
+  border-color:#f3a4ad!important;
+  background:#fff3f4!important;
+}
+.page-policy-alert .policy-copy{
+  margin-top:9px!important;
+  padding:9px 10px!important;
+  border-radius:9px!important;
+}
+.page-policy-alert .policy-copy code{
+  font-size:11.25px!important;
+  line-height:1.5!important;
+}
+.page-policy-alert .policy-copy button,
+.guide-only-item .checkpoint-copy-btn{
+  min-height:32px!important;
+  padding:0 10px!important;
+  border-radius:8px!important;
+  font-size:10.75px!important;
+}
+
+/* ---------- 미리보기 상단 툴바 ---------- */
+.canvas-toolbar{
+  border-bottom-color:#e7eaee!important;
+}
+.canvas-title-main strong{
+  color:#252b35!important;
+  font-weight:800!important;
+}
+.spread-spec-line{
+  font-size:10.75px!important;
+}
+
+/* 기능 버튼은 모두 같은 높이·라운드 체계 */
+.zoom{
+  gap:7px!important;
+}
+.zoom .preview-view-btn,
+.zoom .reinspect-btn,
+.zoom .zoom-reset-btn{
+  height:36px!important;
+  min-height:36px!important;
+  border-radius:9px!important;
+}
+
+/* - 100% + 는 하나의 명확한 segmented control */
+.zoom-stepper{
+  height:36px;
+  display:inline-flex;
+  align-items:stretch;
+  overflow:hidden;
+  flex:0 0 auto;
+  border:1px solid #dfe3e8;
+  border-radius:9px;
+  background:#fff;
+  box-sizing:border-box;
+  box-shadow:0 1px 2px rgba(25,31,40,.02);
+}
+.zoom-stepper button{
+  width:36px!important;
+  min-width:36px!important;
+  height:34px!important;
+  min-height:34px!important;
+  padding:0!important;
+  margin:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:#fff!important;
+  color:#475467!important;
+  font-size:16px!important;
+  line-height:1!important;
+  box-shadow:none!important;
+}
+.zoom-stepper button:hover{
+  background:#f7f7fb!important;
+  color:#4b4f8f!important;
+}
+.zoom-stepper #zoomOut{
+  border-right:1px solid #e7eaee!important;
+}
+.zoom-stepper #zoomIn{
+  border-left:1px solid #e7eaee!important;
+}
+.zoom-stepper #zoomLabel{
+  width:52px!important;
+  min-width:52px!important;
+  height:34px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  margin:0!important;
+  color:#475467!important;
+  background:#fff!important;
+  font-size:11px!important;
+  font-weight:650!important;
+  line-height:1!important;
+  white-space:nowrap!important;
+}
+
+/* 초기화는 별도 행동이라는 점을 시각적으로 분리 */
+.zoom .zoom-reset-btn{
+  width:36px!important;
+  min-width:36px!important;
+  padding:0!important;
+  border:1px solid #dfe3e8!important;
+  background:#fff!important;
+  color:#667085!important;
+  font-size:15px!important;
+  font-weight:700!important;
+  box-shadow:0 1px 2px rgba(25,31,40,.02)!important;
+}
+.zoom .zoom-reset-btn:hover{
+  border-color:#b8b4e8!important;
+  background:#f7f7fb!important;
+  color:#4b4f8f!important;
+}
+
+/* 상단 조작 버튼 hover를 과하지 않게 통일 */
+.zoom .preview-view-btn:hover{
+  border-color:#c9c6df!important;
+  background:#f8f8fb!important;
+  color:#353967!important;
+}
+.zoom .preview-view-btn:active,
+.zoom .zoom-reset-btn:active,
+.zoom-stepper button:active{
+  transform:translateY(1px);
+}
+
+/* ---------- 보기 도구 영역 ---------- */
+.clean-measure-toolbar{
+  border-color:#e7eaee!important;
+}
+.measurement-toolbar-label{
+  color:#475467!important;
+}
+.measurement-toolbar-hint{
+  color:#7b8491!important;
+  font-size:10.75px!important;
+  line-height:1.4!important;
+}
+
+/* ---------- 하단 정보 ---------- */
+.canvas-footer{
+  color:#667085!important;
+}
+.canvas-footer .privacy-note{
+  color:#7b8491!important;
+  font-size:11px!important;
+  line-height:1.4!important;
+}
+
+/* ---------- 오른쪽 결과/체크포인트 ---------- */
+.right-head .eyebrow{
+  color:#4b4f8f!important;
+}
+.right-head h2{
+  color:#252b35!important;
+}
+.right.guide-only-mode .guide-only-item{
+  border-color:#e7eaee!important;
+  box-shadow:0 1px 2px rgba(25,31,40,.018)!important;
+}
+.right.guide-only-mode .guide-only-item strong{
+  font-size:12.75px!important;
+  line-height:1.4!important;
+}
+.right.guide-only-mode .guide-only-item p{
+  color:#667085!important;
+  font-size:11.5px!important;
+  line-height:1.5!important;
+}
+.guide-only-item .checkpoint-action code{
+  padding:4px 7px!important;
+  font-size:10.25px!important;
+  line-height:1.4!important;
+}
+
+/* 주요 CTA는 주변보다 명확하지만 과도한 그림자는 억제 */
+.cover-pptx-btn,
+.inner-template-cta{
+  box-shadow:0 4px 12px rgba(8,127,140,.14)!important;
+}
+.cover-pptx-btn:hover,
+.inner-template-cta:hover{
+  transform:translateY(-1px)!important;
+}
+
+/* ---------- 작은 화면에서도 툴바가 깨지지 않도록 ---------- */
+@media(max-width:1380px){
+  .canvas-toolbar{
+    grid-template-columns:minmax(150px,auto) minmax(260px,1fr) auto!important;
+    gap:10px!important;
+  }
+  .zoom{gap:5px!important}
+  .zoom .preview-view-btn,
+  .zoom .reinspect-btn{
+    padding-left:9px!important;
+    padding-right:9px!important;
+  }
+}
+@media(max-width:1180px){
+  .spread-spec-line{
+    max-width:360px!important;
+  }
+  .zoom .view-label{
+    display:none!important;
+  }
+  .zoom .preview-view-btn,
+  .zoom .reinspect-btn{
+    min-width:36px!important;
+    width:36px!important;
+    padding:0!important;
+  }
+}
+</style>
+
 </head>
 <body>
   <button class="fullscreen-exit-fixed" id="fullscreenExitBtn" type="button" aria-label="전체화면 종료">
@@ -11710,7 +12015,7 @@ body.preview-fullscreen-active .next-spec-cue{display:none!important;}
 <div class="app" id="appShell">
   <aside class="left">
     <div class="brand">
-      <div class="kicker">교보문고 바로출판POD · 제작 가이드 v2.08</div>
+      <div class="kicker">교보문고 바로출판POD · 제작 가이드 v2.09</div>
       <h1>표지·내지 제작 가이드</h1>
       <p>제작 사양을 선택하면 필요한 파일 크기와 작업 영역을 자동으로 계산합니다.</p>
       <nav class="spec-flow-map" aria-label="제작 사양 선택 3단계">
@@ -11963,11 +12268,16 @@ body.preview-fullscreen-active .next-spec-cue{display:none!important;}
         </div>
         <div class="spread-spec-line" id="spreadSpecSummary"></div>
         <div class="zoom">
-          <button class="preview-view-btn" id="fitHeightBtn" type="button" title="화면 맞춤"><span aria-hidden="true">↕</span><span class="view-label">맞춤</span></button>
-          <button class="preview-view-btn" id="expandPreviewBtn" type="button" title="미리보기 세로 확장"><span aria-hidden="true">↗</span><span class="view-label">확장</span></button>
+          <button class="preview-view-btn" id="fitHeightBtn" type="button" title="미리보기를 화면에 맞춤"><span aria-hidden="true">↕</span><span class="view-label">맞춤</span></button>
+          <button class="preview-view-btn" id="expandPreviewBtn" type="button" title="미리보기 영역 확장"><span aria-hidden="true">↗</span><span class="view-label">확장</span></button>
 <button class="preview-view-btn" id="fullscreenBtn" type="button" title="전체화면"><span aria-hidden="true">⛶</span><span class="view-label">전체화면</span></button>
           <button class="reinspect-btn" id="toolbarInspectBtn" type="button" title="현재 파일 다시 검수" disabled><span aria-hidden="true">↻</span><span class="view-label">다시 검수</span></button>
-          <button id="zoomOut">−</button><span id="zoomLabel">100%</span><button id="zoomIn">＋</button><button id="zoomReset" title="100% 맞춤으로 복원" aria-label="100% 맞춤으로 복원">↺</button>
+          <div class="zoom-stepper" role="group" aria-label="확대 및 축소">
+            <button id="zoomOut" type="button" title="축소" aria-label="축소">−</button>
+            <span id="zoomLabel" aria-live="polite">100%</span>
+            <button id="zoomIn" type="button" title="확대" aria-label="확대">＋</button>
+          </div>
+          <button id="zoomReset" class="zoom-reset-btn" type="button" title="확대/축소 초기화 (100%)" aria-label="확대/축소 초기화 (100%)">↺</button>
         </div>
       </div>
 <div class="measurement-toolbar clean-measure-toolbar" id="measurementToolbar">
@@ -19480,7 +19790,7 @@ function renderInnerSpreadGuide(){
   function track(eventName, params){
     if(!enabled || typeof window.gtag !== "function") return;
     window.gtag("event", eventName, Object.assign({
-      guide_version: "v2.08",
+      guide_version: "v2.09",
       page_location: window.location.href,
       page_title: document.title
     }, currentContext(), params || {}));

@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="baro-pod-build" content="guide-v2.18" />
-  <title>바로출판POD 표지·내지 제작 가이드 v2.18</title>
+  <meta name="baro-pod-build" content="guide-v2.37" />
+  <title>바로출판POD 표지·내지 제작 가이드 v2.37</title>
   <style>
     :root{
       --bg:#f4f6f8; --panel:#fff; --line:#e5e8eb; --text:#191f28;
@@ -13829,6 +13829,856 @@ html,body{
 }
 </style>
 
+
+<style id="v222-commercial-workspace-audit">
+/* v2.23 — v2.17 baseline + Design Audit implementation
+   Hierarchy: Configure / Create & Preview / Validate & Continue */
+:root{--ui-primary:#4b4f8f;--ui-primary-soft:#f3f3f9;--ui-line:#e5e8ec;--ui-muted:#667085;}
+@media(min-width:1441px){
+  .app,.app.results-collapsed{grid-template-columns:350px minmax(620px,1fr) 316px!important;}
+}
+.left,.right{background:#fff!important;}
+.brand{padding:18px 20px 16px!important;}
+.brand .kicker{font-size:10.5px!important;font-weight:700!important;letter-spacing:.055em!important;color:var(--ui-primary)!important;margin-bottom:5px!important;}
+.brand h1{font-size:20px!important;font-weight:700!important;letter-spacing:-.035em!important;}
+.brand p{font-size:12px!important;line-height:1.5!important;margin-top:6px!important;color:var(--ui-muted)!important;}
+.section{padding:18px 20px!important;}
+.section-title{font-size:15px!important;font-weight:700!important;gap:8px!important;margin-bottom:13px!important;}
+.section-title-copy small{font-size:10.5px!important;font-weight:450!important;margin-top:2px!important;}
+.step{width:23px!important;height:23px!important;border-radius:7px!important;font-size:11px!important;background:var(--ui-primary)!important;}
+.label{font-size:12.5px!important;font-weight:650!important;margin:15px 0 8px!important;}
+.format-grid{gap:7px!important}.binding-grid{gap:7px!important}.paper-grid{gap:7px!important}
+.format-card{min-height:68px!important;border-radius:10px!important;padding:10px!important;box-shadow:none!important;}
+.format-card.active{padding:10px!important;border:1px solid var(--ui-primary)!important;background:#f6f6fb!important;box-shadow:0 0 0 2px rgba(75,79,143,.08)!important;}
+.binding-card{min-height:132px!important;border-radius:11px!important;padding:8px 5px 9px!important;box-shadow:none!important;transform:none!important;}
+.binding-card.active{padding:8px 5px 9px!important;border:1px solid var(--ui-primary)!important;background:#f6f6fb!important;box-shadow:0 0 0 2px rgba(75,79,143,.08)!important;}
+.binding-card:hover{transform:none!important;box-shadow:none!important;}
+.binding-image{height:64px!important;width:76px!important;margin-bottom:6px!important;border-radius:9px!important;}
+.binding-image img{width:72px!important;height:62px!important;}
+.binding-card strong{font-size:12.5px!important;font-weight:650!important}.binding-card span{font-size:9.5px!important;margin-top:3px!important}.binding-count{font-weight:600!important}
+.paper-card{border-radius:10px!important;min-height:70px!important;padding:9px!important;}.paper-card.active{padding:9px!important;border:1px solid var(--ui-primary)!important;background:#f6f6fb!important;box-shadow:0 0 0 2px rgba(75,79,143,.08)!important;}
+.input-wrap input{height:44px!important;border-radius:9px!important}.segmented button{height:42px!important;border-radius:9px!important;font-weight:650!important}.segmented button.active{border:1px solid var(--ui-primary)!important;box-shadow:0 0 0 2px rgba(75,79,143,.08)!important;}
+.spec-flow-map{opacity:.9}.spec-flow-map *{font-weight:550!important;}
+.workspace{padding:14px 16px 16px!important;}
+.mode-action-row{min-height:48px!important;margin:0 0 10px!important;align-items:center!important;}
+.mode-tabs{margin:0!important;gap:3px!important;padding:3px!important;border:1px solid #e2e5e9!important;border-radius:10px!important;background:#f5f6f8!important;width:max-content!important;}
+.mode-tabs button{height:40px!important;min-width:126px!important;padding:0 14px!important;border:0!important;border-radius:7px!important;background:transparent!important;color:#667085!important;font-size:12.5px!important;font-weight:650!important;box-shadow:none!important;}
+.mode-tabs button.active{background:#fff!important;color:#31345f!important;border:0!important;box-shadow:0 1px 3px rgba(16,24,40,.10)!important;}
+.mode-tabs .mode-card-icon{width:19px!important;height:19px!important;}.mode-tabs .mode-card-icon svg{width:19px!important;height:19px!important;}
+.top-download-actions{gap:2px!important;margin-left:auto!important;align-items:center!important;}
+.top-download-actions .download-action.resource-reference{height:34px!important;min-height:34px!important;padding:0 9px!important;border:0!important;border-radius:7px!important;background:transparent!important;color:#596273!important;box-shadow:none!important;font-size:11.5px!important;font-weight:550!important;transform:none!important;}
+.top-download-actions .download-action.resource-reference:hover{background:#f4f5f7!important;color:#343861!important;transform:none!important;}
+.top-download-actions .resource-download-icon{width:15px!important;height:15px!important;flex-basis:15px!important;color:#7a8492!important;}
+.top-download-actions .resource-download-icon svg{width:15px!important;height:15px!important;stroke-width:1.6!important;}
+.canvas-card{border:1px solid var(--ui-line)!important;border-radius:14px!important;box-shadow:0 2px 8px rgba(16,24,40,.045)!important;}
+.canvas-toolbar{padding:9px 13px 10px!important;min-height:58px!important;background:#fff!important;}
+.canvas-title-main strong{font-size:14px!important;font-weight:700!important;}.canvas-title-main span{font-weight:450!important;}
+.cover-help-links{margin-top:4px!important;gap:8px!important}.cover-layout-help-link{font-size:10.5px!important;font-weight:500!important;}
+.canvas-area{padding:14px!important;background:#f7f8fa!important;}
+.spread-spec-line{border-radius:0!important;background:transparent!important;box-shadow:none!important;}
+.spread-spec-line span{font-weight:450!important}.spread-spec-line strong,.spread-spec-line b{font-weight:650!important;}
+.right-head{padding:20px 18px 16px!important;}.right-head .eyebrow{font-size:10px!important;font-weight:650!important;}.right-head h2{font-size:18px!important;font-weight:700!important;margin-top:5px!important;}.right-head p{font-size:11.5px!important;line-height:1.5!important;margin-top:6px!important;}
+.right.guide-only-mode .guide-only-list{gap:0!important;padding:0 18px!important;}
+.right.guide-only-mode .guide-only-item{border:0!important;border-bottom:1px solid #eceef1!important;border-radius:0!important;padding:13px 0!important;gap:10px!important;background:transparent!important;box-shadow:none!important;}
+.right.guide-only-mode .guide-only-item:last-child{border-bottom:0!important;}
+.right.guide-only-mode .guide-only-item .check{width:23px!important;height:23px!important;flex-basis:23px!important;font-size:10.5px!important;}
+.right.guide-only-mode .guide-only-item strong{font-size:12.5px!important;line-height:1.42!important;font-weight:650!important;margin-bottom:3px!important;}.right.guide-only-mode .guide-only-item p{font-size:11.25px!important;line-height:1.5!important;color:#667085!important;}
+.cover-pptx-action,.inner-template-action{padding:14px 18px 18px!important;}
+.cover-pptx-card,.inner-template-action-card{border-radius:12px!important;padding:15px!important;box-shadow:none!important;}
+.cover-pptx-title,.inner-template-action-title{font-size:13.5px!important;font-weight:700!important;}.cover-pptx-desc,.inner-template-action-desc{font-size:11.5px!important;line-height:1.5!important;}
+.cover-pptx-btn,.inner-template-cta{min-height:42px!important;border-radius:8px!important;font-weight:650!important;box-shadow:none!important;}
+.cover-pptx-btn:hover,.inner-template-cta:hover{transform:none!important;}
+/* Keep picker visually attached to its CTA, not like a separate modal. */
+.inner-template-action-card [data-inner-template-panel]{margin-top:10px!important;border-top:1px solid #e6e9ed!important;padding-top:12px!important;}
+/* Radius system: controls 8, cards 12, main surface 14/16. */
+.ghost,.zoom button,.preview-view-btn,.reinspect-btn,.checkpoint-copy-btn{border-radius:8px!important;}
+@media(max-width:1440px) and (min-width:1101px){
+  .app,.app.results-collapsed{grid-template-columns:340px minmax(560px,1fr)!important;}
+  .right{width:310px!important;}
+  .mode-tabs button{min-width:112px!important;}
+  .top-download-actions .download-action.resource-reference{padding:0 7px!important;font-size:11px!important;}
+}
+@media(max-width:1100px){
+  .mode-action-row{gap:8px!important}.mode-tabs button{min-width:108px!important;}
+  .top-download-actions .download-action.resource-reference{display:none!important;}
+  .adaptive-resource-menu{display:block!important;}
+}
+</style>
+
+
+<style id="v223-mode-visibility-refinement">
+/* v2.23 — strengthen the primary cover/inner mode switch without changing its card-button model. */
+.mode-tabs{
+  gap:8px!important;
+  padding:0!important;
+  border:0!important;
+  background:transparent!important;
+  border-radius:0!important;
+}
+.mode-tabs button{
+  height:58px!important;
+  min-width:122px!important;
+  padding:0 16px!important;
+  border:1px solid #d8dce5!important;
+  border-radius:10px!important;
+  background:#f4f5f8!important;
+  color:#454b5c!important;
+  box-shadow:none!important;
+  font-size:13px!important;
+  font-weight:650!important;
+  transition:background-color .16s ease,border-color .16s ease,color .16s ease,box-shadow .16s ease,transform .16s ease!important;
+}
+.mode-tabs button:hover:not(.active){
+  background:#eceef4!important;
+  border-color:#c9ced9!important;
+  color:#343a4b!important;
+}
+.mode-tabs button.active{
+  background:var(--ui-primary)!important;
+  border-color:var(--ui-primary)!important;
+  color:#fff!important;
+  box-shadow:0 3px 9px rgba(75,79,143,.20)!important;
+}
+.mode-tabs button:focus-visible{
+  outline:3px solid rgba(75,79,143,.18)!important;
+  outline-offset:2px!important;
+}
+.mode-tabs .mode-card-icon{
+  width:20px!important;
+  height:20px!important;
+  color:currentColor!important;
+}
+.mode-tabs .mode-card-icon svg{width:20px!important;height:20px!important;}
+.mode-tabs .mode-card-icon svg *{stroke:currentColor!important;}
+.mode-tabs .mode-card-label{color:currentColor!important;}
+@media(max-width:1440px) and (min-width:1101px){
+  .mode-tabs button{min-width:112px!important;height:56px!important;padding:0 13px!important;}
+}
+@media(max-width:1100px){
+  .mode-tabs{gap:6px!important;}
+  .mode-tabs button{min-width:108px!important;height:52px!important;padding:0 12px!important;}
+}
+</style>
+
+
+<style id="v224-layout-hierarchy-refinement">
+/* v2.24 — horizontal overflow, balanced preview header, disciplined Indigo hierarchy */
+
+/* 1. Spec panel is a vertical configurator: never require horizontal scrolling. */
+.left{overflow-x:hidden!important;overflow-y:auto!important;}
+.left .brand,.left .section,.left .spec-flow-map,.left .binding-grid,.left .format-grid,.left .paper-grid,
+.left .page-setting-block,.left .input-wrap,.left .spec-box,.left .format-filter-head{
+  min-width:0!important;max-width:100%!important;box-sizing:border-box!important;
+}
+.left .binding-card,.left .format-card,.left .paper-card{min-width:0!important;max-width:100%!important;box-sizing:border-box!important;}
+.left .section-title-copy,.left .format-card>*,.left .paper-card>*{min-width:0!important;}
+
+/* 2. Preview header: title / contextual help / view controls are three deliberate zones. */
+.canvas-toolbar{
+  display:grid!important;
+  grid-template-columns:minmax(150px,1fr) minmax(260px,1.35fr) minmax(330px,1fr)!important;
+  grid-template-areas:
+    "title help zoom"
+    "spec spec spec"!important;
+  align-items:center!important;
+  column-gap:18px!important;row-gap:9px!important;
+  padding:12px 16px 10px!important;
+  min-height:94px!important;height:auto!important;
+}
+.canvas-title{display:contents!important;}
+.canvas-title-main{grid-area:title!important;min-width:0!important;justify-self:start!important;padding:0!important;}
+.canvas-title-main strong{font-size:15.5px!important;font-weight:700!important;color:#191f28!important;letter-spacing:-.025em!important;}
+.canvas-title-main #fileMeta{margin-top:3px!important;}
+.canvas-title>.cover-help-links{grid-area:help!important;justify-self:center!important;margin:0!important;min-width:0!important;justify-content:center!important;}
+.canvas-title>.cover-help-links:not(.hidden){display:flex!important;}
+.canvas-toolbar>.zoom{grid-area:zoom!important;justify-self:end!important;margin:0!important;min-width:0!important;}
+.canvas-toolbar>.spread-spec-line{grid-area:spec!important;justify-self:center!important;justify-content:center!important;width:100%!important;max-width:100%!important;overflow:hidden!important;}
+
+/* 3. Indigo is semantic: active mode, clickable utility, current-spec emphasis, primary CTA. */
+.top-download-actions .download-action.resource-reference{color:#4b4f8f!important;}
+.top-download-actions .download-action.resource-reference .resource-download-icon{color:#6b6fa1!important;}
+.top-download-actions .download-action.resource-reference:hover{background:#f4f4fa!important;color:#343968!important;}
+.cover-pptx-btn,.inner-template-cta{background:#4b4f8f!important;border-color:#4b4f8f!important;color:#fff!important;}
+.cover-pptx-btn:hover,.inner-template-cta:hover{background:#41457f!important;border-color:#41457f!important;}
+.cover-pptx-card,.inner-template-action-card{background:#fff!important;}
+
+/* Keep structural copy neutral. */
+.section-title,.label,.right-head h2,.guide-only-item strong,.canvas-title-main strong{color:#191f28!important;}
+
+@media(max-width:1500px){
+  .canvas-toolbar{grid-template-columns:minmax(145px,.8fr) minmax(220px,1fr) auto!important;column-gap:12px!important;}
+  .canvas-title>.cover-help-links{gap:8px!important;}
+  .cover-layout-help-link{font-size:11.5px!important;}
+}
+@media(max-width:1240px){
+  .canvas-toolbar{
+    grid-template-columns:minmax(150px,1fr) auto!important;
+    grid-template-areas:"title zoom" "help help" "spec spec"!important;
+  }
+  .canvas-title>.cover-help-links{justify-self:start!important;justify-content:flex-start!important;}
+}
+@media(max-width:900px){
+  .canvas-toolbar{grid-template-columns:1fr!important;grid-template-areas:"title" "help" "zoom" "spec"!important;}
+  .canvas-toolbar>.zoom,.canvas-title>.cover-help-links,.canvas-toolbar>.spread-spec-line{justify-self:start!important;justify-content:flex-start!important;}
+}
+</style>
+
+
+<style id="v225-workspace-balance-and-mode-identity">
+/* v2.25 — restore the stronger v2.17-style preview header, protect the configurator width,
+   and give cover/inner next-actions a clear mode identity. */
+
+/* 1) The left configurator must be readable without horizontal scrolling or clipped labels. */
+@media(min-width:1441px){
+  .app,.app.results-collapsed{
+    grid-template-columns:372px minmax(620px,1fr) 320px!important;
+  }
+}
+.left{
+  overflow-x:hidden!important;
+  overflow-y:auto!important;
+}
+.left .brand,.left .section{padding-left:20px!important;padding-right:20px!important;}
+.left .binding-grid,.left .format-grid,.left .paper-grid{width:100%!important;min-width:0!important;}
+.left .binding-card,.left .format-card,.left .paper-card{
+  min-width:0!important;
+  overflow:visible!important;
+}
+.left .binding-card strong,.left .binding-card span,
+.left .format-card strong,.left .format-card span,.left .format-card em,
+.left .paper-card strong,.left .paper-card span{
+  white-space:normal!important;
+  overflow:visible!important;
+  text-overflow:clip!important;
+  word-break:keep-all!important;
+  overflow-wrap:break-word!important;
+}
+.left .binding-image{max-width:100%!important;}
+
+/* Selected configurator values are visible without adding more Indigo text. */
+.left .binding-card.active,.left .format-card.active,.left .paper-card.active{
+  background:#f4f4fa!important;
+  border-color:#7276a9!important;
+  box-shadow:0 0 0 2px rgba(75,79,143,.07)!important;
+}
+
+/* 2) Keep the clear card-button model; color now communicates the current production mode. */
+.mode-tabs button[data-mode="cover"].active{
+  background:#4b4f8f!important;
+  border-color:#4b4f8f!important;
+  color:#fff!important;
+  box-shadow:0 4px 11px rgba(75,79,143,.22)!important;
+}
+.mode-tabs button[data-mode="inner"].active{
+  background:#0f766e!important;
+  border-color:#0f766e!important;
+  color:#fff!important;
+  box-shadow:0 4px 11px rgba(15,118,110,.22)!important;
+}
+.mode-tabs button:not(.active){background:#f5f6f8!important;}
+
+/* 3) Restore the proven header composition: title/help left, controls right, specs below.
+      The title gets breathing room instead of being pinned to the card edge. */
+.canvas-toolbar{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) auto!important;
+  grid-template-areas:
+    "title zoom"
+    "spec spec"!important;
+  align-items:start!important;
+  column-gap:20px!important;
+  row-gap:11px!important;
+  padding:15px 18px 11px!important;
+  min-height:0!important;
+  height:auto!important;
+}
+.canvas-title{
+  grid-area:title!important;
+  display:block!important;
+  min-width:0!important;
+  align-self:start!important;
+}
+.canvas-title-main{
+  display:flex!important;
+  align-items:center!important;
+  min-width:0!important;
+  min-height:23px!important;
+  padding:0 0 0 1px!important;
+}
+.canvas-title-main strong{
+  font-size:15.5px!important;
+  line-height:1.35!important;
+  font-weight:700!important;
+  color:#191f28!important;
+}
+.canvas-title>.cover-help-links{
+  margin:9px 0 0!important;
+  justify-content:flex-start!important;
+  gap:14px!important;
+  min-width:0!important;
+}
+.canvas-title>.cover-help-links:not(.hidden){display:flex!important;}
+.canvas-toolbar>.zoom{
+  grid-area:zoom!important;
+  align-self:start!important;
+  justify-self:end!important;
+  margin:0!important;
+}
+.canvas-toolbar>.spread-spec-line{
+  grid-area:spec!important;
+  justify-self:end!important;
+  width:100%!important;
+  justify-content:flex-end!important;
+  margin:0!important;
+  padding-top:0!important;
+  overflow:visible!important;
+}
+
+@media(max-width:1240px){
+  .canvas-toolbar{
+    grid-template-columns:1fr!important;
+    grid-template-areas:"title" "zoom" "spec"!important;
+  }
+  .canvas-toolbar>.zoom,.canvas-toolbar>.spread-spec-line{justify-self:start!important;justify-content:flex-start!important;}
+}
+
+/* 4) One next action, but with different semantic accents for cover vs inner work. */
+.cover-pptx-card{
+  background:#fff!important;
+  border:1px solid #dfe1ee!important;
+  border-top:3px solid #4b4f8f!important;
+}
+.inner-template-action-card{
+  background:#fff!important;
+  border:1px solid #d7ebe8!important;
+  border-top:3px solid #0f766e!important;
+}
+.cover-pptx-title{color:#343968!important;}
+.inner-template-action-title{color:#0b665f!important;}
+.cover-pptx-btn{
+  background:#4b4f8f!important;
+  border-color:#4b4f8f!important;
+  color:#fff!important;
+  min-height:46px!important;
+  font-size:13px!important;
+  font-weight:700!important;
+  box-shadow:0 5px 13px rgba(75,79,143,.18)!important;
+}
+.cover-pptx-btn:hover{background:#41457f!important;border-color:#41457f!important;}
+.inner-template-cta{
+  background:#0f766e!important;
+  border-color:#0f766e!important;
+  color:#fff!important;
+  min-height:46px!important;
+  font-size:13px!important;
+  font-weight:700!important;
+  box-shadow:0 5px 13px rgba(15,118,110,.18)!important;
+}
+.inner-template-cta:hover{background:#0b665f!important;border-color:#0b665f!important;}
+
+/* The picker is an expansion of the CTA, not another stack of cards. */
+.inner-template-action-card [data-inner-template-panel]{
+  margin-top:12px!important;
+  padding-top:12px!important;
+  border-top:1px solid #e7ecec!important;
+}
+.inner-template-current{
+  padding:0 0 10px!important;
+  margin:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+
+/* 5) Keep the preview dominant: use available stage space instead of decorative padding. */
+.canvas-area.book-mode{padding-left:12px!important;padding-right:12px!important;}
+</style>
+
+
+<style id="v226-right-action-refinement">
+/* v2.26 — keep the right rail readable while making the next action visible without turning it into a banner. */
+.right.guide-only-mode .right-head{padding:17px 18px 13px!important;}
+.right.guide-only-mode .right-head h2{margin:4px 0 4px!important;font-size:18px!important;}
+.right.guide-only-mode .right-head p{margin-top:3px!important;font-size:11.25px!important;line-height:1.42!important;}
+.right.guide-only-mode .results{padding-top:4px!important;padding-bottom:0!important;}
+.right.guide-only-mode .guide-only-list{padding:0 18px!important;gap:0!important;}
+.right.guide-only-mode .guide-only-item{padding:10px 0!important;gap:9px!important;}
+.right.guide-only-mode .guide-only-item .check{width:22px!important;height:22px!important;flex-basis:22px!important;}
+.right.guide-only-mode .guide-only-item strong{font-size:12.25px!important;line-height:1.38!important;margin-bottom:2px!important;}
+.right.guide-only-mode .guide-only-item p{font-size:10.9px!important;line-height:1.42!important;margin-top:2px!important;}
+
+/* CTA surface stays neutral. Teal belongs to the action, not to every piece of copy. */
+.inner-template-action{padding:8px 18px 16px!important;}
+.inner-template-action-card{
+  padding:14px!important;background:#fff!important;border:1px solid #e2e6e9!important;
+  border-top:1px solid #e2e6e9!important;border-radius:12px!important;box-shadow:0 2px 8px rgba(16,24,40,.035)!important;
+}
+.inner-template-action-title{color:#191f28!important;font-size:14px!important;font-weight:720!important;margin-bottom:4px!important;}
+.inner-template-action-desc{color:#6b7684!important;font-size:11.25px!important;line-height:1.45!important;margin-bottom:9px!important;}
+.inner-template-context{
+  display:flex;align-items:center;justify-content:space-between;gap:8px;min-width:0;
+  margin:0 0 10px;padding:0 1px;color:#8b95a1;font-size:10.5px;line-height:1.3;
+}
+.inner-template-context b{color:#0f766e;font-size:11.5px;font-weight:750;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.inner-template-cta{min-height:44px!important;height:44px!important;background:#0f766e!important;box-shadow:0 4px 12px rgba(15,118,110,.16)!important;}
+.inner-template-cta:hover{background:#0b665f!important;box-shadow:0 5px 14px rgba(15,118,110,.20)!important;}
+</style>
+
+<style id="v227-cover-action-and-preview-stage-refinement">
+/* v2.27 — apply the same contextual CTA treatment to cover mode and reduce
+   unnecessary vertical chrome above/below the cover preview. */
+
+/* Cover CTA: neutral surface + one strong Indigo action + current-spec context. */
+.cover-pptx-action{padding:8px 18px 16px!important;}
+.cover-pptx-card{
+  padding:14px!important;
+  background:#fff!important;
+  border:1px solid #e2e5eb!important;
+  border-top:1px solid #e2e5eb!important;
+  border-radius:12px!important;
+  box-shadow:0 2px 8px rgba(16,24,40,.035)!important;
+}
+.cover-pptx-title{
+  color:#191f28!important;
+  font-size:14px!important;
+  font-weight:720!important;
+  margin-bottom:4px!important;
+}
+.cover-pptx-desc{
+  color:#6b7684!important;
+  font-size:11.25px!important;
+  line-height:1.45!important;
+  margin-bottom:9px!important;
+}
+/* In guide-only mode, show the current cover specification instead of hiding it. */
+.right.guide-only-mode .cover-pptx-meta{
+  display:flex!important;
+  align-items:center!important;
+  gap:6px!important;
+  flex-wrap:wrap!important;
+  margin:0 0 10px!important;
+}
+.right.guide-only-mode .cover-pptx-meta span{
+  min-height:0!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  color:#4b4f8f!important;
+  font-size:10.75px!important;
+  font-weight:700!important;
+}
+.right.guide-only-mode .cover-pptx-meta span + span::before{
+  content:"·";
+  color:#b0b8c2;
+  margin-right:6px;
+}
+.cover-pptx-btn{
+  min-height:44px!important;
+  height:44px!important;
+  background:#4b4f8f!important;
+  border-color:#4b4f8f!important;
+  color:#fff!important;
+  box-shadow:0 4px 12px rgba(75,79,143,.16)!important;
+}
+.cover-pptx-btn:hover{
+  background:#41457f!important;
+  border-color:#41457f!important;
+  box-shadow:0 5px 14px rgba(75,79,143,.20)!important;
+}
+
+/* Cover stage: the preview should dominate instead of floating in a large empty band.
+   The right-side dimension badge still keeps its reserved horizontal room. */
+.canvas-area:not(.book-mode){
+  padding-top:24px!important;
+  padding-bottom:24px!important;
+}
+
+@media(max-height:820px){
+  .canvas-area:not(.book-mode){
+    padding-top:18px!important;
+    padding-bottom:18px!important;
+  }
+}
+</style>
+
+
+<style id="v228-micro-alignment-refinement">
+/* v2.30 — micro refinement only: quieter inner-template chevron and a help group
+   that reads as contextual assistance to the current guide title rather than a floating center label. */
+
+/* The disclosure mark supports the CTA; it should never compete with the CTA copy. */
+.inner-template-cta .cta-arrow{
+  width:8.5px!important;
+  height:8.5px!important;
+  right:18px!important;
+  margin-top:-5.5px!important;
+  border-right:1.5px solid rgba(255,255,255,.92)!important;
+  border-bottom:1.5px solid rgba(255,255,255,.92)!important;
+}
+.inner-template-cta[aria-expanded="true"] .cta-arrow{
+  margin-top:-1px!important;
+}
+
+/* Keep the proven title / contextual-help / controls composition, but pull the help
+   group modestly toward the title. This is intentionally not a full left alignment. */
+.canvas-title>.cover-help-links{
+  position:relative!important;
+  left:-18px!important;
+}
+
+@media(max-width:1320px){
+  .canvas-title>.cover-help-links{left:-8px!important;}
+}
+@media(max-width:980px){
+  .canvas-title>.cover-help-links{left:0!important;}
+}
+
+/* v2.30 brand + typography + picker refinement */
+:root{--brand-primary:#5556B9;--brand-primary-hover:#4849A7;--brand-tint:#F3F3FC;}
+/* Normalize small-control typography for Windows/Chrome rendering */
+.left-panel, .left-sidebar, .spec-panel, aside:first-of-type { -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; }
+.binding-card,.format-card,.paper-card{font-weight:400;}
+.binding-card strong,.format-card strong,.paper-card strong,.binding-card .title,.format-card .title,.paper-card .title{font-size:13px!important;font-weight:600!important;}
+.binding-card small,.format-card small,.paper-card small,.binding-card .desc,.format-card .desc,.paper-card .desc{font-size:10px!important;font-weight:400!important;}
+/* One brand primary across both guide modes */
+.mode-btn.active,.guide-tab.active,[data-mode].active{background:var(--brand-primary)!important;border-color:var(--brand-primary)!important;color:#fff!important;}
+.cover-cta button,.inner-cta button,.template-cta button,#coverPptBtn,#innerTemplateBtn{background:var(--brand-primary)!important;border-color:var(--brand-primary)!important;color:#fff!important;}
+.cover-cta button:hover,.inner-cta button:hover,.template-cta button:hover,#coverPptBtn:hover,#innerTemplateBtn:hover{background:var(--brand-primary-hover)!important;}
+/* neutralize former teal primary accents */
+.inner-cta,.template-cta{--accent:var(--brand-primary)!important;}
+/* Flatten interior picker: one surface, rows rather than cards */
+.template-picker .selected-format,.inner-template-picker .selected-format,.template-picker .picker-spec,.inner-template-picker .picker-spec{display:none!important;}
+.template-picker .template-option,.inner-template-picker .template-option,.template-picker .template-card,.inner-template-picker .template-card{background:transparent!important;box-shadow:none!important;border:0!important;border-radius:0!important;padding:14px 0!important;margin:0!important;}
+.template-picker .template-option+.template-option,.inner-template-picker .template-option+.template-option,.template-picker .template-card+.template-card,.inner-template-picker .template-card+.template-card{border-top:1px solid #E7E9EE!important;}
+.template-picker,.inner-template-picker{background:#fff!important;}
+</style>
+
+<style id="v230-detail-pass">
+/* v2.30 — detail pass: brand-primary consistency + genuinely flat inner-template picker. */
+:root{
+  --brand-primary:#5556B9;
+  --brand-primary-hover:#4849A7;
+  --brand-primary-tint:#F4F4FC;
+  --line-subtle:#E7E9EE;
+  --text-primary:#191F28;
+  --text-secondary:#6B7684;
+}
+
+/* Current mode and the one dominant action share the Kyobo/Baro blue-violet language. */
+.inner-template-action-card{
+  border:1px solid #E2E5EB!important;
+  border-top:1px solid #E2E5EB!important;
+}
+.inner-template-action-title{color:var(--text-primary)!important;font-weight:700!important;}
+.inner-template-context{color:#8B95A1!important;}
+.inner-template-context b{color:var(--brand-primary)!important;font-weight:700!important;}
+.inner-template-cta{
+  background:var(--brand-primary)!important;
+  border-color:var(--brand-primary)!important;
+  box-shadow:0 4px 12px rgba(85,86,185,.16)!important;
+}
+.inner-template-cta:hover{
+  background:var(--brand-primary-hover)!important;
+  border-color:var(--brand-primary-hover)!important;
+  box-shadow:0 5px 14px rgba(85,86,185,.20)!important;
+}
+.inner-template-cta:focus-visible{outline:3px solid rgba(85,86,185,.20)!important;outline-offset:2px!important;}
+
+/* Picker is one continuation surface. No repeated format row, no cards-inside-a-card. */
+.inner-template-panel{
+  margin-top:12px!important;
+  padding-top:4px!important;
+  border-top:1px solid var(--line-subtle)!important;
+}
+.inner-template-panel .inner-template-current{display:none!important;}
+.inner-template-panel .preupload-template-options{display:block!important;}
+.inner-template-panel .preupload-template-item{
+  display:block!important;
+  margin:0!important;
+  padding:14px 0 15px!important;
+  background:transparent!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+}
+.inner-template-panel .preupload-template-item + .preupload-template-item{
+  border-top:1px solid var(--line-subtle)!important;
+}
+.inner-template-panel .preupload-template-item:hover{
+  background:transparent!important;
+  border-color:var(--line-subtle)!important;
+  box-shadow:none!important;
+}
+.inner-template-panel .preupload-template-item > span{display:block!important;margin-bottom:10px!important;}
+.inner-template-panel .preupload-template-item > span b{
+  display:block!important;
+  margin:0 0 3px!important;
+  color:var(--text-primary)!important;
+  font-size:13px!important;
+  font-weight:700!important;
+  line-height:1.35!important;
+}
+.inner-template-panel .preupload-template-item > span small{
+  display:block!important;
+  color:var(--text-secondary)!important;
+  font-size:11px!important;
+  font-weight:400!important;
+  line-height:1.45!important;
+}
+.inner-template-panel .template-format-actions{
+  display:grid!important;
+  grid-template-columns:1fr 1fr!important;
+  gap:8px!important;
+}
+.inner-template-panel .preupload-template-item .template-format-actions a,
+.inner-template-panel .preupload-template-item .template-format-actions button{
+  min-width:0!important;
+  height:38px!important;
+  padding:0 10px!important;
+  border:1px solid #D8DCE5!important;
+  border-radius:8px!important;
+  background:#fff!important;
+  color:#343968!important;
+  box-shadow:none!important;
+  font-size:11.5px!important;
+  font-weight:600!important;
+}
+.inner-template-panel .preupload-template-item .template-format-actions a:hover,
+.inner-template-panel .preupload-template-item .template-format-actions button:hover{
+  border-color:var(--brand-primary)!important;
+  background:var(--brand-primary-tint)!important;
+  color:#343968!important;
+  box-shadow:none!important;
+}
+.inner-template-panel .download-action-icon{color:var(--brand-primary)!important;}
+.inner-template-panel .download-ext{color:#8B95A1!important;font-weight:400!important;}
+
+/* Avoid synthesized fractional typography in the left decision panel. */
+.left .binding-card strong,.left .format-card strong,.left .paper-card strong{font-size:13px!important;font-weight:600!important;}
+.left .binding-card small,.left .format-card small,.left .paper-card small{font-size:10px!important;font-weight:400!important;}
+.left .section-title,.left .step-title{font-weight:700!important;}
+</style>
+
+
+<style id="v231-color-system">
+/* v2.33 — Baro POD semantic color system
+   Brand/Primary Action: Kyobo/Baro blue-violet
+   Selected/Active: primary + pale lavender tint
+   Cover/Inner distinction: icon/text/content, not separate primary colors
+   Spec/info: neutral | Warning: orange | Error: red | Success: green */
+:root{
+  --brand-primary:#5556B9!important;
+  --brand-primary-hover:#4849A7!important;
+  --brand-primary-pressed:#3F4095!important;
+  --brand-primary-tint:#F3F3FC!important;
+  --brand-primary-border:#C9CAF0!important;
+  --brand-focus:rgba(85,86,185,.20)!important;
+  --info-neutral:#6B7684!important;
+  --info-strong:#191F28!important;
+  /* legacy semantic aliases: prevent old inner-mode teal rules from reintroducing a second primary */
+  --teal:var(--brand-primary)!important;
+  --teal-soft:var(--brand-primary-tint)!important;
+}
+
+/* Top-level mode switch: one brand language for both cover and inner. */
+.mode-tabs button[data-mode="cover"].active,
+.mode-tabs button[data-mode="inner"].active{
+  background:var(--brand-primary)!important;
+  border-color:var(--brand-primary)!important;
+  color:#fff!important;
+  box-shadow:0 4px 11px rgba(85,86,185,.20)!important;
+}
+.mode-tabs button:not(.active){
+  background:#F7F8FA!important;
+  border-color:#DDE1E7!important;
+  color:#4E5968!important;
+  box-shadow:none!important;
+}
+.mode-tabs button:not(.active):hover{
+  background:var(--brand-primary-tint)!important;
+  border-color:var(--brand-primary-border)!important;
+  color:#343866!important;
+}
+.mode-tabs button:focus-visible{
+  outline:3px solid var(--brand-focus)!important;
+  outline-offset:2px!important;
+}
+
+/* Configurator selections: pale lavender surface, not a second filled CTA. */
+.left .binding-card.active,
+.left .format-card.active,
+.left .paper-card.active,
+.segmented button.active{
+  background:var(--brand-primary-tint)!important;
+  border-color:var(--brand-primary)!important;
+  color:var(--info-strong)!important;
+  box-shadow:0 0 0 2px rgba(85,86,185,.07)!important;
+}
+.left .binding-card.active strong,
+.left .format-card.active strong,
+.left .paper-card.active strong,
+.segmented button.active{
+  color:#343866!important;
+}
+
+/* One dominant brand CTA in both modes. */
+.cover-pptx-card,
+.inner-template-action-card{
+  background:#fff!important;
+  border:1px solid #E2E5EB!important;
+  border-top:1px solid #E2E5EB!important;
+}
+.cover-pptx-title,
+.inner-template-action-title{
+  color:var(--info-strong)!important;
+}
+.cover-pptx-btn,
+.inner-template-cta{
+  background:var(--brand-primary)!important;
+  border-color:var(--brand-primary)!important;
+  color:#fff!important;
+  box-shadow:0 5px 13px rgba(85,86,185,.18)!important;
+}
+.cover-pptx-btn:hover,
+.inner-template-cta:hover{
+  background:var(--brand-primary-hover)!important;
+  border-color:var(--brand-primary-hover)!important;
+  box-shadow:0 6px 16px rgba(85,86,185,.22)!important;
+}
+.cover-pptx-btn:active,
+.inner-template-cta:active{
+  background:var(--brand-primary-pressed)!important;
+  border-color:var(--brand-primary-pressed)!important;
+}
+.cover-pptx-btn:focus-visible,
+.inner-template-cta:focus-visible{
+  outline:3px solid var(--brand-focus)!important;
+  outline-offset:2px!important;
+}
+
+/* Current-spec context is informative; keep the label neutral and only the selected value brand-accented. */
+.inner-template-context,
+.cover-pptx-meta{
+  color:#8B95A1!important;
+}
+.inner-template-context b,
+.cover-pptx-meta strong,
+.cover-pptx-meta b{
+  color:var(--brand-primary)!important;
+}
+
+/* Picker download actions are secondary actions: white surface + brand accent. */
+.inner-template-panel .preupload-template-item .template-format-actions a,
+.inner-template-panel .preupload-template-item .template-format-actions button{
+  background:#fff!important;
+  border-color:#D8DCE5!important;
+  color:#343866!important;
+}
+.inner-template-panel .preupload-template-item .template-format-actions a:hover,
+.inner-template-panel .preupload-template-item .template-format-actions button:hover{
+  background:var(--brand-primary-tint)!important;
+  border-color:var(--brand-primary)!important;
+  color:#343866!important;
+}
+.inner-template-panel .download-action-icon{
+  color:var(--brand-primary)!important;
+}
+
+/* Utility links use the primary only as an interaction cue; specs remain neutral. */
+.top-download-actions a:hover,
+.cover-help-links a:hover{
+  color:var(--brand-primary)!important;
+}
+.spread-spec-line,
+.spread-spec-line span,
+.dimension-comparison,
+.canvas-footer{
+  color:var(--info-neutral)!important;
+}
+
+/* Preserve semantic feedback colors. */
+.inline-note.warn,
+.status-pill.warn,.result .ricon.warn{color:#A35C00!important;}
+.status-pill.bad,.result .ricon.bad{color:var(--red)!important;}
+.status-pill.ok,.result .ricon.ok{color:var(--green)!important;}
+</style>
+
+
+<style id="v232-final-semantic-fixes">
+/* v2.33 — semantic active surface and mode CTA regression fix */
+.binding-card.active,
+.format-card.active,
+.paper-card.active {
+  background:#F1EFFF !important;
+  border-color:#5B57C8 !important;
+  box-shadow:0 0 0 1px rgba(91,87,200,.05) !important;
+}
+.binding-card.active strong,
+.format-card.active strong,
+.paper-card.active strong { color:#191F28 !important; }
+.binding-card:not(.active),
+.format-card:not(.active),
+.paper-card:not(.active) { background:#FFF; }
+/* CTA visibility is state-driven through body.inner-mode, kept explicit for regression safety. */
+body.inner-mode #coverPptxAction{display:none!important;}
+body.inner-mode #innerTemplateAction{display:block!important;}
+body:not(.inner-mode) #coverPptxAction{display:block!important;}
+body:not(.inner-mode) #innerTemplateAction{display:none!important;}
+</style>
+
+<style id="v235-preview-illustration-palette">
+/* v2.36 — Preview illustration palette
+   Interaction stays blue-violet; technical construction areas use the
+   Baro/Kyobo pastel illustration family. Semantic warning/error colors
+   remain reserved for actual warning/error states. */
+:root{
+  --preview-paper:#FFF7D9;
+  --preview-mint:#BFE8D5;
+  --preview-cyan:#DDF3FA;
+  --preview-hinge:#CBEAF3;
+  --preview-lavender:#E7E4FA;
+  --preview-lavender-line:#B9B5E8;
+}
+
+/* Main physical pieces: quiet pastel fields, neutral copy. */
+.schematic .segment.back,
+.schematic .segment.front{background:var(--preview-paper)!important;color:#191F28!important;}
+.schematic .segment.spine{background:var(--preview-mint)!important;color:#31443B!important;}
+.schematic .segment.flap-seg{background:var(--preview-cyan)!important;color:#334155!important;}
+.schematic .segment.hinge{background:var(--preview-hinge)!important;color:#334155!important;}
+.schematic .segment.turnin{background:var(--preview-lavender)!important;color:#343866!important;}
+.schematic .segment.spine .spine-label{color:#31443B!important;text-shadow:none!important;}
+.schematic .segment.spine .spine-text{background:rgba(255,255,255,.82)!important;color:#31443B!important;box-shadow:0 1px 3px rgba(25,31,40,.07)!important;}
+
+/* Flap background extension: this is literally the front/back cover background
+   continuing 2–3mm into the flap, so use the same paper/cover fill.
+   The boundary is a quiet blue-violet construction guide, not a warning. */
+.screen-flap-extension{
+  background:var(--preview-paper)!important;
+  border-color:rgba(85,86,185,.52)!important;
+}
+.screen-flap-extension-label{
+  background:rgba(255,255,255,.96)!important;
+  border-color:#D8D5F3!important;
+  color:#5556B9!important;
+}
+
+/* Hardcover calculation is information, not an error. */
+.hardcover-formula span{color:#5556B9!important;}
+.hardcover-size-rule-guide{border-color:#DDDDF2!important;background:rgba(255,255,255,.97)!important;}
+.hardcover-size-rule-guide .rule-title{color:#5556B9!important;}
+
+/* Keep true production boundaries semantically red. */
+.schematic .bleed-outline{border-color:#FF4D5E!important;}
+</style>
+
+<style id="v236-hardcover-trim-clarity">
+/* v2.36 양장에서는 공통 재단선 UI를 사용하지 않습니다. */
+.schematic.hard-schematic .bleed-outline{display:none!important;}
+.schematic.hard-schematic .bleed-shade{display:none!important;}
+</style>
 </head>
 <body>
   <button class="fullscreen-exit-fixed" id="fullscreenExitBtn" type="button" aria-label="전체화면 종료">
@@ -13840,7 +14690,7 @@ html,body{
     <div class="brand">
 <button type="button" id="adaptiveSpecClose" class="adaptive-spec-close" aria-label="제작 사양 닫기" title="제작 사양 닫기">×</button>
 
-      <div class="kicker">교보문고 바로출판POD · 제작 가이드 v2.18</div>
+      <div class="kicker">교보문고 바로출판POD · 제작 가이드 v2.37</div>
       <h1>표지·내지 제작 가이드</h1>
       <p>제작 사양을 선택하면 필요한 파일 크기와 작업 영역을 자동으로 계산합니다.</p>
       <nav class="spec-flow-map" aria-label="제작 사양 선택 3단계">
@@ -13973,14 +14823,7 @@ html,body{
       </button>
     </div>
 
-<div class="top-download-actions" id="topDownloadActions" aria-label="제작 참고 자료">
-  <a class="download-action secondary resource-reference" id="gaTemplateDownload"
-     href="https://store.kyobobook.co.kr/pod/notice/1006675"
-     target="_blank" rel="noopener noreferrer"
-     aria-label="전체 템플릿 보기, 새 창에서 열기">
-    <span class="resource-download-icon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><rect x="3.25" y="3.25" width="5.25" height="5.25" rx="1"/><rect x="11.5" y="3.25" width="5.25" height="5.25" rx="1"/><rect x="3.25" y="11.5" width="5.25" height="5.25" rx="1"/><rect x="11.5" y="11.5" width="5.25" height="5.25" rx="1"/></svg></span>
-    전체 템플릿 보기
-  </a>
+<div class="top-download-actions" id="topDownloadActions" aria-label="제작 참고">
   <a class="download-action secondary resource-reference" id="gaCopyrightDownload"
      href="https://store.kyobobook.co.kr/pod/notice/1006529"
      target="_blank" rel="noopener noreferrer"
@@ -13991,22 +14834,26 @@ html,body{
   <a class="download-action secondary resource-reference" id="gaPurpleLogoDownload"
      href="https://store.kyobobook.co.kr/pod/notice/1000183"
      target="_blank" rel="noopener noreferrer"
-     aria-label="개인저자용 퍼플 로고, 새 창에서 열기">
+     aria-label="퍼플 로고, 새 창에서 열기">
     <span class="resource-download-icon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><rect x="2.75" y="4" width="14.5" height="12" rx="2"/><circle cx="7" cy="8" r="1.25"/><path d="M4.75 14l3.25-3 2.25 2 2.2-2.15 2.8 3.15"/></svg></span>
-    개인저자 · 퍼플 로고
+    퍼플 로고
+  </a>
+  <a class="download-action secondary resource-reference" id="gaTemplateDownload"
+     href="https://store.kyobobook.co.kr/pod/notice/1006675"
+     target="_blank" rel="noopener noreferrer"
+     aria-label="템플릿 사용 안내, 새 창에서 열기">
+    <span class="resource-download-icon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="7.25"/><path d="M10 8.4v5M10 5.9h.01"/></svg></span>
+    템플릿 사용 안내
   </a>
   <details class="adaptive-resource-menu" id="adaptiveResourceMenu">
-    <summary aria-label="추가 제작 자료 열기">
+    <summary aria-label="제작 참고 열기">
       <span class="resource-download-icon" aria-hidden="true">⋯</span>
-      자료
+      참고
     </summary>
     <div class="adaptive-resource-popover">
-      <a href="https://store.kyobobook.co.kr/pod/notice/1006529"
-         target="_blank" rel="noopener noreferrer"
-         data-adaptive-resource="판권 샘플">판권 샘플</a>
-      <a href="https://store.kyobobook.co.kr/pod/notice/1000183"
-         target="_blank" rel="noopener noreferrer"
-         data-adaptive-resource="퍼플 로고">개인저자 · 퍼플 로고</a>
+      <a href="https://store.kyobobook.co.kr/pod/notice/1006529" target="_blank" rel="noopener noreferrer" data-adaptive-resource="판권 샘플">판권 샘플</a>
+      <a href="https://store.kyobobook.co.kr/pod/notice/1000183" target="_blank" rel="noopener noreferrer" data-adaptive-resource="퍼플 로고">퍼플 로고</a>
+      <a href="https://store.kyobobook.co.kr/pod/notice/1006675" target="_blank" rel="noopener noreferrer" data-adaptive-resource="템플릿 사용 안내">템플릿 사용 안내</a>
     </div>
   </details>
 </div>
@@ -14232,11 +15079,11 @@ html,body{
       <div class="inner-template-action-card">
         <div class="inner-template-action-title">내지 작업을 바로 시작해 보세요</div>
         <p class="inner-template-action-desc">선택한 판형에 맞는 실제 제작 템플릿을 바로 내려받아 작업을 시작할 수 있습니다.</p>
+        <div class="inner-template-context" aria-label="현재 선택한 내지 사양"><span>현재 사양</span><b id="innerTemplateContextValue">-</b></div>
         <button class="inner-template-cta" type="button" data-inner-template-toggle aria-expanded="false">
           내 사양으로 내지 템플릿 받기 <span class="cta-arrow" aria-hidden="true"></span>
         </button>
         <div class="inner-template-panel hidden" data-inner-template-panel>
-          <div class="inner-template-current"><span>선택 판형</span><b id="innerTemplateCurrentValue">-</b></div>
           <div class="preupload-template-options" id="innerTemplateOptions"></div>
         </div>
       </div>
@@ -14974,6 +15821,20 @@ function renderSchematic(){
   $("schematic").style.height=`${h}px`;
   $("schematic").style.transform=`scale(${state.zoom})`;
   $("schematic").classList.toggle("hard-schematic",isHardSchematic);
+
+  // v2.36: 양장은 무선/날개처럼 재단하는 표지가 아니라 싸바리 제작 구조입니다.
+  // 공통 빨간 재단선과 재단선 범례를 숨기고, 외곽 여분/경첩/책등 가이드만 보여줍니다.
+  const bleedOutline=$("bleedOutline");
+  if(bleedOutline){
+    bleedOutline.classList.toggle("hidden",isHardSchematic);
+    bleedOutline.setAttribute("aria-hidden",String(isHardSchematic));
+  }
+  const legend=$("legend");
+  if(legend){
+    const trimLegend=legend.querySelector(".red-i")?.closest("span");
+    if(trimLegend) trimLegend.classList.toggle("hidden",isHardSchematic);
+  }
+
   $("schematic").querySelectorAll(".hard-schematic-band").forEach(el=>el.remove());
 
   if(isHardSchematic){
@@ -15159,7 +16020,7 @@ function renderInitialResult(){
     <div class="guide-only-list">
       <div class="guide-only-item">
         <span class="check">1</span>
-        <div><strong>글자·로고는 빨간 재단선에서 떨어뜨려 주세요</strong><p>잘리면 안 되는 요소는 안쪽에, 배경은 파일 끝까지 채워 주세요.</p></div>
+        <div><strong>${state.binding==="hard"?"글자·로고는 표지 영역 안쪽에 배치해 주세요":"글자·로고는 빨간 재단선에서 떨어뜨려 주세요"}</strong><p>${state.binding==="hard"?"양장은 사방 25mm 여분으로 싸바리합니다. 중요한 요소는 앞·뒤표지 영역 안쪽에 두고, 배경은 외곽 여분까지 이어 주세요.":"잘리면 안 되는 요소는 안쪽에, 배경은 파일 끝까지 채워 주세요."}</p></div>
       </div>
       <div class="guide-only-item">
         <span class="check">2</span>
@@ -15312,8 +16173,8 @@ function buildCoverPptx(){
     if(backFlap&&back){
       const extW=Math.min(flapExtendMm*PPT_MM,backFlap.w-.02);
       const extX=backFlap.x+backFlap.w-extW;
-      slide.addShape(pptx.ShapeType.rect,{x:extX,y:0,w:extW,h:totalH,fill:{color:fills["back"],transparency:0},line:{color:"D6B970",width:.7,dash:"dash"}});
-      slide.addText("배경 연장 2~3mm",{x:Math.max(backFlap.x+.02,extX-.42),y:bodyTop+.06,w:.84,h:.22,fontFace:"Arial",fontSize:8,bold:true,color:"A06500",align:"center",valign:"mid",margin:0,fit:"shrink"});
+      slide.addShape(pptx.ShapeType.rect,{x:extX,y:0,w:extW,h:totalH,fill:{color:fills["back"],transparency:0},line:{color:"A9A5DF",width:.7,dash:"dash"}});
+      slide.addText("배경 연장 2~3mm",{x:Math.max(backFlap.x+.02,extX-.42),y:bodyTop+.06,w:.84,h:.22,fontFace:"Arial",fontSize:8,bold:true,color:"5556B9",align:"center",valign:"mid",margin:0,fit:"shrink"});
 
       const safeInset=10*PPT_MM;
       const tzW=Math.max(.55,backFlap.w-safeInset*2);
@@ -15326,8 +16187,8 @@ function buildCoverPptx(){
     if(front&&frontFlap){
       const extW=Math.min(flapExtendMm*PPT_MM,frontFlap.w-.02);
       const extX=frontFlap.x;
-      slide.addShape(pptx.ShapeType.rect,{x:extX,y:0,w:extW,h:totalH,fill:{color:fills["front"],transparency:0},line:{color:"D6B970",width:.7,dash:"dash"}});
-      slide.addText("배경 연장 2~3mm",{x:Math.min(frontFlap.x+frontFlap.w-.86,extX-.02),y:bodyTop+.06,w:.84,h:.22,fontFace:"Arial",fontSize:8,bold:true,color:"A06500",align:"center",valign:"mid",margin:0,fit:"shrink"});
+      slide.addShape(pptx.ShapeType.rect,{x:extX,y:0,w:extW,h:totalH,fill:{color:fills["front"],transparency:0},line:{color:"A9A5DF",width:.7,dash:"dash"}});
+      slide.addText("배경 연장 2~3mm",{x:Math.min(frontFlap.x+frontFlap.w-.86,extX-.02),y:bodyTop+.06,w:.84,h:.22,fontFace:"Arial",fontSize:8,bold:true,color:"5556B9",align:"center",valign:"mid",margin:0,fit:"shrink"});
 
       const safeInset=10*PPT_MM;
       const tzW=Math.max(.55,frontFlap.w-safeInset*2);
@@ -15387,7 +16248,22 @@ function buildCoverPptx(){
 
   const sp=pos.find(q=>q.key==="spine");
   if(sp&&sp.w>.12){
-    slide.addText("도서 제목",{x:sp.x+sp.w/2-.22,y:bodyTop+bodyH*.14,w:.44,h:bodyH*.50,fontFace:"Arial",fontSize:11.5,bold:true,color:"286B22",vert:"vert270",align:"center",valign:"mid",margin:.005,fit:"shrink"});
+    // Spine title: center the textbox on the physical spine first, then rotate it bottom-to-top.
+    // Using vert270 made Office anchor the glyphs asymmetrically on narrow spines.
+    // A horizontally centered box rotated around its own center keeps both X/Y alignment stable.
+    const spineTitleVisualH=Math.min(bodyH*.52, 3.20);
+    const spineTitleBoxH=Math.max(.16, Math.min(sp.w*.72, .28));
+    const spineTitleBoxW=spineTitleVisualH;
+    const spineCenterX=sp.x+sp.w/2;
+    const spineCenterY=bodyTop+bodyH*.43;
+    slide.addText("도서 제목",{
+      x:spineCenterX-spineTitleBoxW/2,
+      y:spineCenterY-spineTitleBoxH/2,
+      w:spineTitleBoxW,h:spineTitleBoxH,
+      fontFace:"Arial",fontSize:11.5,bold:true,color:"31443B",
+      rotate:90,align:"center",valign:"mid",margin:0,fit:"shrink",
+      breakLine:false
+    });
     if(sp.mm>10){
       const sw=Math.min(Math.max(sp.w*.72,.38),.70), sh=.34;
       const spineLogoBottomInset=Math.max(.14,bodyH*.07);
@@ -19896,6 +20772,7 @@ function updateInspectButton(){
 }
 
 function syncModeUI(){
+  document.body.classList.toggle("inner-mode",state.mode==="inner");
   document.querySelectorAll(".mode-tabs button").forEach(b=>{
     b.classList.toggle("active",b.dataset.mode===state.mode);
   });
@@ -20000,13 +20877,17 @@ function syncInnerTemplateActionPanel(){
   if(!action || state.mode!=="inner") return false;
   const meta=innerTemplateFiles[state.format&&state.format.id];
   const current=$("innerTemplateCurrentValue");
+  const context=$("innerTemplateContextValue");
   const options=$("innerTemplateOptions");
   if(!meta){
     if(current) current.textContent="선택한 판형 정보를 확인해 주세요";
+    if(context) context.textContent="판형을 선택해 주세요";
     if(options) options.innerHTML="";
     return false;
   }
-  if(current) current.textContent=`${meta.label} · ${fmt(state.format.w)} × ${fmt(state.format.h)}mm`;
+  const contextText=`${meta.label} · ${fmt(state.format.w)} × ${fmt(state.format.h)}mm`;
+  if(current) current.textContent=contextText;
+  if(context) context.textContent=contextText;
   if(options){
     options.innerHTML=templateTypeArticle("emotion",true)+templateTypeArticle("knowledge",true);
   }
@@ -20027,16 +20908,13 @@ document.addEventListener("click",event=>{
   panel.classList.toggle("hidden",!open);
   toggle.setAttribute("aria-expanded",String(open));
 
-  // v2.18: 피커를 펼쳤을 때 CTA와 선택 카드가 우측 패널 viewport 안에 보이도록 필요한 만큼만 이동합니다.
-  // 이미 충분히 보이는 경우에는 스크롤하지 않고, 닫을 때도 현재 위치를 유지합니다.
+  // v2.18 유지: 피커를 펼쳤을 때 CTA와 선택 카드가 우측 패널 viewport 안에 보이도록 필요한 만큼만 이동합니다.
   if(open){
     requestAnimationFrame(()=>{
       requestAnimationFrame(()=>{
         const scrollRoot=toggle.closest(".right") || document.scrollingElement;
         if(!scrollRoot) return;
-        const rootRect=scrollRoot===document.scrollingElement
-          ? {top:0,bottom:window.innerHeight}
-          : scrollRoot.getBoundingClientRect();
+        const rootRect=scrollRoot===document.scrollingElement ? {top:0,bottom:window.innerHeight} : scrollRoot.getBoundingClientRect();
         const toggleRect=toggle.getBoundingClientRect();
         const panelRect=panel.getBoundingClientRect();
         const margin=16;
@@ -20045,23 +20923,15 @@ document.addEventListener("click",event=>{
         const contentTop=Math.min(toggleRect.top,panelRect.top);
         const contentBottom=panelRect.bottom;
         let delta=0;
-
         if(contentBottom>visibleBottom){
           delta=contentBottom-visibleBottom;
-          // 피커가 viewport보다 긴 경우 CTA와 피커 상단의 관계를 우선 보여줍니다.
-          if((contentBottom-contentTop)>(visibleBottom-visibleTop)){
-            delta=contentTop-visibleTop;
-          }
+          if((contentBottom-contentTop)>(visibleBottom-visibleTop)) delta=contentTop-visibleTop;
         }else if(contentTop<visibleTop){
           delta=contentTop-visibleTop;
         }
-
         if(Math.abs(delta)>2){
-          if(scrollRoot===document.scrollingElement){
-            window.scrollBy({top:delta,behavior:"smooth"});
-          }else{
-            scrollRoot.scrollBy({top:delta,behavior:"smooth"});
-          }
+          if(scrollRoot===document.scrollingElement) window.scrollBy({top:delta,behavior:"smooth"});
+          else scrollRoot.scrollBy({top:delta,behavior:"smooth"});
         }
       });
     });
@@ -20903,7 +21773,7 @@ function renderInnerSpreadGuide(){
 <script id="mvp-v18-mode-download-emphasis">
 (function(){
   function syncDownloadMode(){
-    document.body.classList.toggle("inner-mode", window.state && state.mode==="inner");
+    document.body.classList.toggle("inner-mode", typeof state!=="undefined" && state.mode==="inner");
   }
 
   document.addEventListener("click",e=>{
@@ -20989,6 +21859,7 @@ function renderInnerSpreadGuide(){
     if(typeof syncModeUI==="function") syncModeUI();
     if(typeof renderSchematic==="function") renderSchematic();
     if(typeof renderInitialResult==="function") renderInitialResult();
+    if(typeof updateContextualBottomAction==="function") updateContextualBottomAction();
 
     const zoomLabel=document.getElementById("zoomLabel");
     if(zoomLabel) zoomLabel.textContent="100%";
@@ -21759,7 +22630,7 @@ function renderInnerSpreadGuide(){
   function track(eventName, params){
     if(!enabled || typeof window.gtag !== "function") return;
     window.gtag("event", eventName, Object.assign({
-      guide_version: "v2.17",
+      guide_version: "v2.37",
       page_location: window.location.href,
       page_title: document.title
     }, currentContext(), params || {}));
@@ -21790,7 +22661,7 @@ function renderInnerSpreadGuide(){
     });
   });
 
-  bindClick("gaTemplateDownload", "download_template_document", {resource_name:"전체 템플릿 보기"});
+  bindClick("gaTemplateDownload", "download_template_document", {resource_name:"템플릿 사용 안내"});
   bindClick("gaCopyrightDownload", "download_copyright_sample", {resource_name:"판권 샘플"});
   bindClick("gaPurpleLogoDownload", "download_purple_logo", {resource_name:"퍼플 로고"});
 
@@ -22148,5 +23019,27 @@ function renderInnerSpreadGuide(){
 })();
 </script>
 
+
+<script id="v233-mode-cta-regression-guard">
+(function(){
+  function syncModeAction(){
+    if(typeof state==='undefined') return;
+    const inner=state.mode==='inner';
+    document.body.classList.toggle('inner-mode',inner);
+    const cover=document.getElementById('coverPptxAction');
+    const innerAction=document.getElementById('innerTemplateAction');
+    if(cover) cover.classList.toggle('hidden',inner);
+    if(innerAction) innerAction.classList.toggle('hidden',!inner);
+    if(typeof updateContextualBottomAction==='function') updateContextualBottomAction();
+  }
+  document.addEventListener('click',function(e){
+    const btn=e.target.closest && e.target.closest('.mode-tabs button[data-mode]');
+    if(!btn) return;
+    requestAnimationFrame(function(){ requestAnimationFrame(syncModeAction); });
+  });
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',syncModeAction);
+  else syncModeAction();
+})();
+</script>
 </body>
 </html>

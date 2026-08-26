@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="baro-pod-build" content="guide-v2.15" />
-  <title>바로출판POD 표지·내지 제작 가이드 v2.15</title>
+  <meta name="baro-pod-build" content="guide-v2.18" />
+  <title>바로출판POD 표지·내지 제작 가이드 v2.18</title>
   <style>
     :root{
       --bg:#f4f6f8; --panel:#fff; --line:#e5e8eb; --text:#191f28;
@@ -11596,7 +11596,7 @@ body.preview-fullscreen-active .next-spec-cue{display:none!important;}
 </style>
 
 <style id="v205-rejection-prevention">
-/* v2.15 — 조건 기반 반려 예방 안내 */
+/* v2.16 — 조건 기반 반려 예방 안내 */
 .page-policy-hint{
   margin-top:8px;
   color:#6b7684;
@@ -11682,7 +11682,7 @@ body.preview-fullscreen-active .next-spec-cue{display:none!important;}
 
 
 <style id="v207-pagination-polish">
-/* v2.15 — 초기 렌더링 중 n/n 등 미완성 페이지 표기를 숨김 */
+/* v2.16 — 초기 렌더링 중 n/n 등 미완성 페이지 표기를 숨김 */
 [data-page-counter],
 .page-counter,
 .pagination-counter,
@@ -11704,7 +11704,7 @@ body.preview-fullscreen-active .next-spec-cue{display:none!important;}
 
 <style id="v209-ui-polish">
 /* =========================================================
-   v2.15 — UI polish
+   v2.16 — UI polish
    원칙: 구조는 유지하고, 위계·정렬·가독성·상태 인지만 정돈
    ========================================================= */
 
@@ -12009,7 +12009,7 @@ summary:focus-visible{
 
 <style id="v211-toolbar-recovery-polish">
 /* =========================================================
-   v2.15 — toolbar recovery + border polish
+   v2.16 — toolbar recovery + border polish
    IMPORTANT: expandPreviewBtn remains in DOM because existing
    preview scripts reference it during initialization.
    ========================================================= */
@@ -12188,7 +12188,7 @@ summary:focus-visible{
 
 <style id="v212-toolbar-spec-strip">
 /* =========================================================
-   v2.15 — Toolbar + Specification Strip
+   v2.16 — Toolbar + Specification Strip
    Principle: controls look interactive; information does not.
    ========================================================= */
 
@@ -12449,7 +12449,7 @@ summary:focus-visible{
 
 <style id="v213-fullscreen-layout-fix">
 /* =========================================================
-   v2.15 — Fullscreen inspection layout
+   v2.16 — Fullscreen inspection layout
    - no overlap between toolbar and fullscreen-exit
    - safe title area
    - preview centered in actual available canvas
@@ -12767,7 +12767,7 @@ body.preview-fullscreen-active .workspace.fullscreen-preview .canvas-footer{
 
 <style id="v214-fullscreen-state-and-layout">
 /* =========================================================
-   v2.15 — Fullscreen state fix + robust layout
+   v2.16 — Fullscreen state fix + robust layout
    The primary fullscreen state is .workspace.fullscreen-preview.
    ========================================================= */
 
@@ -13014,11 +13014,818 @@ body.preview-fullscreen-active #fullscreenExitBtn{
 
 
 <style id="v215-fullscreen-fit-stability">
-/* v2.15 — fullscreen fit should settle once, without visual size animation */
+/* v2.17 — fullscreen fit should settle once, without visual size animation */
 .workspace.fullscreen-preview #schematic,
 .workspace.fullscreen-preview .inner-flow-spread{
   transition:none!important;
   animation:none!important;
+}
+</style>
+
+
+<style id="v216-adaptive-workspace">
+/* =========================================================
+   v2.16 — Adaptive Workspace
+   ≥1440 : 3 panels
+   1100–1439 : specs + preview, checklist drawer
+   900–1099 : preview first, specs/checklist drawers
+   <900 : limited PC view with guidance
+   ========================================================= */
+
+/* Base: adaptive controls stay hidden on wide desktop */
+.adaptive-panel-actions,
+.adaptive-backdrop,
+.adaptive-spec-close,
+.adaptive-resource-menu{
+  display:none;
+}
+
+/* Keep center content shrink-safe */
+.workspace,
+.mode-action-row,
+.canvas-card,
+.canvas-toolbar,
+.canvas-area{
+  min-width:0!important;
+}
+
+/* Medium desktop: 2-column workspace, checklist becomes a drawer */
+@media (min-width:1100px) and (max-width:1439px){
+  .app,
+  .app.results-collapsed{
+    grid-template-columns:350px minmax(0,1fr)!important;
+  }
+
+  .workspace{
+    min-width:0!important;
+    width:auto!important;
+    padding-right:0!important;
+  }
+
+  .right{
+    position:fixed!important;
+    top:12px!important;
+    right:12px!important;
+    bottom:12px!important;
+    left:auto!important;
+    width:348px!important;
+    max-width:calc(100vw - 24px)!important;
+    z-index:120!important;
+    border:1px solid #dfe4ea!important;
+    border-radius:14px!important;
+    background:#fff!important;
+    box-shadow:0 18px 48px rgba(16,24,40,.18)!important;
+    transform:translateX(calc(100% + 28px))!important;
+    opacity:1!important;
+    pointer-events:none!important;
+    overflow:auto!important;
+  }
+  .right.open{
+    transform:translateX(0)!important;
+    pointer-events:auto!important;
+  }
+
+  .adaptive-panel-actions{
+    display:flex!important;
+    align-items:center;
+    gap:6px;
+    order:3;
+    flex:0 0 auto;
+  }
+  #adaptiveSpecBtn{display:none!important;}
+  #adaptiveChecklistBtn{display:inline-flex!important;}
+
+  .adaptive-panel-btn{
+    height:36px;
+    padding:0 10px;
+    border:1px solid #dfe3e8;
+    border-radius:8px;
+    background:#fff;
+    color:#475467;
+    align-items:center;
+    gap:6px;
+    font-size:11px;
+    font-weight:730;
+    white-space:nowrap;
+  }
+  .adaptive-panel-btn:hover{
+    border-color:#bbb8da;
+    background:#f7f7fb;
+    color:#3f4380;
+  }
+  .adaptive-panel-icon{font-size:12px;line-height:1}
+
+  /* Resources: one primary link + compact secondary menu */
+  #gaCopyrightDownload,
+  #gaPurpleLogoDownload{
+    display:none!important;
+  }
+  .adaptive-resource-menu{
+    display:block!important;
+    position:relative;
+  }
+  .adaptive-resource-menu summary{
+    list-style:none;
+    height:36px;
+    padding:0 10px;
+    border:1px solid #dfe3e8;
+    border-radius:8px;
+    background:#fff;
+    color:#475467;
+    display:flex;
+    align-items:center;
+    gap:6px;
+    cursor:pointer;
+    font-size:11px;
+    font-weight:730;
+    white-space:nowrap;
+  }
+  .adaptive-resource-menu summary::-webkit-details-marker{display:none}
+  .adaptive-resource-menu[open] summary{
+    border-color:#bbb8da;
+    background:#f7f7fb;
+    color:#3f4380;
+  }
+  .adaptive-resource-popover{
+    position:absolute;
+    top:42px;
+    right:0;
+    z-index:150;
+    width:190px;
+    padding:6px;
+    border:1px solid #dfe4ea;
+    border-radius:10px;
+    background:#fff;
+    box-shadow:0 12px 28px rgba(16,24,40,.14);
+  }
+  .adaptive-resource-popover a{
+    display:flex;
+    align-items:center;
+    min-height:36px;
+    padding:0 10px;
+    border-radius:7px;
+    color:#344054;
+    font-size:11px;
+    font-weight:650;
+    text-decoration:none;
+  }
+  .adaptive-resource-popover a:hover{background:#f5f6f8}
+
+  .mode-action-row{
+    gap:10px!important;
+  }
+  .top-download-actions{
+    margin-left:auto!important;
+    min-width:0!important;
+    gap:6px!important;
+  }
+
+  /* Prevent default auto-fit from exposing a scrollbar because of outside labels */
+  .canvas-area{
+    overflow-x:hidden!important;
+  }
+}
+
+/* Compact desktop: preview-first; both side panels are drawers */
+@media (min-width:900px) and (max-width:1099px){
+  body{overflow:hidden!important;}
+
+  .app,
+  .app.results-collapsed{
+    grid-template-columns:minmax(0,1fr)!important;
+    height:100vh!important;
+  }
+
+  .workspace{
+    grid-column:1!important;
+    width:100%!important;
+    min-width:0!important;
+    padding:12px!important;
+  }
+
+  .left{
+    position:fixed!important;
+    top:10px!important;
+    left:10px!important;
+    bottom:10px!important;
+    width:348px!important;
+    max-width:calc(100vw - 20px)!important;
+    z-index:160!important;
+    border:1px solid #dfe4ea!important;
+    border-radius:14px!important;
+    background:#fff!important;
+    box-shadow:0 18px 48px rgba(16,24,40,.18)!important;
+    transform:translateX(calc(-100% - 26px))!important;
+    transition:transform .22s ease!important;
+    overflow:auto!important;
+  }
+  .left.adaptive-open{
+    transform:translateX(0)!important;
+  }
+
+  .right{
+    position:fixed!important;
+    top:10px!important;
+    right:10px!important;
+    bottom:10px!important;
+    left:auto!important;
+    width:348px!important;
+    max-width:calc(100vw - 20px)!important;
+    z-index:160!important;
+    border:1px solid #dfe4ea!important;
+    border-radius:14px!important;
+    background:#fff!important;
+    box-shadow:0 18px 48px rgba(16,24,40,.18)!important;
+    transform:translateX(calc(100% + 26px))!important;
+    transition:transform .22s ease!important;
+    pointer-events:none!important;
+    overflow:auto!important;
+  }
+  .right.open{
+    transform:translateX(0)!important;
+    pointer-events:auto!important;
+  }
+
+  .adaptive-spec-close{
+    display:flex!important;
+    position:absolute;
+    top:14px;
+    right:14px;
+    z-index:20;
+    width:34px;
+    height:34px;
+    border:1px solid #dfe3e8;
+    border-radius:8px;
+    background:#fff;
+    color:#667085;
+    align-items:center;
+    justify-content:center;
+    font-size:18px;
+    line-height:1;
+  }
+
+  .adaptive-panel-actions{
+    display:flex!important;
+    align-items:center;
+    gap:6px;
+    order:3;
+    margin-left:auto;
+  }
+  .adaptive-panel-btn{
+    display:inline-flex!important;
+    height:36px;
+    padding:0 10px;
+    border:1px solid #dfe3e8;
+    border-radius:8px;
+    background:#fff;
+    color:#475467;
+    align-items:center;
+    gap:6px;
+    font-size:11px;
+    font-weight:730;
+    white-space:nowrap;
+  }
+  .adaptive-panel-btn:hover{
+    border-color:#bbb8da;
+    background:#f7f7fb;
+    color:#3f4380;
+  }
+
+  .adaptive-backdrop{
+    display:block;
+    position:fixed;
+    inset:0;
+    z-index:150;
+    background:rgba(16,24,40,.18);
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .18s ease;
+  }
+  .adaptive-backdrop.open{
+    opacity:1;
+    pointer-events:auto;
+  }
+
+  /* Keep only the core mode switch + compact panel buttons */
+  .top-download-actions{
+    display:none!important;
+  }
+  .mode-action-row{
+    display:flex!important;
+    align-items:center!important;
+    gap:8px!important;
+  }
+  .mode-tabs{
+    flex:0 0 auto!important;
+  }
+
+  .canvas-area{
+    overflow-x:hidden!important;
+  }
+}
+
+/* Under 900px: keep a usable limited desktop view, but communicate PC optimization */
+@media (max-width:899px){
+  body{overflow:auto!important;}
+
+  .app,
+  .app.results-collapsed{
+    display:block!important;
+    height:auto!important;
+  }
+
+  .workspace{
+    min-height:760px!important;
+    height:calc(100vh - 20px)!important;
+    padding:8px!important;
+  }
+
+  .left,
+  .right{
+    display:none!important;
+  }
+
+  .adaptive-panel-actions,
+  .top-download-actions{
+    display:none!important;
+  }
+
+  .mode-action-row::after{
+    content:"PC 환경에 최적화된 제작 도구입니다.";
+    margin-left:auto;
+    color:#8a94a3;
+    font-size:10.5px;
+    font-weight:600;
+    white-space:nowrap;
+  }
+
+  .canvas-area{
+    overflow-x:hidden!important;
+  }
+}
+</style>
+
+
+<style id="v217-responsive-mobile-workspace">
+/* =========================================================
+   v2.17 — Responsive / Mobile Workspace
+   Mobile is not a shrunken desktop. It is preview-first:
+   mode switch -> spec/checkpoint drawers -> preview.
+   ========================================================= */
+
+html,body{
+  max-width:100%;
+}
+
+/* Keep accidental wide descendants from widening the document. */
+@media(max-width:1099px){
+  body{overflow-x:hidden!important;}
+  #appShell,
+  .workspace,
+  .canvas-card,
+  .canvas-toolbar,
+  .canvas-area,
+  .mode-action-row{
+    width:100%!important;
+    max-width:100%!important;
+    min-width:0!important;
+    box-sizing:border-box!important;
+  }
+}
+
+/* ---------------------------------------------------------
+   700–1099: preview-first compact desktop/tablet
+   --------------------------------------------------------- */
+@media(min-width:700px) and (max-width:1099px){
+  .app,.app.results-collapsed{
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr)!important;
+    width:100vw!important;
+    height:100dvh!important;
+  }
+
+  .workspace{
+    grid-column:1!important;
+    width:100%!important;
+    height:100dvh!important;
+    min-height:0!important;
+    padding:12px!important;
+    overflow:hidden!important;
+  }
+
+  /* Both side panels are drawers. */
+  .left,
+  .right{
+    display:block!important;
+    position:fixed!important;
+    top:10px!important;
+    bottom:10px!important;
+    width:min(360px,calc(100vw - 20px))!important;
+    max-width:calc(100vw - 20px)!important;
+    height:auto!important;
+    background:#fff!important;
+    border:1px solid #dfe4ea!important;
+    border-radius:14px!important;
+    box-shadow:0 18px 48px rgba(16,24,40,.20)!important;
+    overflow:auto!important;
+    z-index:160!important;
+  }
+  .left{
+    left:10px!important;
+    right:auto!important;
+    transform:translateX(calc(-100% - 24px))!important;
+    transition:transform .22s ease!important;
+  }
+  .left.adaptive-open{transform:translateX(0)!important;}
+  .right{
+    right:10px!important;
+    left:auto!important;
+    transform:translateX(calc(100% + 24px))!important;
+    transition:transform .22s ease!important;
+    pointer-events:none!important;
+  }
+  .right.open{
+    transform:translateX(0)!important;
+    pointer-events:auto!important;
+  }
+
+  .adaptive-spec-close{display:flex!important;}
+  .adaptive-panel-actions{
+    display:flex!important;
+    margin-left:auto!important;
+  }
+  .adaptive-panel-btn{display:inline-flex!important;}
+  .top-download-actions{display:none!important;}
+
+  .canvas-card{
+    flex:1 1 auto!important;
+    min-height:0!important;
+  }
+}
+
+/* ---------------------------------------------------------
+   <700: real mobile layout
+   --------------------------------------------------------- */
+@media(max-width:699px){
+  html,body{
+    width:100%!important;
+    min-width:0!important;
+    overflow-x:hidden!important;
+    background:#f3f5f7!important;
+  }
+
+  .app,.app.results-collapsed{
+    display:block!important;
+    width:100%!important;
+    height:auto!important;
+    min-height:100dvh!important;
+    overflow:visible!important;
+  }
+
+  .workspace{
+    display:flex!important;
+    flex-direction:column!important;
+    width:100%!important;
+    height:auto!important;
+    min-height:100dvh!important;
+    margin:0!important;
+    padding:10px!important;
+    overflow:visible!important;
+    box-sizing:border-box!important;
+  }
+
+  /* Side panels become full-height mobile sheets instead of disappearing. */
+  .left,
+  .right{
+    display:block!important;
+    position:fixed!important;
+    top:8px!important;
+    bottom:8px!important;
+    width:calc(100vw - 16px)!important;
+    max-width:420px!important;
+    height:auto!important;
+    background:#fff!important;
+    border:1px solid #dfe4ea!important;
+    border-radius:14px!important;
+    box-shadow:0 18px 50px rgba(16,24,40,.24)!important;
+    overflow:auto!important;
+    z-index:260!important;
+  }
+  .left{
+    left:8px!important;
+    right:auto!important;
+    transform:translateX(calc(-100% - 20px))!important;
+    transition:transform .22s ease!important;
+  }
+  .left.adaptive-open{transform:translateX(0)!important;}
+  .right{
+    right:8px!important;
+    left:auto!important;
+    transform:translateX(calc(100% + 20px))!important;
+    transition:transform .22s ease!important;
+    pointer-events:none!important;
+  }
+  .right.open{
+    transform:translateX(0)!important;
+    pointer-events:auto!important;
+  }
+
+  .adaptive-backdrop{
+    display:block!important;
+    position:fixed!important;
+    inset:0!important;
+    z-index:250!important;
+    background:rgba(16,24,40,.28)!important;
+    opacity:0!important;
+    pointer-events:none!important;
+    transition:opacity .18s ease!important;
+  }
+  .adaptive-backdrop.open{
+    opacity:1!important;
+    pointer-events:auto!important;
+  }
+  .adaptive-spec-close{
+    display:flex!important;
+    position:absolute!important;
+    top:12px!important;
+    right:12px!important;
+    width:36px!important;
+    height:36px!important;
+    z-index:20!important;
+  }
+
+  /* Top area: compact mode switch + spec/checkpoint access. */
+  .mode-action-row{
+    display:grid!important;
+    grid-template-columns:1fr!important;
+    gap:8px!important;
+    margin:0 0 8px!important;
+    padding:0!important;
+    align-items:stretch!important;
+  }
+  .mode-action-row::after{
+    content:"모바일에서는 미리보기 중심으로 제공됩니다. 제작 사양과 체크포인트는 아래 버튼에서 확인해 주세요."!important;
+    display:block!important;
+    grid-row:3!important;
+    margin:0!important;
+    padding:8px 10px!important;
+    border-radius:9px!important;
+    background:#f7f7fb!important;
+    color:#727b88!important;
+    font-size:10.5px!important;
+    font-weight:600!important;
+    line-height:1.45!important;
+    white-space:normal!important;
+  }
+
+  .mode-tabs{
+    grid-row:1!important;
+    display:grid!important;
+    grid-template-columns:1fr 1fr!important;
+    gap:8px!important;
+    width:100%!important;
+    margin:0!important;
+    min-height:0!important;
+  }
+  .mode-tabs button{
+    width:100%!important;
+    height:58px!important;
+    min-height:58px!important;
+    margin:0!important;
+    padding:7px 10px!important;
+    border-radius:11px!important;
+    display:flex!important;
+    flex-direction:row!important;
+    align-items:center!important;
+    justify-content:center!important;
+    gap:8px!important;
+  }
+  .mode-tabs .mode-card-icon{
+    width:26px!important;
+    height:26px!important;
+    flex:0 0 26px!important;
+    margin:0!important;
+  }
+  .mode-tabs .mode-card-label{
+    font-size:12px!important;
+    line-height:1.2!important;
+  }
+
+  .adaptive-panel-actions{
+    grid-row:2!important;
+    display:grid!important;
+    grid-template-columns:1fr 1fr!important;
+    gap:8px!important;
+    width:100%!important;
+    margin:0!important;
+  }
+  .adaptive-panel-btn{
+    display:inline-flex!important;
+    width:100%!important;
+    height:40px!important;
+    min-height:40px!important;
+    justify-content:center!important;
+    border:1px solid #dfe3e8!important;
+    border-radius:9px!important;
+    background:#fff!important;
+    color:#475467!important;
+    font-size:11px!important;
+    font-weight:730!important;
+  }
+  .top-download-actions{
+    display:none!important;
+  }
+
+  /* Mobile should focus on guide preview; file upload is still available from
+     the desktop workflow but doesn't crowd the first mobile viewport. */
+  .upload-action-bar,
+  .preupload-template-wrap{
+    display:none!important;
+  }
+
+  .canvas-card{
+    width:100%!important;
+    min-width:0!important;
+    min-height:0!important;
+    height:auto!important;
+    flex:none!important;
+    border-radius:14px!important;
+    overflow:hidden!important;
+    box-shadow:0 5px 20px rgba(25,31,40,.07)!important;
+  }
+
+  .canvas-toolbar{
+    display:grid!important;
+    grid-template-columns:1fr!important;
+    gap:7px!important;
+    width:100%!important;
+    height:auto!important;
+    min-height:0!important;
+    padding:10px!important;
+    border-bottom:1px solid #e8ebef!important;
+  }
+  .canvas-title{
+    width:100%!important;
+    min-width:0!important;
+    padding:0!important;
+    gap:0!important;
+  }
+  .canvas-title-main{
+    width:100%!important;
+  }
+  .canvas-title-main strong{
+    font-size:13px!important;
+  }
+
+  /* Contextual links are useful on desktop but visually dominate 430px. */
+  .cover-help-links,
+  #innerHelpLinks{
+    display:none!important;
+  }
+
+  .zoom{
+    width:100%!important;
+    min-width:0!important;
+    justify-content:center!important;
+    flex-wrap:nowrap!important;
+    gap:4px!important;
+  }
+  #fullscreenBtn,
+  #expandPreviewBtn{
+    display:none!important;
+  }
+  #fitHeightBtn{
+    display:inline-flex!important;
+    width:34px!important;
+    min-width:34px!important;
+    height:34px!important;
+    padding:0!important;
+  }
+  #fitHeightBtn .view-label{display:none!important;}
+  .zoom-stepper{
+    margin-left:2px!important;
+  }
+
+  /* Spec row becomes a compact 2x2 information grid. */
+  #spreadSpecSummary{
+    display:grid!important;
+    grid-template-columns:1fr 1fr!important;
+    width:100%!important;
+    gap:0!important;
+    margin:2px 0 0!important;
+    padding-top:7px!important;
+    border-top:1px solid #eef0f3!important;
+  }
+  #spreadSpecSummary span{
+    min-width:0!important;
+    min-height:36px!important;
+    padding:5px 8px!important;
+    display:flex!important;
+    flex-direction:column!important;
+    align-items:flex-start!important;
+    justify-content:center!important;
+    gap:3px!important;
+  }
+  #spreadSpecSummary span::before{
+    display:none!important;
+  }
+  #spreadSpecSummary span:nth-child(even){
+    border-left:1px solid #eef0f3!important;
+  }
+  #spreadSpecSummary span:nth-child(n+3){
+    border-top:1px solid #eef0f3!important;
+  }
+  #spreadSpecSummary em{
+    font-size:9px!important;
+    color:#8a94a3!important;
+  }
+  #spreadSpecSummary b{
+    max-width:100%!important;
+    font-size:10.5px!important;
+    white-space:normal!important;
+    word-break:keep-all!important;
+  }
+
+  .canvas-area{
+    width:100%!important;
+    height:56dvh!important;
+    min-height:390px!important;
+    max-height:580px!important;
+    padding:12px!important;
+    overflow-x:hidden!important;
+    overflow-y:auto!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    box-sizing:border-box!important;
+  }
+
+  #schematic{
+    min-width:0!important;
+    max-width:none!important;
+    margin-left:auto!important;
+    margin-right:auto!important;
+  }
+
+  /* Dimension labels outside the schematic must not expand document width. */
+  .dim-side{
+    right:-58px!important;
+    transform:rotate(90deg) translateY(-50%) scale(.88)!important;
+  }
+
+  .canvas-footer{
+    min-height:38px!important;
+    height:auto!important;
+    padding:6px 8px!important;
+    display:block!important;
+  }
+  .canvas-footer .legend{
+    display:flex!important;
+    width:max-content!important;
+    max-width:100%!important;
+    margin:0 auto!important;
+    padding:5px 7px!important;
+    gap:7px!important;
+    flex-wrap:wrap!important;
+    font-size:8.5px!important;
+  }
+  .canvas-footer .privacy-note{
+    display:none!important;
+  }
+
+  .sidebar-restore{
+    display:none!important;
+  }
+
+  #nextSpecCue{
+    display:none!important;
+  }
+
+  /* Fullscreen is intentionally desktop-only in mobile layout. */
+  #fullscreenExitBtn{
+    display:none!important;
+  }
+}
+
+/* Extra-small phones */
+@media(max-width:399px){
+  .workspace{padding:7px!important;}
+  .mode-tabs button{
+    height:54px!important;
+    min-height:54px!important;
+    padding:6px!important;
+  }
+  .mode-tabs .mode-card-label{font-size:11px!important;}
+  .adaptive-panel-btn{font-size:10.5px!important;}
+  .canvas-area{
+    height:54dvh!important;
+    min-height:350px!important;
+    padding:8px!important;
+  }
+  .zoom-stepper #zoomLabel{
+    width:48px!important;
+    min-width:48px!important;
+  }
 }
 </style>
 
@@ -13029,9 +13836,11 @@ body.preview-fullscreen-active #fullscreenExitBtn{
     <span>전체화면 종료</span>
   </button>
 <div class="app" id="appShell">
-  <aside class="left">
+  <aside class="left" id="specPanel">
     <div class="brand">
-      <div class="kicker">교보문고 바로출판POD · 제작 가이드 v2.15</div>
+<button type="button" id="adaptiveSpecClose" class="adaptive-spec-close" aria-label="제작 사양 닫기" title="제작 사양 닫기">×</button>
+
+      <div class="kicker">교보문고 바로출판POD · 제작 가이드 v2.17</div>
       <h1>표지·내지 제작 가이드</h1>
       <p>제작 사양을 선택하면 필요한 파일 크기와 작업 영역을 자동으로 계산합니다.</p>
       <nav class="spec-flow-map" aria-label="제작 사양 선택 3단계">
@@ -13130,6 +13939,18 @@ body.preview-fullscreen-active #fullscreenExitBtn{
 
   <main class="workspace">
 <div class="mode-action-row">
+<div class="adaptive-panel-actions" id="adaptivePanelActions" aria-label="보조 패널 열기">
+  <button type="button" id="adaptiveSpecBtn" class="adaptive-panel-btn" aria-controls="specPanel" aria-expanded="false">
+    <span class="adaptive-panel-icon" aria-hidden="true">☰</span>
+    <span>제작 사양</span>
+  </button>
+  <button type="button" id="adaptiveChecklistBtn" class="adaptive-panel-btn" aria-controls="resultPanel" aria-expanded="false">
+    <span class="adaptive-panel-icon" aria-hidden="true">✓</span>
+    <span>제작 체크포인트</span>
+  </button>
+</div>
+<div class="adaptive-backdrop" id="adaptiveBackdrop" aria-hidden="true"></div>
+
 <div class="mode-tabs">
       <button class="active" data-mode="cover" aria-label="표지 제작 가이드 선택">
         <span class="mode-card-icon" aria-hidden="true">
@@ -13174,6 +13995,20 @@ body.preview-fullscreen-active #fullscreenExitBtn{
     <span class="resource-download-icon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><rect x="2.75" y="4" width="14.5" height="12" rx="2"/><circle cx="7" cy="8" r="1.25"/><path d="M4.75 14l3.25-3 2.25 2 2.2-2.15 2.8 3.15"/></svg></span>
     개인저자 · 퍼플 로고
   </a>
+  <details class="adaptive-resource-menu" id="adaptiveResourceMenu">
+    <summary aria-label="추가 제작 자료 열기">
+      <span class="resource-download-icon" aria-hidden="true">⋯</span>
+      자료
+    </summary>
+    <div class="adaptive-resource-popover">
+      <a href="https://store.kyobobook.co.kr/pod/notice/1006529"
+         target="_blank" rel="noopener noreferrer"
+         data-adaptive-resource="판권 샘플">판권 샘플</a>
+      <a href="https://store.kyobobook.co.kr/pod/notice/1000183"
+         target="_blank" rel="noopener noreferrer"
+         data-adaptive-resource="퍼플 로고">개인저자 · 퍼플 로고</a>
+    </div>
+  </details>
 </div>
 
 </div>
@@ -19103,7 +19938,7 @@ async function showCurrentModePreview(){
 function syncTabs(){
   syncModeUI();
 }
-function resultsOverlayMode(){return window.matchMedia("(max-width:1250px)").matches}
+function resultsOverlayMode(){return window.matchMedia("(max-width:1439px)").matches}
 function updateSidebarControls(){
   const collapsed=$("appShell").classList.contains("results-collapsed");
   $("sidebarRestoreBtn").setAttribute("aria-hidden",collapsed&&!resultsOverlayMode()?"false":"true");
@@ -19191,6 +20026,46 @@ document.addEventListener("click",event=>{
   const open=panel.classList.contains("hidden");
   panel.classList.toggle("hidden",!open);
   toggle.setAttribute("aria-expanded",String(open));
+
+  // v2.18: 피커를 펼쳤을 때 CTA와 선택 카드가 우측 패널 viewport 안에 보이도록 필요한 만큼만 이동합니다.
+  // 이미 충분히 보이는 경우에는 스크롤하지 않고, 닫을 때도 현재 위치를 유지합니다.
+  if(open){
+    requestAnimationFrame(()=>{
+      requestAnimationFrame(()=>{
+        const scrollRoot=toggle.closest(".right") || document.scrollingElement;
+        if(!scrollRoot) return;
+        const rootRect=scrollRoot===document.scrollingElement
+          ? {top:0,bottom:window.innerHeight}
+          : scrollRoot.getBoundingClientRect();
+        const toggleRect=toggle.getBoundingClientRect();
+        const panelRect=panel.getBoundingClientRect();
+        const margin=16;
+        const visibleTop=rootRect.top+margin;
+        const visibleBottom=rootRect.bottom-margin;
+        const contentTop=Math.min(toggleRect.top,panelRect.top);
+        const contentBottom=panelRect.bottom;
+        let delta=0;
+
+        if(contentBottom>visibleBottom){
+          delta=contentBottom-visibleBottom;
+          // 피커가 viewport보다 긴 경우 CTA와 피커 상단의 관계를 우선 보여줍니다.
+          if((contentBottom-contentTop)>(visibleBottom-visibleTop)){
+            delta=contentTop-visibleTop;
+          }
+        }else if(contentTop<visibleTop){
+          delta=contentTop-visibleTop;
+        }
+
+        if(Math.abs(delta)>2){
+          if(scrollRoot===document.scrollingElement){
+            window.scrollBy({top:delta,behavior:"smooth"});
+          }else{
+            scrollRoot.scrollBy({top:delta,behavior:"smooth"});
+          }
+        }
+      });
+    });
+  }
 });
 
 
@@ -20531,6 +21406,12 @@ function renderInnerSpreadGuide(){
   function setZoomLabel(){
     const label=$v("zoomLabel");
     if(label) label.textContent=`${Math.round(viewZoom*100)}%`;
+
+    // Auto-fit / zoom-out should never introduce a horizontal scrollbar.
+    // Manual enlargement may scroll intentionally.
+    if(area){
+      area.style.overflowX=viewZoom>1?"auto":"hidden";
+    }
   }
 
   function centerElement(el){
@@ -20546,16 +21427,25 @@ function renderInnerSpreadGuide(){
     const s=typeof specs==="function"?specs():null;
     if(!s) return null;
     const ratio=s.cover.w/s.cover.h;
-    const cw=Math.max(320,area.clientWidth);
-    const ch=Math.max(260,area.clientHeight);
-    const padX=document.body.classList.contains("preview-fullscreen-active")?76:86;
-    const padY=document.body.classList.contains("preview-fullscreen-active")?70:92;
-    const usableW=Math.max(260,cw-padX);
-    const usableH=Math.max(220,ch-padY);
+
+    // Use the actual rendered canvas size. On narrow screens a desktop
+    // minimum width can make the schematic wider than the viewport.
+    const cw=Math.max(1,area.clientWidth);
+    const ch=Math.max(1,area.clientHeight);
+    const narrow=window.matchMedia("(max-width:899px)").matches;
+    const veryNarrow=window.matchMedia("(max-width:599px)").matches;
+    const fullscreen=document.body.classList.contains("preview-fullscreen-active");
+
+    const padX=fullscreen ? 54 : (veryNarrow ? 22 : (narrow ? 34 : 86));
+    const padY=fullscreen ? 54 : (veryNarrow ? 34 : (narrow ? 48 : 92));
+
+    const usableW=Math.max(120,cw-padX);
+    const usableH=Math.max(150,ch-padY);
+
     let w=Math.min(usableW,usableH*ratio);
     let h=w/ratio;
     if(h>usableH){h=usableH;w=h*ratio;}
-    return {w,h};
+    return {w:Math.max(1,w),h:Math.max(1,h)};
   }
 
   function applyCover(center=true){
@@ -20590,16 +21480,19 @@ function renderInnerSpreadGuide(){
     if(!spread || !schematic) return;
 
     const ratio=innerRatio();
-    const cw=Math.max(320,area.clientWidth);
-    const ch=Math.max(260,area.clientHeight);
-    const gap=12;
-    const padX=document.body.classList.contains("preview-fullscreen-active")?104:120;
-    const padY=document.body.classList.contains("preview-fullscreen-active")?86:118;
-    const usableW=Math.max(300,cw-padX);
-    const usableH=Math.max(220,ch-padY);
+    const cw=Math.max(1,area.clientWidth);
+    const ch=Math.max(1,area.clientHeight);
+    const narrow=window.matchMedia("(max-width:899px)").matches;
+    const veryNarrow=window.matchMedia("(max-width:599px)").matches;
+    const fullscreen=document.body.classList.contains("preview-fullscreen-active");
+    const gap=veryNarrow?6:(narrow?8:12);
+    const padX=fullscreen ? 66 : (veryNarrow ? 26 : (narrow ? 42 : 120));
+    const padY=fullscreen ? 70 : (veryNarrow ? 46 : (narrow ? 64 : 118));
+    const usableW=Math.max(160,cw-padX);
+    const usableH=Math.max(160,ch-padY);
 
-    let pageW=Math.min((usableW-gap)/2,usableH*ratio);
-    pageW=Math.max(120,pageW)*viewZoom;
+    let pageW=Math.min(Math.max(54,(usableW-gap)/2),usableH*ratio);
+    pageW=Math.max(54,pageW)*viewZoom;
     const pageH=pageW/ratio;
 
     spread.style.setProperty("display","grid","important");
@@ -20652,9 +21545,18 @@ function renderInnerSpreadGuide(){
     return true;
   }
 
+  // Adaptive workspace can request one deterministic refit after a
+  // breakpoint/orientation change without reaching into local state.
+  window.BARO_GUIDE_REFIT=function(){
+    if(!isGuideMode()) return false;
+    viewZoom=1;
+    applyGuide(true);
+    return true;
+  };
+
   function zoomGuide(delta){
     if(!isGuideMode()) return false;
-    viewZoom=Math.max(.6,Math.min(1.8,Math.round((viewZoom+delta)*10)/10));
+    viewZoom=Math.max(window.matchMedia("(max-width:599px)").matches?.4:.6,Math.min(1.8,Math.round((viewZoom+delta)*10)/10));
     applyGuide(true);
     return true;
   }
@@ -20857,7 +21759,7 @@ function renderInnerSpreadGuide(){
   function track(eventName, params){
     if(!enabled || typeof window.gtag !== "function") return;
     window.gtag("event", eventName, Object.assign({
-      guide_version: "v2.15",
+      guide_version: "v2.17",
       page_location: window.location.href,
       page_title: document.title
     }, currentContext(), params || {}));
@@ -21110,6 +22012,139 @@ function renderInnerSpreadGuide(){
     scan();
     observer.observe(document.body,{subtree:true,childList:true,characterData:true,attributes:true});
   }
+})();
+</script>
+
+
+<script id="v216-adaptive-workspace-controller">
+(function(){
+  const byId=id=>document.getElementById(id);
+  const app=byId("appShell");
+  const spec=byId("specPanel");
+  const result=byId("resultPanel");
+  const specBtn=byId("adaptiveSpecBtn");
+  const checkBtn=byId("adaptiveChecklistBtn");
+  const specClose=byId("adaptiveSpecClose");
+  const backdrop=byId("adaptiveBackdrop");
+  if(!app || !spec || !result) return;
+
+  const compactMq=window.matchMedia("(max-width:1099px)");
+  const drawerMq=window.matchMedia("(max-width:1439px)");
+  const mobileMq=window.matchMedia("(max-width:699px)");
+  let lastBucket="";
+
+  function anyDrawerOpen(){
+    return spec.classList.contains("adaptive-open") || result.classList.contains("open");
+  }
+
+  function sync(){
+    const specOpen=spec.classList.contains("adaptive-open");
+    const checklistOpen=result.classList.contains("open");
+
+    if(specBtn) specBtn.setAttribute("aria-expanded",String(specOpen));
+    if(checkBtn) checkBtn.setAttribute("aria-expanded",String(checklistOpen));
+
+    if(backdrop){
+      backdrop.classList.toggle("open",compactMq.matches && anyDrawerOpen());
+      backdrop.setAttribute("aria-hidden",String(!(compactMq.matches && anyDrawerOpen())));
+    }
+
+    document.body.classList.toggle("adaptive-drawer-open",compactMq.matches && anyDrawerOpen());
+
+    // Fit once after a drawer/layout change.
+    window.dispatchEvent(new Event("resize"));
+  }
+
+  function closeAll(){
+    spec.classList.remove("adaptive-open");
+    result.classList.remove("open");
+    sync();
+  }
+
+  function openSpec(){
+    if(!compactMq.matches) return;
+    result.classList.remove("open");
+    spec.classList.add("adaptive-open");
+    sync();
+  }
+
+  function openChecklist(){
+    spec.classList.remove("adaptive-open");
+    result.classList.add("open");
+    sync();
+  }
+
+  if(specBtn) specBtn.addEventListener("click",()=>{
+    spec.classList.contains("adaptive-open") ? closeAll() : openSpec();
+  });
+
+  if(checkBtn) checkBtn.addEventListener("click",()=>{
+    result.classList.contains("open") ? closeAll() : openChecklist();
+  });
+
+  if(specClose) specClose.addEventListener("click",closeAll);
+  if(backdrop) backdrop.addEventListener("click",closeAll);
+
+  document.addEventListener("keydown",e=>{
+    if(e.key==="Escape" && compactMq.matches && anyDrawerOpen()){
+      closeAll();
+    }
+  });
+
+  function currentBucket(){
+    if(mobileMq.matches) return "mobile";
+    if(compactMq.matches) return "compact";
+    if(drawerMq.matches) return "drawer";
+    return "wide";
+  }
+
+  function handleBreakpoint(){
+    if(!compactMq.matches){
+      spec.classList.remove("adaptive-open");
+      if(backdrop) backdrop.classList.remove("open");
+    }
+    if(!drawerMq.matches){
+      result.classList.remove("open");
+    }
+
+    const bucket=currentBucket();
+    const changed=bucket!==lastBucket;
+    lastBucket=bucket;
+    sync();
+
+    // A breakpoint/orientation transition changes the actual canvas width.
+    // Reset once to a clean auto-fit so a previous manual zoom cannot leave
+    // the schematic clipped on mobile.
+    if(changed){
+      requestAnimationFrame(()=>requestAnimationFrame(()=>{
+        if(typeof window.BARO_GUIDE_REFIT==="function") window.BARO_GUIDE_REFIT();
+      }));
+    }
+  }
+
+  if(compactMq.addEventListener){
+    compactMq.addEventListener("change",handleBreakpoint);
+    drawerMq.addEventListener("change",handleBreakpoint);
+    mobileMq.addEventListener("change",handleBreakpoint);
+  }else{
+    compactMq.addListener(handleBreakpoint);
+    drawerMq.addListener(handleBreakpoint);
+    mobileMq.addListener(handleBreakpoint);
+  }
+  window.addEventListener("orientationchange",()=>setTimeout(handleBreakpoint,120));
+
+  document.querySelectorAll("[data-adaptive-resource]").forEach(link=>{
+    link.addEventListener("click",()=>{
+      if(typeof window.baroTrack==="function"){
+        window.baroTrack("download_template_document",{
+          resource_name:link.dataset.adaptiveResource || "자료",
+          adaptive_menu:true
+        });
+      }
+    });
+  });
+
+  handleBreakpoint();
 })();
 </script>
 

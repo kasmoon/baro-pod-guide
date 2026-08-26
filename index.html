@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="baro-pod-build" content="guide-v2.37" />
-  <title>바로출판POD 표지·내지 제작 가이드 v2.37</title>
+  <meta name="baro-pod-build" content="guide-v2.39" />
+  <title>바로출판POD 표지·내지 제작 가이드 v2.39</title>
   <style>
     :root{
       --bg:#f4f6f8; --panel:#fff; --line:#e5e8eb; --text:#191f28;
@@ -14679,6 +14679,117 @@ body:not(.inner-mode) #innerTemplateAction{display:none!important;}
 .schematic.hard-schematic .bleed-outline{display:none!important;}
 .schematic.hard-schematic .bleed-shade{display:none!important;}
 </style>
+
+<style id="v238-hardcover-hinge-and-fullscreen-alignment">
+/* v2.39 — 양장 꺾임 라벨 가독성 + 전체화면 줌 컨트롤 정렬 */
+.schematic.hard-schematic .segment.hinge{
+  overflow:visible!important;
+  z-index:24!important;
+}
+.schematic.hard-schematic .segment.hinge > span{
+  left:50%!important;
+  top:50%!important;
+  transform:translate(-50%,-50%) rotate(-90deg)!important;
+  transform-origin:center!important;
+  padding:4px 7px!important;
+  background:rgba(255,255,255,.96)!important;
+  border:1px solid rgba(126,151,171,.36)!important;
+  border-radius:6px!important;
+  color:#38536B!important;
+  font-size:10px!important;
+  font-weight:700!important;
+  line-height:1!important;
+  white-space:nowrap!important;
+  box-shadow:0 2px 8px rgba(25,31,40,.10)!important;
+  z-index:30!important;
+}
+/* 전체화면에서도 같은 문구와 대비를 유지하고 축소되지 않게 함 */
+.workspace.fullscreen-preview .schematic.hard-schematic .segment.hinge > span,
+body.preview-fullscreen-active .schematic.hard-schematic .segment.hinge > span{
+  font-size:11px!important;
+  padding:5px 8px!important;
+  opacity:1!important;
+}
+/* 확대/축소 컨트롤이 툴바 기준선에서 혼자 위로 뜨지 않도록 한 줄 정렬 */
+body.preview-fullscreen-active .workspace.fullscreen-preview .zoom,
+.workspace.fullscreen-preview .zoom{
+  height:34px!important;
+  align-self:center!important;
+  transform:none!important;
+}
+body.preview-fullscreen-active .workspace.fullscreen-preview .zoom-stepper,
+.workspace.fullscreen-preview .zoom-stepper{
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  align-self:center!important;
+  height:34px!important;
+  min-height:34px!important;
+  margin-top:0!important;
+  margin-bottom:0!important;
+  transform:none!important;
+  vertical-align:middle!important;
+  box-sizing:border-box!important;
+}
+body.preview-fullscreen-active .workspace.fullscreen-preview .zoom-stepper #zoomOut,
+body.preview-fullscreen-active .workspace.fullscreen-preview .zoom-stepper #zoomIn,
+body.preview-fullscreen-active .workspace.fullscreen-preview .zoom-stepper #zoomLabel,
+.workspace.fullscreen-preview .zoom-stepper #zoomOut,
+.workspace.fullscreen-preview .zoom-stepper #zoomIn,
+.workspace.fullscreen-preview .zoom-stepper #zoomLabel{
+  align-self:center!important;
+  margin:0!important;
+  top:auto!important;
+  bottom:auto!important;
+  transform:none!important;
+  box-sizing:border-box!important;
+}
+</style>
+
+<style id="v239-fullscreen-control-baseline">
+/* v2.39 — 전체화면 우측 조작부를 종료 버튼과 정확히 같은 수평 중심선에 정렬 */
+body.preview-fullscreen-active .workspace.fullscreen-preview .canvas-toolbar{
+  position:absolute!important;
+  top:0!important;
+  left:0!important;
+  right:0!important;
+  height:52px!important;
+  min-height:52px!important;
+  padding:0 154px 0 16px!important;
+  display:flex!important;
+  align-items:center!important;
+}
+body.preview-fullscreen-active .workspace.fullscreen-preview .zoom{
+  position:absolute!important;
+  top:9px!important;
+  right:154px!important;
+  height:34px!important;
+  min-height:34px!important;
+  margin:0!important;
+  padding:0!important;
+  display:flex!important;
+  align-items:center!important;
+  align-self:auto!important;
+  transform:none!important;
+  overflow:visible!important;
+}
+body.preview-fullscreen-active .fullscreen-exit-fixed{
+  top:19px!important;
+  height:34px!important;
+  min-height:34px!important;
+  margin:0!important;
+  box-sizing:border-box!important;
+}
+/* canvas-card가 viewport 10px inset에 위치하므로: toolbar 10px + 9px = 19px, 종료 버튼 top과 동일 */
+@media(max-width:850px){
+  body.preview-fullscreen-active .workspace.fullscreen-preview .zoom{
+    position:static!important;
+    width:auto!important;
+    height:34px!important;
+    margin-left:auto!important;
+  }
+}
+</style>
 </head>
 <body>
   <button class="fullscreen-exit-fixed" id="fullscreenExitBtn" type="button" aria-label="전체화면 종료">
@@ -14690,7 +14801,7 @@ body:not(.inner-mode) #innerTemplateAction{display:none!important;}
     <div class="brand">
 <button type="button" id="adaptiveSpecClose" class="adaptive-spec-close" aria-label="제작 사양 닫기" title="제작 사양 닫기">×</button>
 
-      <div class="kicker">교보문고 바로출판POD · 제작 가이드 v2.37</div>
+      <div class="kicker">교보문고 바로출판POD · 제작 가이드 v2.39</div>
       <h1>표지·내지 제작 가이드</h1>
       <p>제작 사양을 선택하면 필요한 파일 크기와 작업 영역을 자동으로 계산합니다.</p>
       <nav class="spec-flow-map" aria-label="제작 사양 선택 3단계">
@@ -15868,8 +15979,8 @@ function renderSchematic(){
   <span>세로 = 판형 +7mm</span>
   <strong>${fmt(hardSpec.coverW)} × ${fmt(hardSpec.coverH)}mm</strong>
 </div>`,hardSpec.coverW);
-    add("hinge","경첩 10mm",10);add("spine",`<span class="spine-text">책등 ${fmt(s.spine)}mm</span>`,s.spine);
-    add("hinge","경첩 10mm",10);add("front",`앞표지
+    add("hinge","좌측 꺾임 10mm",10);add("spine",`<span class="spine-text">책등 ${fmt(s.spine)}mm</span>`,s.spine);
+    add("hinge","우측 꺾임 10mm",10);add("front",`앞표지
 <div class="hardcover-formula">
   <span>가로 = 판형 -3mm</span>
   <span>세로 = 판형 +7mm</span>
@@ -22630,7 +22741,7 @@ function renderInnerSpreadGuide(){
   function track(eventName, params){
     if(!enabled || typeof window.gtag !== "function") return;
     window.gtag("event", eventName, Object.assign({
-      guide_version: "v2.37",
+      guide_version: "v2.39",
       page_location: window.location.href,
       page_title: document.title
     }, currentContext(), params || {}));

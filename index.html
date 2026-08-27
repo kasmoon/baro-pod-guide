@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="baro-pod-build" content="guide-v2.39" />
-  <title>바로출판POD 표지·내지 제작 가이드 v2.39</title>
+  <meta name="baro-pod-build" content="guide-v2.41" />
+  <title>바로출판POD 표지·내지 제작 가이드 v2.41</title>
   <style>
     :root{
       --bg:#f4f6f8; --panel:#fff; --line:#e5e8eb; --text:#191f28;
@@ -7328,6 +7328,8 @@
   border:1px solid rgba(255,76,76,.25)!important;
 }
 
+
+/* v2.41 — 백색날개 예외 안내를 제작 체크포인트에서 제거. 정상 제작 경로 중심으로 단순화. */
 </style>
 
 <style id="v13-beginner-ux">
@@ -14790,6 +14792,40 @@ body.preview-fullscreen-active .fullscreen-exit-fixed{
   }
 }
 </style>
+
+<style id="v241-help-under-title">
+/* v2.41 — contextual help belongs directly under the current guide title. */
+.canvas-title{
+  display:block!important;
+  min-width:0!important;
+}
+.canvas-title-main{
+  display:block!important;
+  min-width:0!important;
+  padding:0!important;
+}
+.canvas-title>.cover-help-links{
+  position:static!important;
+  left:auto!important;
+  margin:7px 0 0!important;
+  padding:0!important;
+  justify-content:flex-start!important;
+  justify-self:start!important;
+  align-items:center!important;
+  gap:14px!important;
+  width:auto!important;
+  max-width:100%!important;
+}
+.canvas-title>.cover-help-links:not(.hidden){
+  display:flex!important;
+}
+@media(max-width:1240px){
+  .canvas-title>.cover-help-links{
+    gap:10px!important;
+    flex-wrap:wrap!important;
+  }
+}
+</style>
 </head>
 <body>
   <button class="fullscreen-exit-fixed" id="fullscreenExitBtn" type="button" aria-label="전체화면 종료">
@@ -14801,7 +14837,7 @@ body.preview-fullscreen-active .fullscreen-exit-fixed{
     <div class="brand">
 <button type="button" id="adaptiveSpecClose" class="adaptive-spec-close" aria-label="제작 사양 닫기" title="제작 사양 닫기">×</button>
 
-      <div class="kicker">교보문고 바로출판POD · 제작 가이드 v2.39</div>
+      <div class="kicker">교보문고 바로출판POD · 제작 가이드 v2.41</div>
       <h1>표지·내지 제작 가이드</h1>
       <p>제작 사양을 선택하면 필요한 파일 크기와 작업 영역을 자동으로 계산합니다.</p>
       <nav class="spec-flow-map" aria-label="제작 사양 선택 3단계">
@@ -16141,27 +16177,17 @@ function renderInitialResult(){
         <span class="check">3</span>
         <div><strong>날개는 배경과 글자 위치를 따로 확인해 주세요</strong><p>배경은 날개 쪽으로 2~3mm 더 이어 주고, 글자는 양쪽 끝에서 5~10mm 안쪽에 배치해 주세요.</p></div>
       </div>
+`:""}
       <div class="guide-only-item">
-        <span class="check">4</span>
-        <div>
-          <strong>표지 파일에 날개가 없지만 날개제본을 원하시나요?</strong>
-          <p>뒤표지+책등+앞표지만 제작한 경우, STEP5 요청사항에 <b>‘백색날개 적용’</b>을 입력하면 백색날개로 제작할 수 있습니다.</p>
-          <div class="checkpoint-action">
-            <code>백색날개 적용</code>
-            <button class="checkpoint-copy-btn" type="button" data-copy-text="백색날개 적용" data-copy-kind="white_flap">문구 복사</button>
-          </div>
-        </div>
-      </div>`:""}
-      <div class="guide-only-item">
-        <span class="check">${state.binding==="flap"?5:3}</span>
+        <span class="check">${state.binding==="flap"?4:3}</span>
         <div><strong>바코드가 붙는 뒤표지 오른쪽 아래는 비워 주세요</strong><p>55×35mm 영역에는 글자·로고·중요 이미지를 넣지 마세요.</p></div>
       </div>
       <div class="guide-only-item">
-        <span class="check">${state.binding==="flap"?6:4}</span>
+        <span class="check">${state.binding==="flap"?5:4}</span>
         <div><strong>로고는 이용 유형에 맞게 사용해 주세요</strong><p>출판사 → 출판사 로고 · 개인저자 → 퍼플 로고. 책등 10mm 이하는 책등 로고 생략 가능.</p></div>
       </div>
       <div class="guide-only-item">
-        <span class="check">${state.binding==="flap"?7:5}</span>
+        <span class="check">${state.binding==="flap"?6:5}</span>
         <div><strong>PDF 크기를 마지막으로 확인해 주세요</strong><p>화면의 표지 제작 규격과 같은지 확인해 주세요.</p></div>
       </div>
     </div>`;
@@ -22741,7 +22767,7 @@ function renderInnerSpreadGuide(){
   function track(eventName, params){
     if(!enabled || typeof window.gtag !== "function") return;
     window.gtag("event", eventName, Object.assign({
-      guide_version: "v2.39",
+      guide_version: "v2.41",
       page_location: window.location.href,
       page_title: document.title
     }, currentContext(), params || {}));
